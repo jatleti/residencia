@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE `NT_UsersUSR` ADD COLUMN `photo` VARCHAR(255) NULL;

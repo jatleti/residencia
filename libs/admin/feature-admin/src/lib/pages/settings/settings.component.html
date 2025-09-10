@@ -1,0 +1,34 @@
+<div class="flex h-screen">
+    <div class="flex flex-col min-w-[200px]">
+        <nav class="h-full overflow-auto p-4">
+            <h2 class="text-center text-xl mb-3 font-bold">Ajustes</h2>
+            <ul>
+                <li *ngIf="isPermitted([permissions.USER.VIEW])">
+                    <a
+                        class="icon"
+                        [routerLink]="baseUrl + '/settings/users'"
+                        [routerLinkActive]="'active'"
+                        pTooltip="Usuarios"
+                    >
+                        <i class="fa-sharp fa-solid fa-users"></i>
+                        <span>Usuarios</span>
+                    </a>
+                </li>
+                <li *ngIf="isPermitted([permissions.SETTINGS.ROLES.VIEW])">
+                    <a
+                        class="icon"
+                        [routerLink]="baseUrl + '/settings/roles'"
+                        [routerLinkActive]="'active'"
+                        pTooltip="Roles"
+                    >
+                        <i class="fa-sharp fa-solid fa-shield-alt"></i>
+                        <span>Roles</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <div class="flex-1 h-full overflow-auto">
+        <router-outlet></router-outlet>
+    </div>
+</div>

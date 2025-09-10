@@ -1,0 +1,38 @@
+<div class="flex justify-between gap-3">
+    <span>
+        <button (click)="back()" pButton pRipple type="button" label="Atrás" class="p-button-outlined"></button>
+    </span>
+    <div class="flex gap-3">
+        <span *ngIf="showDelete">
+            <button
+                (click)="delete()"
+                pButton
+                pRipple
+                type="button"
+                icon="pi pi-trash"
+                class="p-button-rounded p-button-danger p-button-outlined"
+            ></button>
+        </span>
+
+        <span>
+            <button
+                *ngIf="showAdd"
+                (click)="add()"
+                pButton
+                pRipple
+                type="button"
+                label="Crear"
+                icon="pi pi-save"
+            ></button>
+            <button
+                *ngIf="showSave"
+                (click)="save()"
+                pButton
+                pRipple
+                type="button"
+                label="Guardar"
+                icon="pi pi-save"
+            ></button>
+        </span>
+    </div>
+</div>

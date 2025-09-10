@@ -1,0 +1,29 @@
+{
+    "compileOnSave": false,
+    "compilerOptions": {
+        "allowSyntheticDefaultImports": true,
+        "rootDir": ".",
+        "sourceMap": true,
+        "declaration": false,
+        "moduleResolution": "node",
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "importHelpers": true,
+        "target": "es2015",
+        "module": "esnext",
+        "lib": ["es2020", "dom"],
+        "skipLibCheck": true,
+        "skipDefaultLibCheck": true,
+        "baseUrl": ".",
+        "paths": {
+            "@workspace/admin/domain": ["libs/admin/domain/src/index.ts"],
+            "@workspace/admin/feature-admin": ["libs/admin/feature-admin/src/index.ts"],
+            "@workspace/shared/ui-components": ["libs/shared/ui-components/src/index.ts"],
+            "@workspace/shared/util-core": ["libs/shared/util-core/src/index.ts"]
+        }
+    },
+    "exclude": ["node_modules", "tmp"],
+    "angularCompilerOptions": {
+        "strictTemplates": true
+    }
+}

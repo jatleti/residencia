@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE `NT_UsersUSR` ADD COLUMN `role` INTEGER NULL DEFAULT 1;

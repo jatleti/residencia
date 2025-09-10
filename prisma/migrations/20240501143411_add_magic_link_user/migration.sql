@@ -1,0 +1,4 @@
+-- AlterTable
+ALTER TABLE `NT_UsersUSR` ADD COLUMN `code2FA` VARCHAR(10) NULL,
+    ADD COLUMN `forgetToken` VARCHAR(1000) NULL,
+    ADD COLUMN `magicLinkToken` VARCHAR(1000) NULL;

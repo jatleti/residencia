@@ -1,0 +1,38 @@
+.p-datepicker {
+    background: linear-gradient(90deg, var(--primary-color) 0%, var(--primary-color) 100%);
+    background: white;
+    color: black;
+}
+
+.p-datepicker tr:hover td {
+    background-color: var(--primary-color-shadow);
+    color: var(--primary-color);
+}
+
+.p-datepicker .p-datepicker-header {
+    background: transparent;
+}
+
+.p-datepicker table td.p-datepicker-today > span.p-highlight,
+.p-datepicker table td > span.p-highlight {
+    color: #ffffff;
+    background: var(--primary-color-dark);
+}
+
+.p-datepicker table td.p-datepicker-today > span {
+    background: var(--primary-color-shadow);
+    color: var(--primary-color);
+    border-color: transparent;
+}
+
+.p-datepicker .p-datepicker-header .p-datepicker-title .p-datepicker-year,
+.p-datepicker .p-datepicker-header .p-datepicker-title .p-datepicker-month,
+.p-datepicker .p-datepicker-header .p-datepicker-prev,
+.p-datepicker .p-datepicker-header .p-datepicker-next,
+.p-datepicker .p-timepicker .p-link {
+    color: var(--primary-color);
+}
+
+.p-datepicker table th {
+    color: var(--primary-color);
+}

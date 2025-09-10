@@ -1,0 +1,48 @@
+<div class="p-2 md:p-8">
+    <p-card>
+        <components-h1 class="mb-5 block text-primary-500 text-center md:text-start">Usuarios</components-h1>
+        <div class="flex">
+            <div class="flex-grow pr-5">
+                <input pInputText class="w-full" [(ngModel)]="filter" type="text" placeholder="Filtrar" />
+            </div>
+            <div *ngIf="isPermitted([Permissions.USER.CREATE])" class="flex-grow-0">
+                <div class="mb-3">
+                    <button (click)="add()" pButton pRipple type="button">
+                        <i class="fa-sharp fa-solid fa-plus me-2"></i> Añadir
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <ng-container *ngLet="list$ | async as users">
+            <p-table
+                #dt1
+                [value]="users | dataFilter: filter"
+                styleClass="p-datatable-sm"
+                [paginator]="true"
+                [rows]="50"
+                [showCurrentPageReport]="true"
+                currentPageReportTemplate="Viendo {first} a {last} de {totalRecords} items"
+                [rowsPerPageOptions]="[20, 50]"
+                [globalFilterFields]="['name']"
+            >
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Email</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-user>
+                    <ng-container>
+                        <tr (click)="get(user.id)" class="cursor-pointer">
+                            <td>{{ user.name }} {{ user.surname }}</td>
+                            <td>{{ user.email }}</td>
+                        </tr>
+                    </ng-container>
+                </ng-template>
+            </p-table>
+
+            <span *ngIf="users.length === 0 && !loading$">Aún no tienes items para mostrar.</span>
+        </ng-container>
+    </p-card>
+</div>

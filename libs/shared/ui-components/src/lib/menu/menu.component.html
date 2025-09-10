@@ -1,0 +1,57 @@
+<div class="fixed md:relative md:block w-full md:w-auto z-40">
+    <nav
+        *ngIf="userIsAuthenticated$ | async"
+        class="menu w-full md:min-h-screen flex flex-row md:flex-col justify-between p-3 overflow-auto"
+    >
+        <div class="flex flex-row md:flex-col gap-5">
+            <div class="logo flex justify-center items-center">
+                <a [routerLink]="baseUrl + '/'" [class.minimal]="style === 'minimal'">
+                    <img alt="Logo" src="/assets/img/logo.png" class="w-full" />
+                </a>
+            </div>
+            <ul class="flex flex-row md:flex-col gap-1 md:gap-2">
+                <ng-container [ngTemplateOutlet]="menu"></ng-container>
+            </ul>
+        </div>
+        <div>
+            <ul class="flex flex-row md:flex-col gap-2">
+                <a
+                    class="icon mb-0 cursor-pointer"
+                    [class.minimal]="style === 'minimal'"
+                    (click)="logOut()"
+                    pTooltip="Cerrar sesión"
+                >
+                    <i class="fa-regular fa-power-off"></i> <span *ngIf="style === 'big'">Cerrar sesión</span>
+                </a>
+            </ul>
+        </div>
+    </nav>
+</div>
+
+<ng-template #menu>
+    <li>
+        <a
+            class="icon"
+            [class.minimal]="style === 'minimal'"
+            [routerLink]="baseUrl + '/dashboard'"
+            [routerLinkActive]="'active'"
+            pTooltip="Escritorio"
+        >
+            <i class="fa-regular fa-house"></i>
+            <span *ngIf="style === 'big'">Inicio</span>
+        </a>
+    </li>
+
+    <li *ngIf="isPermitted([permissions.SETTINGS.ROLES.VIEW])">
+        <a
+            class="icon"
+            [class.minimal]="style === 'minimal'"
+            [routerLink]="baseUrl + '/settings'"
+            [routerLinkActive]="'active'"
+            pTooltip="Roles"
+        >
+            <i class="fa-sharp fa-solid fa-cogs"></i>
+            <span *ngIf="style === 'big'">Ajustes</span>
+        </a>
+    </li>
+</ng-template>

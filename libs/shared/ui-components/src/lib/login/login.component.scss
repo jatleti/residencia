@@ -1,0 +1,17 @@
+.input-code{
+    width: 40px;
+    border: 1px solid;
+    border-radius: 3px;
+    padding: 10px;
+    text-align: center;
+    font-size: 25px;
+    border-color: var(--primary-color) !important;
+    color: var(--primary-text-color);
+    caret-color: transparent;
+
+    &:focus{
+        outline: none;
+        border: 3px solid;
+
+    }
+}

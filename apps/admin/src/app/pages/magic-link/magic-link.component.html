@@ -1,0 +1,18 @@
+<div class="p-5">
+    <div class="grid content-center h-[calc(100vh-200px)]">
+        <!--        <img src="./assets/img/logo.png" alt="Logo" class="w-full md:w-[450px] justify-self-center" />-->
+        <!--        <br />-->
+        <div *ngIf="error === ''; else errorTemplate" class="text-center relative text-3xl primary-color">
+            Accediendo <i class="fa fa-spinner-third fa-spin ms-5"></i>
+        </div>
+        <ng-template #errorTemplate>
+            <div class="w-full md:w-[400px] mx-auto">
+                <div class="text-center relative text-lg primary-color mb-3">
+                    {{ error }}
+                </div>
+
+                <a [routerLink]="['/']" pButton label="Volver al login" class="p-button w-full"></a>
+            </div>
+        </ng-template>
+    </div>
+</div>

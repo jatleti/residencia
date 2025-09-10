@@ -1,0 +1,11 @@
+<button
+    (click)="onClick()"
+    pButton
+    pRipple
+    type="button"
+    [icon]="icon"
+    [class.p-button-outlined]="type === 'secondary' || type === 'rounded'"
+    [class.p-button-rounded]="type === 'rounded'"
+>
+    <ng-content></ng-content>
+</button>

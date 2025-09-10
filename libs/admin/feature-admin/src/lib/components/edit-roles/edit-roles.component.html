@@ -1,0 +1,46 @@
+<ng-template #permissionTemplate let-permission let-children="children">
+    <div
+        class="cursor-pointer bg-primary-50 p-4 border border-primary-200 rounded-md text-primary-500 font-bold"
+        (click)="permission.open = !permission.open"
+    >
+        {{ getLabel(permission.key) }}
+    </div>
+    <div *ngIf="permission.open" class="p-4 border border-gray-200">
+        <div class="flex flex-wrap gap-4 mb-4">
+            <ng-container *ngFor="let child of children">
+                <ng-container
+                    *ngIf="(!child.children || child.children.length === 0) && isInMyPermissions(child.value)"
+                >
+                    <div class="flex gap-2 items-center">
+                        <div class="mt-[-3px]">
+                            <p-checkbox
+                                [value]="child.value"
+                                [(ngModel)]="selectedPermissions"
+                                (ngModelChange)="savePermissions()"
+                            >
+                            </p-checkbox>
+                        </div>
+                        <label>{{ getLabel(child.key) }}</label>
+                    </div>
+                </ng-container>
+            </ng-container>
+        </div>
+        <div class="flex flex-col gap-2">
+            <ng-container *ngFor="let child of children">
+                <ng-container *ngIf="child.children && child.children.length > 0">
+                    <ng-container
+                        *ngTemplateOutlet="permissionTemplate; context: { $implicit: child, children: child.children }"
+                    ></ng-container>
+                </ng-container>
+            </ng-container>
+        </div>
+    </div>
+</ng-template>
+
+<div class="flex flex-col gap-2">
+    <ng-container *ngFor="let permission of permissionsArray">
+        <ng-container
+            *ngTemplateOutlet="permissionTemplate; context: { $implicit: permission, children: permission.children }"
+        ></ng-container>
+    </ng-container>
+</div>

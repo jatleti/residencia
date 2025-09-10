@@ -1,0 +1,17 @@
+:host {
+    min-width: var(--icon-size, 24px);
+    min-height: var(--icon-size, 24px);
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 0;
+}
+
+:host .placeholder {
+    width: 100%;
+    height: 100%;
+    flex: none;
+    border-radius: 50%;
+    background: var(--icon-placeholder-bg);
+}

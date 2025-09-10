@@ -1,0 +1,19 @@
+<div class="flex">
+    <div class="flex-grow pr-5">
+        <input
+            pInputText
+            class="w-full"
+            [(ngModel)]="filter"
+            (ngModelChange)="changeFilter()"
+            type="text"
+            placeholder="Filtrar"
+        />
+    </div>
+    <div class="flex-grow-0">
+        <div class="mb-3">
+            <button (click)="add()" pButton pRipple type="button">
+                <i class="fa-sharp fa-solid fa-plus me-2"></i> Añadir
+            </button>
+        </div>
+    </div>
+</div>

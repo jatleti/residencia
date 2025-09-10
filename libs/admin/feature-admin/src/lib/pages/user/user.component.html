@@ -1,0 +1,203 @@
+<div class="p-2 md:p-8">
+    <p-card class="mb-5 block">
+        <components-h1 class="mb-5 block text-primary-500 text-center md:text-start"
+            >{{ item.name }} {{ item.surname }}</components-h1
+        >
+
+        <div class="mb-3 px-3 basis-1/3 text-center">
+            <ng-container
+                *ngIf="(item.photo && item.photo !== '') || (signedPhoto && signedPhoto !== ''); else noImage"
+            >
+                <div
+                    *ngIf="item.photo && item.photo !== '' && signedPhoto === ''"
+                    class="image flex items-center max-w-[200px] mx-auto mb-5 aspect-square overflow-hidden rounded-full"
+                >
+                    <img src="{{ item.photo }}" />
+                </div>
+                <div
+                    *ngIf="signedPhoto && signedPhoto !== ''"
+                    class="image flex items-center max-w-[200px] mx-auto mb-5 aspect-square overflow-hidden rounded-full"
+                >
+                    <img src="{{ signedPhoto }}" />
+                </div>
+                <a (click)="item.photo = ''" class="cursor-pointer"><i class="fa-regular fa-times-circle"></i></a>
+            </ng-container>
+            <ng-template #noImage>
+                <div class="image-placeholder flex items-center justify-center mb-3">
+                    <div class="content text-center">
+                        <i class="fa-solid fa-image text-3xl"></i>
+                        <p class="font-bold">Foto de perfil</p>
+                    </div>
+                </div>
+                <p-fileUpload
+                    name="file"
+                    url="{{ API_UPLOAD_URL }}"
+                    uploadLabel="Subir"
+                    chooseLabel="Subir foto"
+                    cancelLabel="Cancelar"
+                    mode="basic"
+                    (onBeforeUpload)="onBeforeUpload($event)"
+                    (onUpload)="onUpload($event)"
+                    [auto]="true"
+                ></p-fileUpload>
+            </ng-template>
+        </div>
+
+        <div class="mb-3">
+            <label htmlFor="name">Nombre</label>
+            <input class="w-full" id="name" type="text" pInputText [(ngModel)]="item.name" placeholder="Nombre" />
+        </div>
+        <div class="mb-3">
+            <label htmlFor="surname">Apellidos</label>
+            <input
+                class="w-full"
+                id="surname"
+                type="text"
+                pInputText
+                [(ngModel)]="item.surname"
+                placeholder="Apellidos"
+            />
+        </div>
+        <div class="mb-3">
+            <label htmlFor="email">Email</label>
+            <input
+                class="w-full"
+                id="email"
+                type="email"
+                required
+                pInputText
+                [(ngModel)]="item.email"
+                placeholder="Email"
+            />
+        </div>
+        <div class="mb-3">
+            <label htmlFor="email">Contraseña (Rellenar para cambiar)</label>
+            <input
+                class="w-full"
+                id="password"
+                type="password"
+                required
+                pInputText
+                [(ngModel)]="item.password"
+                placeholder="Contraseña"
+            />
+        </div>
+        <div class="mb-3">
+            <label htmlFor="permissions">Permisos</label>
+            <input
+                class="w-full"
+                id="permissions"
+                type="text"
+                pInputText
+                [(ngModel)]="item.permissions"
+                placeholder="Permisos"
+            />
+        </div>
+        <div class="flex flex-col md:flex-row gap-4 mb-3">
+            <div class="flex-1">
+                <label>Rol</label>
+                <p-select
+                    [options]="roles"
+                    [disabled]="!item.id"
+                    [(ngModel)]="item.roleId"
+                    optionLabel="name"
+                    optionValue="id"
+                    appendTo="body"
+                    [filter]="false"
+                    [virtualScroll]="false"
+                    [style]="{ width: '100%' }"
+                    [placeholder]="'Rol'"
+                    (ngModelChange)="setRole()"
+                >
+                </p-select>
+                <a (click)="setRole()" class="cursor-pointer underline">Volver a asignar</a>
+            </div>
+            <div class="flex-1">
+                <label>Bloquear sobrescritura externa de permisos</label>
+                <p-select
+                    [options]="comboYesNo"
+                    [(ngModel)]="item.blockPermissions"
+                    optionLabel="label"
+                    optionValue="value"
+                    appendTo="body"
+                    [filter]="false"
+                    [virtualScroll]="false"
+                    [style]="{ width: '100%' }"
+                    [placeholder]="'Bloquear permisos'"
+                >
+                </p-select>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label>Activo</label>
+            <p-select
+                [options]="comboYesNo"
+                [(ngModel)]="item.active"
+                optionLabel="label"
+                optionValue="value"
+                appendTo="body"
+                [filter]="false"
+                [virtualScroll]="false"
+                [style]="{ width: '100%' }"
+                [placeholder]="'Activo'"
+            >
+            </p-select>
+        </div>
+        <div class="mb-3">
+            <label>Autentificación en dos pasos</label>
+            <p-select
+                [options]="comboYesNo"
+                [(ngModel)]="item.secure2FA"
+                optionLabel="label"
+                optionValue="value"
+                appendTo="body"
+                [filter]="false"
+                [virtualScroll]="false"
+                [style]="{ width: '100%' }"
+                [placeholder]="'Autentificación en dos pasos'"
+            >
+            </p-select>
+        </div>
+        <div *ngIf="item.secure2FA === 1" class="mb-3">
+            <label>Modo de autentificación</label>
+            <p-select
+                [options]="comboSecure2FAModes"
+                [(ngModel)]="item.secure2FAMode"
+                optionLabel="label"
+                optionValue="value"
+                appendTo="body"
+                [filter]="false"
+                [virtualScroll]="false"
+                [style]="{ width: '100%' }"
+                [placeholder]="'Modo de autentificación'"
+            >
+            </p-select>
+        </div>
+
+        <!--    <p-editor [(ngModel)]="item.magicLinkToken" [style]="{ height: '220px' }"></p-editor>-->
+
+        <ng-container *ngIf="item.id">
+            <h2 class="text-2xl mb-3 font-bold">Permisos</h2>
+            <span *ngIf="!permissionsRoleEqualsUser()" class="text-red-400 block mb-4"
+                >Los permisos de este usuario están adaptados a medida con respecto al rol seleccionado o está sin
+                permisos.</span
+            >
+            <div class="mb-5">
+                <admin-edit-roles
+                    [selectedPermissions]="selectedPermissions"
+                    (selectedPermissionsChange)="savePermissions($event)"
+                ></admin-edit-roles>
+            </div>
+        </ng-container>
+
+        <components-model-buttons
+            [showDelete]="!!item.id && isPermitted([Permissions.USER.DELETE])"
+            [showAdd]="!item.id && isPermitted([Permissions.USER.CREATE])"
+            [showSave]="!!item.id && isPermitted([Permissions.USER.EDIT])"
+            (clickBack)="back()"
+            (clickAdd)="add()"
+            (clickDelete)="del()"
+            (clickSave)="save()"
+        ></components-model-buttons>
+    </p-card>
+</div>

@@ -1,0 +1,11 @@
+<p-datepicker
+    [ngModel]="value"
+    (ngModelChange)="onModelChange($event)"
+    class="w-full grid"
+    [inputStyle]="{ width: '100%' }"
+    [showTime]="showTime"
+    [hourFormat]="'24'"
+    [dateFormat]="'dd/mm/yy'"
+    appendTo="body"
+    [firstDayOfWeek]="1"
+></p-datepicker>

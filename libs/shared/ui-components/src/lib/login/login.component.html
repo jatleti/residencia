@@ -1,0 +1,181 @@
+<ng-container *ngLet="error$ | async as error">
+    <ng-container *ngIf="!magicLink && !secure2FA">
+        <form [formGroup]="formGroup" autocomplete="off" novalidate>
+            <div class="w-full">
+                <div class="field">
+                    <label class="block">Email</label>
+                    <input
+                        pInputText
+                        (keyup.enter)="login()"
+                        formControlName="email"
+                        placeholder="Email"
+                        class="p-inputtext w-full"
+                        style="margin-bottom: 10px"
+                    />
+                    <small [hidden]="!isValid('email')" class="p-error block">{{ errorMessage('email') }}</small>
+                </div>
+                <br />
+                <div class="field">
+                    <label class="block">Contraseña</label>
+                    <input
+                        type="password"
+                        pInputText
+                        (keyup.enter)="login()"
+                        formControlName="password"
+                        placeholder="Contraseña"
+                        class="p-inputtext w-full"
+                    />
+                    <small [hidden]="!isValid('password')" class="p-error block">{{ errorMessage('password') }}</small>
+                </div>
+                <br /><br />
+                <div class="text-center">
+                    o accede con un<br />
+                    <a (click)="magicLink = true" class="underline cursor-pointer">enlace mágico</a>
+                </div>
+                <br /><br />
+                <button
+                    [disabled]="sendLogin"
+                    pButton
+                    type="button"
+                    label="Entrar"
+                    class="p-button w-full"
+                    (click)="login()"
+                >
+                    <i *ngIf="sendLogin" class="fa-regular fa-arrows-rotate fa-spin me-3"></i>
+                </button>
+                <br /><br />
+                <div class="text-center">
+                    <p-message
+                        *ngIf="error?.error?.message && error?.error?.status !== 405"
+                        severity="error"
+                        class="m-auto w-100"
+                        text="Usuario o contraseña incorrectos"
+                    ></p-message>
+                </div>
+            </div>
+        </form>
+    </ng-container>
+    <ng-container *ngIf="magicLink">
+        <div class="w-full">
+            <div class="field">
+                <label class="block">Email</label>
+                <input
+                    pInputText
+                    type="email"
+                    (keyup.enter)="sendMagicLink()"
+                    [(ngModel)]="email"
+                    placeholder="Email"
+                    class="p-inputtext w-full"
+                    style="margin-bottom: 10px"
+                />
+            </div>
+        </div>
+        <div class="text-center">
+            o accede con tu<br />
+            <a (click)="magicLink = false" class="underline cursor-pointer">usuario y contraseña</a>
+        </div>
+        <div *ngIf="errorLink && errorLink !== ''" class="text-center mt-4">
+            <p-message severity="error" class="m-auto w-100" [text]="errorLink"></p-message>
+        </div>
+        <div *ngIf="magicLinkSend" class="text-center mt-4">
+            <p-message
+                severity="success"
+                class="m-auto w-100"
+                text="Hemos enviado un email a tu cuenta con un enlace para acceder a la plataforma"
+            ></p-message>
+        </div>
+        <br /><br />
+        <button
+            [disabled]="magicLinkSending"
+            pButton
+            type="button"
+            label="Enviar enlace de acceso"
+            class="p-button w-full"
+            (click)="sendMagicLink()"
+        >
+            <i *ngIf="magicLinkSending" class="fa-regular fa-arrows-rotate fa-spin me-3"></i>
+        </button>
+    </ng-container>
+    <ng-container *ngIf="secure2FA">
+        <div class="text-center mb-5">
+            Te hemos mandado un código de acceso a tu email para confirmar el inicio de sesión. Introdúcelo aquí.
+        </div>
+        <div class="w-full py-5">
+            <div class="field">
+                <!--                <input-->
+                <!--                    pInputText-->
+                <!--                    (keyup.enter)="sendMagicLink()"-->
+                <!--                    [(ngModel)]="secure2FACode"-->
+                <!--                    type="text"-->
+                <!--                    placeholder="Código"-->
+                <!--                    class="p-inputtext w-full"-->
+                <!--                    style="margin-bottom: 10px"-->
+                <!--                />-->
+                <div class="flex gap-4 justify-center">
+                    <input
+                        class="input-code"
+                        type="text"
+                        maxlength="1"
+                        [(ngModel)]="secure2FACode[0]"
+                        (keyup)="onKeyup($event, 0)"
+                        (paste)="onPaste($event, 0)"
+                    />
+                    <input
+                        class="input-code"
+                        type="text"
+                        maxlength="1"
+                        [(ngModel)]="secure2FACode[1]"
+                        (keyup)="onKeyup($event, 1)"
+                        (paste)="onPaste($event, 1)"
+                    />
+                    <input
+                        class="input-code"
+                        type="text"
+                        maxlength="1"
+                        [(ngModel)]="secure2FACode[2]"
+                        (keyup)="onKeyup($event, 2)"
+                        (paste)="onPaste($event, 2)"
+                    />
+                    <input
+                        class="input-code"
+                        type="text"
+                        maxlength="1"
+                        [(ngModel)]="secure2FACode[3]"
+                        (keyup)="onKeyup($event, 3)"
+                        (paste)="onPaste($event, 3)"
+                    />
+                    <input
+                        class="input-code"
+                        type="text"
+                        maxlength="1"
+                        [(ngModel)]="secure2FACode[4]"
+                        (keyup)="onKeyup($event, 4)"
+                        (paste)="onPaste($event, 4)"
+                    />
+                    <input
+                        class="input-code"
+                        type="text"
+                        maxlength="1"
+                        [(ngModel)]="secure2FACode[5]"
+                        (keyup)="onKeyup($event, 5)"
+                        (paste)="onPaste($event, 5)"
+                    />
+                </div>
+            </div>
+        </div>
+        <div *ngIf="secure2FAError && secure2FAError !== ''" class="text-center mt-4">
+            <p-message severity="error" class="m-auto w-100" [text]="secure2FAError"></p-message>
+        </div>
+        <br /><br />
+        <button
+            [disabled]="secure2FASending"
+            pButton
+            type="button"
+            label="Acceder"
+            class="p-button w-full"
+            (click)="validate2FACode()"
+        >
+            <i *ngIf="secure2FASending" class="fa-regular fa-arrows-rotate fa-spin me-3"></i>
+        </button>
+    </ng-container>
+</ng-container>

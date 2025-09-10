@@ -1,0 +1,105 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id               String           @id @unique @default(uuid())
+  email            String           @unique
+  name             String?
+  surname          String?
+  permissions      String?          @db.VarChar(255)
+  password         String?
+  secure2FA        Int?             @default(0)
+  secure2FAMode    String?          @db.VarChar(25)
+  role             Int?             @default(1)
+  blockPermissions Int?             @default(0)
+  photo            String?          @db.VarChar(255)
+  forgetToken      String?          @db.VarChar(1000)
+  magicLinkToken   String?          @db.VarChar(1000)
+  code2FA          String?          @db.VarChar(10)
+  created_at       DateTime         @default(now())
+  updated_at       DateTime         @updatedAt
+  deleted_at       DateTime?
+  active           Int              @default(1)
+  roleId           String?
+  Role             Role?            @relation(fields: [roleId], references: [id])
+  UserSession      UserSession[]
+  UserPermissions  UserPermission[]
+
+  @@map("NT_UsersUSR")
+}
+
+model UserSession {
+  id           String    @id @unique @default(uuid())
+  id_user      String
+  tokenid      String    @db.Text()
+  active       Int       @default(1)
+  init_session DateTime?
+  last_change  DateTime?
+  ip           String?   @db.VarChar(255)
+  user         User      @relation(fields: [id_user], references: [id])
+
+  @@map("NT_UserSessionsUS")
+}
+
+model ApiKeytoken {
+  id          String    @id @unique @default(uuid())
+  token       String    @unique
+  description String?   @db.VarChar(255)
+  created_at  DateTime  @default(now())
+  updated_at  DateTime  @updatedAt
+  deleted_at  DateTime?
+  access_on   DateTime?
+  ip          String?   @db.VarChar(255)
+
+  @@map("NT_ApiKeytokenKEY")
+}
+
+model Role {
+  id              String           @id @unique @default(uuid())
+  name            String           @unique
+  description     String?          @db.VarChar(255)
+  created_at      DateTime         @default(now())
+  updated_at      DateTime         @updatedAt
+  deleted_at      DateTime?
+  active          Int              @default(1)
+  RolePermissions RolePermission[]
+  Users           User[]
+
+  @@map("NT_RolesROL")
+}
+
+model RolePermission {
+  id         String    @id @unique @default(uuid())
+  name       String    @db.VarChar(255)
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  deleted_at DateTime?
+  active     Int       @default(1)
+  roleId     String?
+  Role       Role?     @relation(fields: [roleId], references: [id])
+  createdBy  String?
+  deletedBy  String?
+
+  @@map("NT_RolePermissionsRPE")
+}
+
+model UserPermission {
+  id         String    @id @unique @default(uuid())
+  name       String    @db.VarChar(255)
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  deleted_at DateTime?
+  active     Int       @default(1)
+  userId     String?
+  User       User?     @relation(fields: [userId], references: [id])
+  createdBy  String?
+  deletedBy  String?
+
+  @@map("NT_UserPermissionsUPE")
+}

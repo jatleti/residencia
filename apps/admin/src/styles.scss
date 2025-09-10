@@ -1,0 +1,61 @@
+@use 'assets/css/theme_v2';
+
+@layer tailwind-base, primeng, tailwind-utilities;
+
+@layer tailwind-base {
+    @tailwind base;
+}
+
+@layer tailwind-utilities {
+    @tailwind components;
+    @tailwind utilities;
+}
+
+@import 'primeicons/primeicons.css';
+
+:root {
+    --color-50: #eff7ff;
+    --color-100: #dbecfe;
+    --color-200: #bfdefe;
+    --color-300: #93cafd;
+    --color-400: #60acfa;
+    --color-500: #3b8bf6;
+    --color-600: #1c66ea;
+    --color-700: #1d57d8;
+    --color-800: #1e47af;
+    --color-900: #1e3f8a;
+    --color-950: #172854;
+
+    --contrast-50: #000000;
+    --contrast-100: #000000;
+    --contrast-200: #000000;
+    --contrast-300: #000000;
+    --contrast-400: #000000;
+    --contrast-500: #ffffff;
+    --contrast-600: #ffffff;
+    --contrast-700: #ffffff;
+    --contrast-800: #ffffff;
+    --contrast-900: #ffffff;
+    --contrast-950: #ffffff;
+
+    --border-radius-md: 5px;
+
+    --primary-color: var(--color-500);
+    --primary-color-dark: var(--color-900);
+    --bg-submenu: var(--color-100);
+    --bg-primary: var(--color-100);
+    --primary-color-shadow: var(--color-100);
+}
+
+html {
+    font-size: 14px;
+    scroll-behavior: smooth;
+}
+
+body {
+    //font-family: var(--font-family);
+    font-family: 'NotoSans', sans-serif;
+    color: var(--color-950);
+}
+
+//@import 'assets/css/datePicker.scss';

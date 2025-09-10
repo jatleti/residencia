@@ -1,0 +1,301 @@
+.primary-color {
+    color: var(--primary-color);
+}
+
+.primary-color-dark {
+    color: var(--primary-color-dark);
+}
+
+.bg-submenu {
+    background-color: var(--bg-submenu);
+}
+
+.bg-primary {
+    background-color: var(--primary-color);
+}
+
+.bg-primary-dark {
+    background-color: var(--primary-color-dark);
+}
+
+.bg-primary-color {
+    background-color: var(--primary-color);
+}
+
+.bg-primary-color-shadow {
+    background-color: var(--primary-color-shadow);
+}
+
+/* ===== Scrollbar CSS ===== */
+/* Firefox */
+* {
+    scrollbar-width: auto;
+    scrollbar-color: var(--primary-color) #f0f0f0;
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+    width: 8px;
+}
+
+*::-webkit-scrollbar-track {
+    background: #f0f0f0;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: var(--primary-color);
+    border-radius: var(--border-radius-md);
+    border: 3px none #ffffff;
+}
+/********************************/
+
+tr {
+    td {
+        transition: all 0.2s ease-in-out;
+    }
+    &:hover {
+        td {
+            background-color: var(--bg-menu);
+        }
+    }
+}
+
+.table {
+    td {
+        border: 1px solid var(--back);
+        padding: 5px;
+        color: var(--primary);
+    }
+
+    td.high {
+        background-color: var(--bg-menu);
+    }
+}
+
+h1 {
+    i {
+        margin-right: 10px;
+    }
+}
+
+.image-placeholder {
+    width: 257px;
+    aspect-ratio: 9/11;
+    margin: auto auto 20px;
+    background: var(--bg-menu);
+    border-radius: var(--border-radius-md);
+    border: 1px dashed #9b9b9b;
+
+    &.landscape {
+        aspect-ratio: 11/9;
+    }
+
+    i {
+        color: var(--primary);
+    }
+}
+
+.p-datatable .p-datatable-thead > tr > th {
+    color: var(--primary-color);
+    background: #ffffff;
+}
+
+/******** custom css theme ********/
+.p-button {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: var(--white);
+}
+
+.p-button:enabled:hover {
+    background-color: var(--primary-color-hover);
+    border-color: var(--primary-color-hover);
+}
+
+.p-button.p-button-outlined {
+    color: var(--primary-color);
+    background: white;
+}
+
+.p-button.p-button-outlined:enabled:hover {
+    color: var(--primary-color);
+    background: white;
+}
+
+.p-button.p-button-danger,
+.p-button-group.p-button-danger > .p-button,
+.p-splitbutton.p-button-danger > .p-button {
+    color: #ea5455;
+    background: #ffffff;
+    border: 1px solid #ea5455;
+}
+
+.p-button-outlined.p-button-danger:hover {
+    background: #ea5455 !important;
+    color: #ffffff !important;
+    border: 1px solid #ea5455;
+}
+
+.p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+.p-tabview .p-tabview-nav {
+    white-space: nowrap;
+}
+
+.p-tabview .p-tabview-nav-btn.p-link {
+    color: var(--primary-color);
+}
+
+.p-dropdown:not(.p-disabled):hover,
+.p-inputtext:enabled:hover {
+    border-color: var(--primary-color);
+}
+
+.p-inputtext:enabled:focus {
+    outline: 0 none;
+    outline-offset: 0;
+    box-shadow: 0 0 0 1px var(--primary-color-shadow);
+    border-color: var(--primary-color);
+}
+
+.p-dropdown-panel .p-dropdown-items .p-dropdown-item.p-highlight {
+    color: var(--primary-color);
+    background: var(--primary-color-shadow);
+}
+
+.p-dropdown:not(.p-disabled).p-focus {
+    box-shadow: 0 0 0 1px var(--primary-color-shadow);
+    border-color: var(--primary-color);
+}
+
+.p-fileupload-choose:not(.p-disabled):hover {
+    border-color: var(--primary-color-hover);
+    background: var(--primary-color-hover);
+}
+
+.p-paginator .p-paginator-pages .p-paginator-page.p-highlight {
+    background: var(--primary-color-shadow);
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+.p-link:focus {
+    box-shadow: 0 0 0 1px var(--primary-color-shadow);
+}
+
+.p-component {
+    font-family: 'NotoSans', sans-serif;
+}
+
+.p-inputtext {
+    font-family: 'NotoSans', sans-serif;
+}
+
+.p-tooltip.p-tooltip-right .p-tooltip-arrow {
+    border-right-color: var(--primary-color-dark);
+}
+
+.p-tooltip .p-tooltip-text {
+    background: var(--primary-color-dark);
+}
+
+.p-datatable .p-datatable-tbody > tr:focus {
+    outline: 0.15rem solid var(--primary-color-shadow);
+}
+
+.p-dialog .p-dialog-content {
+    color: var(--primary-text-color);
+}
+
+.p-dropdown,
+.p-inputtext,
+.p-button {
+    border-radius: var(--border-radius-md);
+}
+
+.p-checkbox .p-checkbox-box.p-highlight {
+    border-color: var(--primary-color);
+    background: var(--primary-color);
+}
+
+.p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box.p-highlight:hover {
+    border-color: var(--primary-color-dark);
+    background: var(--primary-color-dark);
+    color: #ffffff;
+}
+
+.p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box:hover {
+    border-color: var(--primary-color);
+}
+
+.p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box.p-focus {
+    outline: 0 none;
+    outline-offset: 0;
+    box-shadow: 0 0 0 1px var(--primary-color-shadow);
+    border-color: var(--primary-color);
+}
+
+.p-inputswitch.p-inputswitch-checked .p-inputswitch-slider {
+    background: var(--primary-color);
+}
+
+.p-inputswitch.p-inputswitch-checked:not(.p-disabled):hover .p-inputswitch-slider {
+    background: var(--primary-color-dark);
+}
+
+.p-selectbutton .p-button.p-highlight {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    color: #ffffff;
+}
+
+.p-selectbutton .p-button.p-highlight:hover {
+    background: var(--primary-color-dark);
+    border-color: var(--primary-color-dark);
+    color: #ffffff;
+}
+
+.p-progressbar .p-progressbar-value {
+    background: var(--primary-color);
+}
+
+textarea {
+    border-radius: var(--border-radius-md) !important;
+}
+
+p-chip {
+    &.active {
+        .p-chip {
+            transition: all 0.2s ease-in-out;
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+    }
+}
+
+.btn-icon {
+    display: inline-block;
+    background: #000;
+    color: #fff;
+    border-radius: var(--border-radius-full);
+    padding: 4px;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 700;
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+
+    &:hover {
+        background: var(--primary-color);
+        color: #fff;
+    }
+}
+
+.p-hidden-space {
+    display: none;
+}

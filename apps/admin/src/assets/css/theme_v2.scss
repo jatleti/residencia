@@ -1,0 +1,83 @@
+// .primary-color {
+//     color: var(--primary-color);
+// }
+
+// .primary-color-dark {
+//     color: var(--primary-color-dark);
+// }
+
+// .bg-submenu {
+//     background-color: var(--bg-submenu);
+// }
+
+// .bg-primary {
+//     background-color: var(--primary-color);
+// }
+
+// .bg-primary-dark {
+//     background-color: var(--primary-color-dark);
+// }
+
+// .bg-primary-color {
+//     background-color: var(--primary-color);
+// }
+
+// .bg-primary-color-shadow {
+//     background-color: var(--primary-color-shadow);
+// }
+
+.p-select-overlay {
+    width: 100%;
+}
+
+/* ===== Scrollbar CSS ===== */
+/* Firefox */
+* {
+    scrollbar-width: auto;
+    scrollbar-color: var(--color-500) #f0f0f0;
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+    width: 8px;
+}
+
+*::-webkit-scrollbar-track {
+    background: var(--color-50);
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: var(--color-500);
+    border-radius: var(--border-radius-md);
+    border: 3px none #ffffff;
+}
+/********************************/
+
+.image-placeholder {
+    width: 257px;
+    aspect-ratio: 9/11;
+    margin: auto auto 20px;
+    background: var(--color-50);
+    border-radius: var(--border-radius-md);
+    border: 1px dashed #9b9b9b;
+    color: var(--color-500);
+
+    &.landscape {
+        aspect-ratio: 11/9;
+    }
+
+    i {
+        color: var(--color-500);
+    }
+}
+
+tr {
+    td {
+        transition: all 0.2s ease-in-out;
+    }
+    &:hover {
+        td {
+            background-color: var(--color-50);
+        }
+    }
+}

@@ -1,0 +1,46 @@
+<div class="p-2 md:p-8">
+    <p-card>
+        <components-h1 class="mb-5 block text-primary-500 text-center md:text-start">Roles</components-h1>
+        <div class="flex">
+            <div class="flex-grow pr-5">
+                <input pInputText class="w-full" [(ngModel)]="filter" type="text" placeholder="Filtrar" />
+            </div>
+            <div *ngIf="isPermitted([Permissions.SETTINGS.ROLES.CREATE])" class="flex-grow-0">
+                <div class="mb-3">
+                    <button (click)="add()" pButton pRipple type="button">
+                        <i class="fa-sharp fa-solid fa-plus me-2"></i> Añadir
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <ng-container *ngLet="list$ | async as roles">
+            <p-table
+                #dt1
+                [value]="roles | dataFilter: filter"
+                styleClass="p-datatable-sm"
+                [paginator]="true"
+                [rows]="50"
+                [showCurrentPageReport]="true"
+                currentPageReportTemplate="Viendo {first} a {last} de {totalRecords} items"
+                [rowsPerPageOptions]="[20, 50]"
+                [globalFilterFields]="['name']"
+            >
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>Rol</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-role>
+                    <ng-container>
+                        <tr (click)="get(role.id)" class="cursor-pointer">
+                            <td>{{ role.name }}</td>
+                        </tr>
+                    </ng-container>
+                </ng-template>
+            </p-table>
+
+            <span *ngIf="roles.length === 0 && !loading$">Aún no tienes roles para mostrar.</span>
+        </ng-container>
+    </p-card>
+</div>

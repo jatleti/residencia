@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE `NT_UsersUSR` MODIFY `secure2FAMode` VARCHAR(25) NULL;

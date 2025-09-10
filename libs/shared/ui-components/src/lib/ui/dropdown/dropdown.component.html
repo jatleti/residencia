@@ -1,0 +1,34 @@
+<p-select
+    [options]="options"
+    [ngModel]="value"
+    [optionLabel]="optionLabel"
+    [optionValue]="optionValue"
+    appendTo="body"
+    [filter]="filter"
+    [virtualScroll]="virtualScroll"
+    virtualScrollItemSize="34"
+    (ngModelChange)="onModelChange($event)"
+    [style]="{ width: '100%' }"
+    [placeholder]="placeholder"
+    [disabled]="disabled"
+>
+    <ng-template *ngIf="type === 'active'" pTemplate="selectedItem">
+        <div class="flex align-items-center gap-2" *ngIf="value !== undefined">
+            <components-status-active [status]="value"></components-status-active>
+            <span *ngIf="value === 1">Sí</span>
+            <span *ngIf="value === 0">No</span>
+        </div>
+    </ng-template>
+    <ng-template *ngIf="type === 'activeInverse'" pTemplate="selectedItem">
+        <div class="flex align-items-center gap-2" *ngIf="value !== undefined">
+            <components-status-active [status]="value" [inverse]="true"></components-status-active>
+            <span *ngIf="value === 1">No</span>
+            <span *ngIf="value === 0">Sí</span>
+        </div>
+    </ng-template>
+    <ng-template *ngIf="type === 'bulletColor'" pTemplate="selectedItem">
+        <div class="flex align-items-center gap-2" *ngIf="value !== undefined">
+            <span class="bullet" [style.background-color]="getValueColor()"></span>{{ getValueLabel(value) }}
+        </div>
+    </ng-template>
+</p-select>

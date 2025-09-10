@@ -1,0 +1,52 @@
+<div class="p-2 md:p-8">
+    <p-card class="mb-5 block">
+        <components-h1 class="mb-5 block text-primary-500 text-center md:text-start">{{ item.name }}</components-h1>
+
+        <div class="flex flex-col md:flex-row gap-4 mb-3">
+            <div class="flex-1">
+                <label>Nombre del rol</label>
+                <input
+                    class="w-full"
+                    type="text"
+                    pInputText
+                    [(ngModel)]="item.name"
+                    placeholder="Rol"
+                    [maxlength]="255"
+                />
+            </div>
+            <div class="flex-0 pt-6">
+                <button
+                    *ngIf="isPermitted([Permissions.SETTINGS.ROLES.EDIT])"
+                    pButton
+                    pRipple
+                    (click)="applyToAll()"
+                    class="p-button-outlined"
+                    type="button"
+                >
+                    <i class="fa-sharp fa-solid fa-save me-2"></i> Aplicar a todos los usuarios
+                </button>
+            </div>
+        </div>
+
+        <ng-container *ngIf="item.id">
+            <h2 class="text-2xl mb-3 font-bold">Permisos</h2>
+            <div class="mb-5">
+                <admin-edit-roles
+                    [selectedPermissions]="selectedPermissions"
+                    (selectedPermissionsChange)="savePermissions($event)"
+                    from="role"
+                ></admin-edit-roles>
+            </div>
+        </ng-container>
+
+        <components-model-buttons
+            [showDelete]="!!item.id && isPermitted([Permissions.SETTINGS.ROLES.DELETE])"
+            [showAdd]="!item.id && isPermitted([Permissions.SETTINGS.ROLES.CREATE])"
+            [showSave]="!!item.id && isPermitted([Permissions.SETTINGS.ROLES.EDIT])"
+            (clickBack)="back()"
+            (clickAdd)="add()"
+            (clickDelete)="del()"
+            (clickSave)="save()"
+        ></components-model-buttons>
+    </p-card>
+</div>
