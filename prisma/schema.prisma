@@ -8,28 +8,46 @@ datasource db {
 }
 
 model User {
-  id               String           @id @unique @default(uuid())
-  email            String           @unique
+  id               String    @id @unique @default(uuid())
+  email            String    @unique
   name             String?
   surname          String?
-  permissions      String?          @db.VarChar(255)
+  dateStarted      DateTime?
+  dateEnded        DateTime?
+  nif              String?   @db.VarChar(20)
+  nir              String?   @db.VarChar(20)
+  address          String?   @db.VarChar(255)
+  city             String?   @db.VarChar(255)
+  province         String?   @db.VarChar(255)
+  zip              String?   @db.VarChar(10)
+  phone            String?   @db.VarChar(20)
+  mobile           String?   @db.VarChar(20)
+  position         String?   @db.VarChar(255)
+  department       String?   @db.VarChar(255)
+  permissions      String?   @db.VarChar(255)
   password         String?
-  secure2FA        Int?             @default(0)
-  secure2FAMode    String?          @db.VarChar(25)
-  role             Int?             @default(1)
-  blockPermissions Int?             @default(0)
-  photo            String?          @db.VarChar(255)
-  forgetToken      String?          @db.VarChar(1000)
-  magicLinkToken   String?          @db.VarChar(1000)
-  code2FA          String?          @db.VarChar(10)
-  created_at       DateTime         @default(now())
-  updated_at       DateTime         @updatedAt
+  secure2FA        Int?      @default(0)
+  secure2FAMode    String?   @db.VarChar(25)
+  role             Int?      @default(1)
+  blockPermissions Int?      @default(0)
+  photo            String?   @db.VarChar(255)
+  forgetToken      String?   @db.VarChar(1000)
+  magicLinkToken   String?   @db.VarChar(1000)
+  code2FA          String?   @db.VarChar(10)
+  created_at       DateTime  @default(now())
+  updated_at       DateTime  @updatedAt
   deleted_at       DateTime?
-  active           Int              @default(1)
+  active           Int       @default(1)
   roleId           String?
-  Role             Role?            @relation(fields: [roleId], references: [id])
-  UserSession      UserSession[]
-  UserPermissions  UserPermission[]
+  Role             Role?     @relation(fields: [roleId], references: [id])
+
+  UserSession     UserSession[]
+  UserPermissions UserPermission[]
+  Tutorships      Tutorship[]
+  Authorizations  Authorization[]
+  Sanctions       Sanction[]
+  Invoices        Invoice[]
+  Students        Student[]
 
   @@map("NT_UsersUSR")
 }
@@ -102,4 +120,160 @@ model UserPermission {
   deletedBy  String?
 
   @@map("NT_UserPermissionsUPE")
+}
+
+model Student {
+  id         String    @id @unique @default(uuid())
+  name       String    @db.VarChar(255)
+  surname    String?   @db.VarChar(255)
+  email      String    @unique
+  password   String?   @db.VarChar(255)
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  deleted_at DateTime?
+  active     Int       @default(1)
+  admitted   Int       @default(0)
+  ingressed  Int       @default(0)
+  graduated  Int       @default(0)
+  birthdate  DateTime?
+  photo      String?   @db.VarChar(255)
+  code       String?   @db.VarChar(100)
+  nif        String?   @db.VarChar(20)
+  nir        String?   @db.VarChar(20)
+  address    String?   @db.VarChar(255)
+  city       String?   @db.VarChar(100)
+  province   String?   @db.VarChar(100)
+  zip        String?   @db.VarChar(10)
+  phone      String?   @db.VarChar(20)
+  mobile     String?   @db.VarChar(20)
+
+  Guardians      Guardian[]
+  Tutorships     Tutorship[]
+  Authorizations Authorization[]
+  Sanctions      Sanction[]
+  Invoices       Invoice[]
+  Users          User[]
+  Attendances    Attendance[]
+
+  @@map("NT_StudentsSTU")
+}
+
+model Guardian {
+  id         String    @id @unique @default(uuid())
+  name       String    @db.VarChar(255)
+  surname    String?   @db.VarChar(255)
+  email      String    @unique
+  password   String?   @db.VarChar(255)
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  deleted_at DateTime?
+  active     Int       @default(1)
+  nif        String?   @db.VarChar(20)
+  address    String?   @db.VarChar(255)
+  city       String?   @db.VarChar(100)
+  province   String?   @db.VarChar(100)
+  zip        String?   @db.VarChar(10)
+  phone      String?   @db.VarChar(20)
+  mobile     String?   @db.VarChar(20)
+
+  Students Student[]
+
+  @@map("NT_GuardiansGUA")
+}
+
+model Tutorship {
+  id         String    @id @unique @default(uuid())
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  deleted_at DateTime?
+  active     Int       @default(1)
+
+  date    DateTime?
+  content String?   @db.Text()
+  notes   String?   @db.Text()
+
+  userId String
+  User   User   @relation(fields: [userId], references: [id])
+
+  studentId String
+  Student   Student @relation(fields: [studentId], references: [id])
+
+  @@map("NT_TutorShipsTUS")
+}
+
+model Authorization {
+  id         String    @id @unique @default(uuid())
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  deleted_at DateTime?
+  active     Int       @default(1)
+
+  date    DateTime?
+  from    DateTime?
+  to      DateTime?
+  content String?   @db.Text()
+  notes   String?   @db.Text()
+
+  userId String
+  User   User   @relation(fields: [userId], references: [id])
+
+  studentId String
+  Student   Student @relation(fields: [studentId], references: [id])
+
+  @@map("NT_AuthorizationsAUT")
+}
+
+model Sanction {
+  id          String    @id @unique @default(uuid())
+  type        Int       @default(0)
+  description String?   @db.Text()
+  notes       String?   @db.Text()
+  created_at  DateTime  @default(now())
+  updated_at  DateTime  @updatedAt
+  deleted_at  DateTime?
+  active      Int       @default(1)
+  date        DateTime?
+
+  studentId String
+  Student   Student @relation(fields: [studentId], references: [id])
+  userId    String
+  User      User    @relation(fields: [userId], references: [id])
+
+  @@map("NT_SanctionsSAN")
+}
+
+model Invoice {
+  id          String    @id @unique @default(uuid())
+  code        String    @db.VarChar(100)
+  description String?   @db.VarChar(255)
+  amount      Decimal   @db.Decimal(10, 2)
+  status      Int       @default(0)
+  created_at  DateTime  @default(now())
+  updated_at  DateTime  @updatedAt
+  deleted_at  DateTime?
+  active      Int       @default(1)
+
+  studentId String
+  Student   Student @relation(fields: [studentId], references: [id])
+  userId    String
+  User      User    @relation(fields: [userId], references: [id])
+
+  @@map("NT_InvoicesINV")
+}
+
+model Attendance {
+  id         String    @id @unique @default(uuid())
+  date       DateTime
+  status     Int       @default(0)
+  type       Int       @default(0)
+  from       DateTime?
+  to         DateTime?
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  deleted_at DateTime?
+  active     Int       @default(1)
+  studentId  String
+  Student    Student   @relation(fields: [studentId], references: [id])
+
+  @@map("NT_AttendanceATT")
 }

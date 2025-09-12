@@ -3,6 +3,18 @@ export interface User {
   email: string;
   name: string | null;
   surname: string | null;
+  dateStarted: Date | null;
+  dateEnded: Date | null;
+  nif: string | null;
+  nir: string | null;
+  address: string | null;
+  city: string | null;
+  province: string | null;
+  zip: string | null;
+  phone: string | null;
+  mobile: string | null;
+  position: string | null;
+  department: string | null;
   permissions: string | null;
   password: string | null;
   secure2FA: number | null;
@@ -21,6 +33,11 @@ export interface User {
   Role: Role | null;
   UserSession: UserSession[] | null;
   UserPermissions: UserPermission[] | null;
+  Tutorships: Tutorship[] | null;
+  Authorizations: Authorization[] | null;
+  Sanctions: Sanction[] | null;
+  Invoices: Invoice[] | null;
+  Students: Student[] | null;
 }
 
 export interface UserSession {
@@ -81,4 +98,136 @@ export interface UserPermission {
   User: User | null;
   createdBy: string | null;
   deletedBy: string | null;
+}
+
+export interface Student {
+  id: string;
+  name: string;
+  surname: string | null;
+  email: string;
+  password: string | null;
+  created_at: Date;
+  updated_at: Date;
+  deleted_at: Date | null;
+  active: number;
+  admitted: number;
+  ingressed: number;
+  graduated: number;
+  birthdate: Date | null;
+  photo: string | null;
+  code: string | null;
+  nif: string | null;
+  nir: string | null;
+  address: string | null;
+  city: string | null;
+  province: string | null;
+  zip: string | null;
+  phone: string | null;
+  mobile: string | null;
+  Guardians: Guardian[] | null;
+  Tutorships: Tutorship[] | null;
+  Authorizations: Authorization[] | null;
+  Sanctions: Sanction[] | null;
+  Invoices: Invoice[] | null;
+  Users: User[] | null;
+  Attendances: Attendance[] | null;
+}
+
+export interface Guardian {
+  id: string;
+  name: string;
+  surname: string | null;
+  email: string;
+  password: string | null;
+  created_at: Date;
+  updated_at: Date;
+  deleted_at: Date | null;
+  active: number;
+  nif: string | null;
+  address: string | null;
+  city: string | null;
+  province: string | null;
+  zip: string | null;
+  phone: string | null;
+  mobile: string | null;
+  Students: Student[] | null;
+}
+
+export interface Tutorship {
+  id: string;
+  created_at: Date;
+  updated_at: Date;
+  deleted_at: Date | null;
+  active: number;
+  date: Date | null;
+  content: string | null;
+  notes: string | null;
+  userId: string;
+  User: User;
+  studentId: string;
+  Student: Student;
+}
+
+export interface Authorization {
+  id: string;
+  created_at: Date;
+  updated_at: Date;
+  deleted_at: Date | null;
+  active: number;
+  date: Date | null;
+  from: Date | null;
+  to: Date | null;
+  content: string | null;
+  notes: string | null;
+  userId: string;
+  User: User;
+  studentId: string;
+  Student: Student;
+}
+
+export interface Sanction {
+  id: string;
+  type: number;
+  description: string | null;
+  notes: string | null;
+  created_at: Date;
+  updated_at: Date;
+  deleted_at: Date | null;
+  active: number;
+  date: Date | null;
+  studentId: string;
+  Student: Student;
+  userId: string;
+  User: User;
+}
+
+export interface Invoice {
+  id: string;
+  code: string;
+  description: string | null;
+  amount: number;
+  status: number;
+  created_at: Date;
+  updated_at: Date;
+  deleted_at: Date | null;
+  active: number;
+  studentId: string;
+  Student: Student;
+  userId: string;
+  User: User;
+}
+
+export interface Attendance {
+  id: string;
+  date: Date;
+  status: number;
+  type: number;
+  from: Date | null;
+  to: Date | null;
+  created_at: Date;
+  updated_at: Date;
+  deleted_at: Date | null;
+  active: number;
+  studentId: string;
+  Student: Student;
 }

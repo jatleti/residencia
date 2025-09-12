@@ -18,6 +18,13 @@ import { rolePermissionRouter } from './routes/v1/rolePermissionRoutes';
 import { userPermissionRouter } from './routes/v1/userPermissionRoutes';
 import { storageRouter } from './routes/v1/storageRoutes';
 import { getPuppeteerInstance } from './factories/puppeteerInstance';
+import { attendanceRouter } from './routes/v1/attendanceRoutes';
+import { authorizationRouter } from './routes/v1/authorizationRoutes';
+import { guardianRouter } from './routes/v1/guardianRoutes';
+import { invoiceRouter } from './routes/v1/invoiceRoutes';
+import { sanctionRouter } from './routes/v1/sanctionRoutes';
+import { studentRouter } from './routes/v1/studentRoutes';
+import { tutorshipRouter } from './routes/v1/tutorshipRoutes';
 
 const app = express();
 
@@ -115,6 +122,13 @@ app.use('/v1/user', userRouter);
 app.use('/v1/role', roleRouter);
 app.use('/v1/rolePermission', rolePermissionRouter);
 app.use('/v1/userPermission', userPermissionRouter);
+app.use('/v1/attendance', attendanceRouter);
+app.use('/v1/authorization', authorizationRouter);
+app.use('/v1/guardian', guardianRouter);
+app.use('/v1/invoice', invoiceRouter);
+app.use('/v1/sanction', sanctionRouter);
+app.use('/v1/student', studentRouter);
+app.use('/v1/tutorship', tutorshipRouter);
 
 const port = process.env.PORT || 3333;
 const server = app.listen(port, () => {
