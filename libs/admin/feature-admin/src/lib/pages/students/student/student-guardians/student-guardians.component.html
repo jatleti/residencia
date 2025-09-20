@@ -1,0 +1,82 @@
+<ng-container *ngIf="student">
+    <div class="flex gap-3 mb-3">
+        <div class="flex-1">
+            <label>Padre</label>
+            <p-select
+                [options]="guardians"
+                [(ngModel)]="selectedGuardian"
+                appendTo="body"
+                [filter]="true"
+                [filterFields]="['name', 'surname', 'code', 'email']"
+                [virtualScroll]="true"
+                [virtualScrollItemSize]="34"
+                [style]="{ width: '100%' }"
+                [placeholder]="'Alumno'"
+                [showClear]="true"
+            >
+                <ng-template let-guardian pTemplate="item">
+                    <div class="flex items-center gap-2">
+                        <span>{{ guardian.name }} {{ guardian.surname }}</span>
+                        <small class="text-xs text-gray-500">{{ guardian.email }}</small>
+                    </div>
+                </ng-template>
+                <ng-template let-item pTemplate="selectedItem">
+                    <div class="flex items-center gap-2">
+                        <span>{{ item.name }} {{ item.surname }}</span>
+                        <small class="text-xs text-gray-500">{{ item.email }}</small>
+                    </div>
+                </ng-template>
+            </p-select>
+        </div>
+        <div *ngIf="isPermitted([Permissions.STUDENT.EDIT])" class="flex-0 pt-6">
+            <div class="mb-3">
+                <button (click)="connectGuardian()" pButton pRipple type="button">
+                    <i class="fa-sharp fa-solid fa-plus me-2"></i> Añadir padre al alumno
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <p-table
+        #dt1
+        [value]="student.Guardians || []"
+        styleClass="p-datatable-sm"
+        [paginator]="false"
+        [rows]="50"
+        [showCurrentPageReport]="true"
+        currentPageReportTemplate="Viendo {first} a {last} de {totalRecords} items"
+        [rowsPerPageOptions]="[20, 50]"
+        [globalFilterFields]="['name']"
+    >
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Nombre</th>
+                <th>Apellidos</th>
+                <th>Email</th>
+                <th></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-item>
+            <ng-container>
+                <tr (click)="get(item.id)" class="cursor-pointer">
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.surname }}</td>
+                    <td>{{ item.email }}</td>
+                    <td class="!text-end">
+                        <button
+                            (click)="disconnectGuardian(item); $event.stopPropagation()"
+                            pButton
+                            pRipple
+                            type="button"
+                            class="p-button-text p-button-danger"
+                        >
+                            <i class="fa-solid fa-trash-alt"></i>
+                        </button>
+                    </td>
+                </tr>
+            </ng-container>
+        </ng-template>
+    </p-table>
+
+    <span *ngIf="student.Guardians?.length === 0">Aún no tienes items para mostrar.</span>
+</ng-container>

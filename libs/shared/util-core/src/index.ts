@@ -17,6 +17,9 @@ export * from './lib/facades/user.facade';
 export * from './lib/facades/role.facade';
 export * from './lib/facades/rolePermission.facade';
 export * from './lib/facades/userPermission.facade';
+export * from './lib/facades/student.facade';
+export * from './lib/facades/guardian.facade';
+export * from './lib/facades/invoice.facade';
 
 export * from './lib/interceptors/auth.interceptor';
 

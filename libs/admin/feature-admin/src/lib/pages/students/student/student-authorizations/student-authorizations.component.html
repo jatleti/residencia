@@ -1,0 +1,164 @@
+<ng-container *ngIf="student">
+    <p-table
+        #dt1
+        [value]="student.Authorizations || []"
+        styleClass="p-datatable-sm"
+        [paginator]="false"
+        [rows]="50"
+        [showCurrentPageReport]="true"
+        currentPageReportTemplate="Viendo {first} a {last} de {totalRecords} items"
+        [rowsPerPageOptions]="[20, 50]"
+        [globalFilterFields]="['name']"
+    >
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Fecha solicitud</th>
+                <th>Desde</th>
+                <th>Hasta</th>
+                <th>Descripción</th>
+                <th>Por</th>
+                <th>Contenido</th>
+                <th class="!text-center">Aprobada</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-item>
+            <tr
+                (click)="editAuthorization(item)"
+                class="cursor-pointer"
+                [class.bg-yellow-100]="isNextAuthorization(item)"
+            >
+                <td>{{ item.date | date: 'dd/MM/yyyy HH:mm' }}</td>
+                <td>{{ item.from | date: 'dd/MM/yyyy HH:mm' }}</td>
+                <td>{{ item.to | date: 'dd/MM/yyyy HH:mm' }}</td>
+                <td>{{ item.name }}</td>
+                <td>{{ item.User?.name }} {{ item.User?.surname }}</td>
+                <td><div [innerHTML]="item.content"></div></td>
+                <td class="!text-center">
+                    <components-status-active [status]="item.active"></components-status-active>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+    <span *ngIf="!student.Authorizations || student.Authorizations.length === 0"
+        >Aún no tienes autorizaciones para mostrar.</span
+    >
+
+    <div class="flex gap-3 mb-3 justify-end">
+        <div *ngIf="isPermitted([Permissions.STUDENT.AUTHORIZATION.CREATE])" class="flex-0 pt-6">
+            <div class="mb-3">
+                <button (click)="addAuthorization()" pButton pRipple type="button">
+                    <i class="fa-sharp fa-solid fa-plus me-2"></i> Añadir autorización
+                </button>
+            </div>
+        </div>
+    </div>
+</ng-container>
+
+<p-dialog header="Autorización" [modal]="true" [(visible)]="showAddAuthorization" [style]="{ width: '60%' }">
+    <div *ngIf="newAuthorization.User" class="mb-3 font-bold">
+        Creado por: {{ newAuthorization.User?.name }} {{ newAuthorization.User?.surname }}
+    </div>
+    <div class="mb-3">
+        <label htmlFor="name">Descripción</label>
+        <input
+            class="w-full"
+            id="name"
+            type="text"
+            pInputText
+            [(ngModel)]="newAuthorization.name"
+            placeholder="Descripción"
+            [maxlength]="500"
+        />
+    </div>
+    <div class="flex gap-3 mb-3">
+        <div class="flex-1 flex items-center gap-3">
+            <label class="flex-0">Fecha solicitud</label>
+            <div class="flex-1">
+                <p-datepicker
+                    class="w-full"
+                    id="date"
+                    [(ngModel)]="newAuthorization.date"
+                    dateFormat="dd/mm/yy"
+                    [showTime]="true"
+                    placeholder="Fecha"
+                ></p-datepicker>
+            </div>
+        </div>
+        <div class="flex-1 flex items-center gap-3">
+            <label class="flex-0">Desde </label>
+            <div class="flex-1">
+                <p-datepicker
+                    class="w-full"
+                    id="date"
+                    [(ngModel)]="newAuthorization.from"
+                    dateFormat="dd/mm/yy"
+                    [showTime]="true"
+                    placeholder="Desde"
+                ></p-datepicker>
+            </div>
+        </div>
+        <div class="flex-1 flex items-center gap-3">
+            <label class="flex-0">Hasta </label>
+            <div class="flex-1">
+                <p-datepicker
+                    class="w-full"
+                    id="date"
+                    [(ngModel)]="newAuthorization.to"
+                    dateFormat="dd/mm/yy"
+                    [showTime]="true"
+                    placeholder="Hasta"
+                ></p-datepicker>
+            </div>
+        </div>
+        <div class="flex-1">
+            <label>Aprobada</label>
+            <p-select
+                [options]="comboYesNo"
+                [(ngModel)]="newAuthorization.active"
+                optionLabel="label"
+                optionValue="value"
+                appendTo="body"
+                [filter]="false"
+                [virtualScroll]="false"
+                [style]="{ width: '100%' }"
+                [placeholder]="'Activo'"
+            >
+            </p-select>
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label>Contenido</label>
+        <p-editor [(ngModel)]="newAuthorization.content" [style]="{ height: '200px' }" />
+    </div>
+
+    <div class="mb-3">
+        <label>Notas</label>
+        <p-editor [(ngModel)]="newAuthorization.notes" [style]="{ height: '200px' }" />
+    </div>
+
+    <div class="flex justify-between gap-2 mt-10">
+        <button (click)="showAddAuthorization = false" pButton pRipple class="p-button-outlined" type="button">
+            Cancelar
+        </button>
+        <div class="flex gap-3 justify-end items-center">
+            <button
+                *ngIf="newAuthorization.id && isPermitted([Permissions.STUDENT.AUTHORIZATION.DELETE])"
+                (click)="delAuthorization(newAuthorization)"
+                pButton
+                pRipple
+                type="button"
+                icon="pi pi-trash"
+                class="p-button-rounded p-button-danger p-button-outlined"
+            ></button>
+            <p-button
+                *ngIf="isPermitted([Permissions.STUDENT.AUTHORIZATION.EDIT, Permissions.STUDENT.AUTHORIZATION.CREATE])"
+                label="Guardar"
+                [disabled]="saving"
+                severity="primary"
+                (click)="saveAuthorization()"
+            />
+        </div>
+    </div>
+</p-dialog>

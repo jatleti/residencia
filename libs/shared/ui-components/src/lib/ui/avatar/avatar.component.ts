@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Endpoints, User } from '@workspace/shared/util-core';
+import { Endpoints, Student, User } from '@workspace/shared/util-core';
 
 @Component({
     selector: 'components-avatar',
@@ -21,11 +21,27 @@ import { Endpoints, User } from '@workspace/shared/util-core';
                 </div>
             </ng-template>
         </ng-container>
+        <ng-container *ngIf="student">
+            <div
+                *ngIf="student.photo && student.photo !== ''; else noPhoto"
+                class="flex items-center w-[35px] h-[35px] rounded-full overflow-hidden"
+            >
+                <img src="{{ student.photo }}" class="w-[35px]" />
+            </div>
+            <ng-template #noPhoto>
+                <div
+                    class="flex items-center rounded-full w-[35px] h-[35px] font-bold justify-center text-white bg-[var(--color-500)]"
+                >
+                    {{ initials }}
+                </div>
+            </ng-template>
+        </ng-container>
     `,
     styles: [],
 })
 export class AvatarComponent implements OnInit {
     @Input() user!: User;
+    @Input() student!: Student;
 
     bgColor = '';
     initials = '';
@@ -35,6 +51,10 @@ export class AvatarComponent implements OnInit {
     ngOnInit() {
         if (this.user) {
             this.initials = this.getInitials(this.user);
+            this.bgColor = this.stringToColorCode(this.initials);
+        }
+        if (this.student) {
+            this.initials = this.getInitials(this.student);
             this.bgColor = this.stringToColorCode(this.initials);
         }
     }
@@ -52,7 +72,7 @@ export class AvatarComponent implements OnInit {
         return 'hsl(' + h + ', 65%, 60%)';
     }
 
-    getInitials(person: User): string {
+    getInitials(person: User | Student): string {
         let initials = '';
         if (person.name) {
             initials += person.name.charAt(0);

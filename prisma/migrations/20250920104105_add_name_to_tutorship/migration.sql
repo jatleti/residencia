@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE `NT_TutorShipsTUS` ADD COLUMN `name` VARCHAR(500) NULL;

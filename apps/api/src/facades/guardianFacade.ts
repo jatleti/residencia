@@ -32,7 +32,11 @@ export class GuardianFacade {
 
         return this.prisma.guardian.findUnique({
             where: { id: id },
-            include: { Students: true },
+            include: {
+                Students: {
+                    where: { deleted_at: null },
+                },
+            },
         });
     }
 

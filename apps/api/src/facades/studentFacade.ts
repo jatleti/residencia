@@ -26,7 +26,14 @@ export class StudentFacade {
     }
 
     public async list(): Promise<Student[]> {
-        return this.prisma.student.findMany({ where: { deleted_at: null } });
+        const students = this.prisma.student.findMany({ where: { deleted_at: null } });
+        for (const student of await students) {
+            if (student.photo) {
+                student.photo = await getSignedUrlBucket(student.photo);
+            }
+        }
+
+        return students;
     }
 
     public async get(id: string): Promise<Student | null> {
@@ -39,6 +46,45 @@ export class StudentFacade {
 
         const student = await this.prisma.student.findUnique({
             where: { id: id },
+            include: {
+                Invoices: {
+                    where: { deleted_at: null },
+                    include: {
+                        User: true,
+                        Student: {
+                            select: { id: true, name: true, surname: true },
+                        },
+                    },
+                    orderBy: { date: 'desc' },
+                },
+                Guardians: {
+                    where: { deleted_at: null },
+                    orderBy: { name: 'asc' },
+                },
+                Tutorships: {
+                    where: { deleted_at: null },
+                    include: { User: true },
+                    orderBy: { date: 'desc' },
+                },
+                Authorizations: {
+                    where: { deleted_at: null },
+                    include: { User: true },
+                    orderBy: { date: 'desc' },
+                },
+                Sanctions: {
+                    where: { deleted_at: null },
+                    include: { User: true },
+                    orderBy: { date: 'desc' },
+                },
+                Users: {
+                    where: { deleted_at: null },
+                    orderBy: { name: 'asc' },
+                },
+                Attendances: {
+                    where: { deleted_at: null },
+                    orderBy: { date: 'desc' },
+                },
+            },
         });
 
         if (student && student.photo) {
@@ -140,6 +186,94 @@ export class StudentFacade {
             throw <CustomResponse>{
                 status: 500,
                 message: 'Error deleting student ' + e,
+            };
+        }
+    }
+
+    public async connectGuardian(studentId: string, guardianId: string): Promise<Student> {
+        if (!studentId) {
+            throw <CustomResponse>{
+                status: 500,
+                message: 'Student not found',
+            };
+        }
+        if (!guardianId) {
+            throw <CustomResponse>{
+                status: 500,
+                message: 'Guardian not found',
+            };
+        }
+
+        const student = await this.prisma.student.findUnique({ where: { id: studentId } });
+        if (!student) {
+            throw <CustomResponse>{
+                status: 404,
+                message: 'Student not found',
+            };
+        }
+
+        const guardian = await this.prisma.guardian.findUnique({ where: { id: guardianId } });
+        if (!guardian) {
+            throw <CustomResponse>{
+                status: 404,
+                message: 'Guardian not found',
+            };
+        }
+
+        try {
+            await this.prisma.student.update({
+                where: { id: studentId },
+                data: { Guardians: { connect: { id: guardianId } } },
+            });
+            return this.get(studentId);
+        } catch (e) {
+            throw <CustomResponse>{
+                status: 500,
+                message: 'Error connecting guardian to student ' + e,
+            };
+        }
+    }
+
+    public async disconnectGuardian(studentId: string, guardianId: string): Promise<Student> {
+        if (!studentId) {
+            throw <CustomResponse>{
+                status: 500,
+                message: 'Student not found',
+            };
+        }
+        if (!guardianId) {
+            throw <CustomResponse>{
+                status: 500,
+                message: 'Guardian not found',
+            };
+        }
+
+        const student = await this.prisma.student.findUnique({ where: { id: studentId } });
+        if (!student) {
+            throw <CustomResponse>{
+                status: 404,
+                message: 'Student not found',
+            };
+        }
+
+        const guardian = await this.prisma.guardian.findUnique({ where: { id: guardianId } });
+        if (!guardian) {
+            throw <CustomResponse>{
+                status: 404,
+                message: 'Guardian not found',
+            };
+        }
+
+        try {
+            await this.prisma.student.update({
+                where: { id: studentId },
+                data: { Guardians: { disconnect: { id: guardianId } } },
+            });
+            return this.get(studentId);
+        } catch (e) {
+            throw <CustomResponse>{
+                status: 500,
+                message: 'Error disconnecting guardian from student ' + e,
             };
         }
     }

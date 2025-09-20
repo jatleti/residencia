@@ -37,6 +37,7 @@ export class TutorshipFacade {
 
     public async add(tutorship: Tutorship): Promise<TutorshipWithPayload> {
         try {
+            tutorship.userId = this.body.userSession.userId;
             const t = await this.prisma.tutorship.create({ data: tutorship });
             if (t) {
                 return this.get(t.id);

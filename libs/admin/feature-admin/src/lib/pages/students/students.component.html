@@ -1,0 +1,58 @@
+<div class="p-2 md:p-8">
+    <p-card>
+        <components-h1 class="mb-5 block text-primary-500 text-center md:text-start">Alumnos</components-h1>
+        <div class="flex">
+            <div class="flex-grow pr-5">
+                <input pInputText class="w-full" [(ngModel)]="filter" type="text" placeholder="Filtrar" />
+            </div>
+            <div *ngIf="isPermitted([Permissions.STUDENT.CREATE])" class="flex-grow-0">
+                <div class="mb-3">
+                    <button (click)="add()" pButton pRipple type="button">
+                        <i class="fa-sharp fa-solid fa-plus me-2"></i> Añadir
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <ng-container *ngLet="list$ | async as items">
+            <p-table
+                #dt1
+                [value]="items | dataFilter: filter"
+                styleClass="p-datatable-sm"
+                [paginator]="true"
+                [rows]="50"
+                [showCurrentPageReport]="true"
+                currentPageReportTemplate="Viendo {first} a {last} de {totalRecords} items"
+                [rowsPerPageOptions]="[20, 50]"
+                [globalFilterFields]="['name']"
+            >
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th></th>
+                        <th>Nombre</th>
+                        <th>Apellidos</th>
+                        <th>Email</th>
+                        <th class="!text-center">Activo</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-item>
+                    <ng-container>
+                        <tr (click)="get(item.id)" class="cursor-pointer">
+                            <td>
+                                <components-avatar [student]="item"></components-avatar>
+                            </td>
+                            <td>{{ item.name }}</td>
+                            <td>{{ item.surname }}</td>
+                            <td>{{ item.email }}</td>
+                            <td class="!text-center">
+                                <components-status-active [status]="item.active"></components-status-active>
+                            </td>
+                        </tr>
+                    </ng-container>
+                </ng-template>
+            </p-table>
+
+            <span *ngIf="items.length === 0 && !loading$">Aún no tienes items para mostrar.</span>
+        </ng-container>
+    </p-card>
+</div>

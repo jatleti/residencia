@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE `NT_InvoicesINV` ADD COLUMN `date` DATETIME(3) NULL;

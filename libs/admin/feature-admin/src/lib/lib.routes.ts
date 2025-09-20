@@ -7,6 +7,12 @@ import { LayoutComponent } from './layout/layout.component';
 import { RolesComponent } from './pages/settings/roles/roles.component';
 import { RoleComponent } from './pages/settings/role/role.component';
 import { SettingsComponent } from './pages/settings/settings.component';
+import { StudentsComponent } from './pages/students/students.component';
+import { StudentComponent } from './pages/students/student/student.component';
+import { GuardiansComponent } from './pages/guardians/guardians.component';
+import { GuardianComponent } from './pages/guardians/guardian/guardian.component';
+import { InvoicesComponent } from './pages/invoices/invoices.component';
+import { InvoiceComponent } from './pages/invoices/invoice/invoice.component';
 
 export const noutlyFeatureAdminRoutes: Route[] = [
     {
@@ -23,7 +29,54 @@ export const noutlyFeatureAdminRoutes: Route[] = [
                     expectedPermission: [Permissions.DASHBOARD.VIEW],
                 },
             },
-
+            {
+                path: 'students',
+                component: StudentsComponent,
+                canActivate: [PermissionGuardService],
+                data: {
+                    expectedPermission: [Permissions.STUDENT.VIEW],
+                },
+            },
+            {
+                path: 'students/:id_student',
+                component: StudentComponent,
+                canActivate: [PermissionGuardService],
+                data: {
+                    expectedPermission: [Permissions.STUDENT.VIEW],
+                },
+            },
+            {
+                path: 'guardians',
+                component: GuardiansComponent,
+                canActivate: [PermissionGuardService],
+                data: {
+                    expectedPermission: [Permissions.GUARDIAN.VIEW],
+                },
+            },
+            {
+                path: 'guardians/:id_guardian',
+                component: GuardianComponent,
+                canActivate: [PermissionGuardService],
+                data: {
+                    expectedPermission: [Permissions.GUARDIAN.VIEW],
+                },
+            },
+            {
+                path: 'invoices',
+                component: InvoicesComponent,
+                canActivate: [PermissionGuardService],
+                data: {
+                    expectedPermission: [Permissions.INVOICE.VIEW],
+                },
+            },
+            {
+                path: 'invoices/:id_invoice',
+                component: InvoiceComponent,
+                canActivate: [PermissionGuardService],
+                data: {
+                    expectedPermission: [Permissions.INVOICE.VIEW],
+                },
+            },
             {
                 path: 'settings',
                 component: SettingsComponent,

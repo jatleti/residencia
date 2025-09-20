@@ -100,7 +100,7 @@ export class UserComponent extends PermissionsComponent implements OnInit {
                 this.messageService.add({
                     severity: 'error',
                     summary: 'Error',
-                    detail: 'Faltan datos importantes por rellenar',
+                    detail: 'Faltan datos importantes por rellenar ' + field,
                 });
                 error = true;
                 return;
@@ -118,7 +118,7 @@ export class UserComponent extends PermissionsComponent implements OnInit {
                 this.messageService.add({
                     severity: 'error',
                     summary: 'Error',
-                    detail: 'Faltan datos importantes por rellenar',
+                    detail: 'Faltan datos importantes por rellenar ' + field,
                 });
                 error = true;
                 return;

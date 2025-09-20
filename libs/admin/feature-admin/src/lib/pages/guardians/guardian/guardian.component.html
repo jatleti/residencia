@@ -1,0 +1,107 @@
+<div class="p-2 md:p-8 mx-auto w-full max-w-[1000px]">
+    <p-card class="mb-5 block">
+        <components-h1 class="mb-5 block text-primary-500 text-center md:text-start"
+            >{{ item.name || 'Nuevo padre' }} {{ item.surname }}</components-h1
+        >
+
+        <div class="mb-3">
+            <label htmlFor="name">Nombre</label>
+            <input class="w-full" id="name" type="text" pInputText [(ngModel)]="item.name" placeholder="Nombre" />
+        </div>
+        <div class="mb-3">
+            <label htmlFor="surname">Apellidos</label>
+            <input
+                class="w-full"
+                id="surname"
+                type="text"
+                pInputText
+                [(ngModel)]="item.surname"
+                placeholder="Apellidos"
+            />
+        </div>
+        <div class="mb-3">
+            <label htmlFor="email">Email</label>
+            <input
+                class="w-full"
+                id="email"
+                type="email"
+                required
+                pInputText
+                [(ngModel)]="item.email"
+                placeholder="Email"
+            />
+        </div>
+        <!-- <div class="mb-3">
+            <label htmlFor="email">Contraseña (Rellenar para cambiar)</label>
+            <input
+                class="w-full"
+                id="password"
+                type="password"
+                required
+                pInputText
+                [(ngModel)]="item.password"
+                placeholder="Contraseña"
+            />
+        </div> -->
+
+        <div class="mb-3">
+            <label>Activo</label>
+            <p-select
+                [options]="comboYesNo"
+                [(ngModel)]="item.active"
+                optionLabel="label"
+                optionValue="value"
+                appendTo="body"
+                [filter]="false"
+                [virtualScroll]="false"
+                [style]="{ width: '100%' }"
+                [placeholder]="'Activo'"
+            >
+            </p-select>
+        </div>
+
+        <components-model-buttons
+            [showDelete]="!!item.id && isPermitted([Permissions.GUARDIAN.DELETE])"
+            [showAdd]="!item.id && isPermitted([Permissions.GUARDIAN.CREATE])"
+            [showSave]="!!item.id && isPermitted([Permissions.GUARDIAN.EDIT])"
+            (clickBack)="back()"
+            (clickAdd)="add()"
+            (clickDelete)="del()"
+            (clickSave)="save()"
+        ></components-model-buttons>
+    </p-card>
+
+    <p-card *ngIf="item.id" class="mb-5 block">
+        <span class="mb-5 block text-primary-500 text-center md:text-start text-2xl font-bold"
+            >Alumnos relacionados</span
+        >
+        <p-table
+            #dt1
+            [value]="item.Students || []"
+            styleClass="p-datatable-sm"
+            [paginator]="false"
+            [rows]="50"
+            [showCurrentPageReport]="true"
+            currentPageReportTemplate="Viendo {first} a {last} de {totalRecords} items"
+            [rowsPerPageOptions]="[20, 50]"
+            [globalFilterFields]="['name']"
+        >
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Nombre</th>
+                    <th>Apellidos</th>
+                    <th>Email</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item>
+                <ng-container>
+                    <tr (click)="getStudent(item.id)" class="cursor-pointer">
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.surname }}</td>
+                        <td>{{ item.email }}</td>
+                    </tr>
+                </ng-container>
+            </ng-template>
+        </p-table>
+    </p-card>
+</div>

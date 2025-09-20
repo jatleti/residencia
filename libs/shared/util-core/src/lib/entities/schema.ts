@@ -160,12 +160,13 @@ export interface Tutorship {
   deleted_at: Date | null;
   active: number;
   date: Date | null;
+  name: string | null;
   content: string | null;
   notes: string | null;
-  userId: string;
-  User: User;
-  studentId: string;
-  Student: Student;
+  userId: string | null;
+  User: User | null;
+  studentId: string | null;
+  Student: Student | null;
 }
 
 export interface Authorization {
@@ -174,15 +175,16 @@ export interface Authorization {
   updated_at: Date;
   deleted_at: Date | null;
   active: number;
+  name: string | null;
   date: Date | null;
   from: Date | null;
   to: Date | null;
   content: string | null;
   notes: string | null;
-  userId: string;
-  User: User;
-  studentId: string;
-  Student: Student;
+  userId: string | null;
+  User: User | null;
+  studentId: string | null;
+  Student: Student | null;
 }
 
 export interface Sanction {
@@ -195,15 +197,17 @@ export interface Sanction {
   deleted_at: Date | null;
   active: number;
   date: Date | null;
-  studentId: string;
-  Student: Student;
-  userId: string;
-  User: User;
+  name: string | null;
+  studentId: string | null;
+  Student: Student | null;
+  userId: string | null;
+  User: User | null;
 }
 
 export interface Invoice {
   id: string;
   code: string;
+  date: Date | null;
   description: string | null;
   amount: number;
   status: number;
@@ -211,10 +215,10 @@ export interface Invoice {
   updated_at: Date;
   deleted_at: Date | null;
   active: number;
-  studentId: string;
-  Student: Student;
-  userId: string;
-  User: User;
+  studentId: string | null;
+  Student: Student | null;
+  userId: string | null;
+  User: User | null;
 }
 
 export interface Attendance {
@@ -228,6 +232,6 @@ export interface Attendance {
   updated_at: Date;
   deleted_at: Date | null;
   active: number;
-  studentId: string;
-  Student: Student;
+  studentId: string | null;
+  Student: Student | null;
 }

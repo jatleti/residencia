@@ -73,4 +73,34 @@ export class StudentController {
                 res.status(e.status || 500).json({ error: e });
             });
     };
+
+    public connectGuardian = async (req: Request, res: Response) => {
+        const facade = new StudentFacade(res.locals.prisma, req.body);
+        const studentId: string = req.params.id;
+        const guardianId: string = req.body.guardianId;
+        facade
+            .connectGuardian(studentId, guardianId)
+            .then((result) => {
+                res.status(200).json(result);
+            })
+            .catch((e) => {
+                console.error('e', e);
+                res.status(e.status || 500).json({ error: e });
+            });
+    };
+
+    public disconnectGuardian = async (req: Request, res: Response) => {
+        const facade = new StudentFacade(res.locals.prisma, req.body);
+        const studentId: string = req.params.id;
+        const guardianId: string = req.body.guardianId;
+        facade
+            .disconnectGuardian(studentId, guardianId)
+            .then((result) => {
+                res.status(200).json(result);
+            })
+            .catch((e) => {
+                console.error('e', e);
+                res.status(e.status || 500).json({ error: e });
+            });
+    };
 }

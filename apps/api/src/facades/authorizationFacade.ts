@@ -18,7 +18,10 @@ export class AuthorizationFacade {
     }
 
     public async list(): Promise<Authorization[]> {
-        return this.prisma.authorization.findMany({ where: { deleted_at: null } });
+        return this.prisma.authorization.findMany({
+            where: { deleted_at: null },
+            include: { User: true, Student: true },
+        });
     }
 
     public async get(id: string): Promise<AuthorizationWithPayload | null> {
@@ -37,6 +40,7 @@ export class AuthorizationFacade {
 
     public async add(authorization: Authorization): Promise<AuthorizationWithPayload> {
         try {
+            authorization.userId = this.body.userSession.userId;
             const a = await this.prisma.authorization.create({ data: authorization });
             if (a) {
                 return this.get(a.id);

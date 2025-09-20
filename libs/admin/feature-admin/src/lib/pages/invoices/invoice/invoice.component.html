@@ -1,0 +1,58 @@
+<div class="p-2 md:p-8">
+    <p-card class="mb-5 block">
+        <components-h1 class="mb-5 block text-primary-500 text-center md:text-start"
+            >{{ item.code || 'Nuevo recibo' }}
+        </components-h1>
+
+        <div class="mb-3">
+            <label htmlFor="name">Código</label>
+            <input class="w-full" id="name" type="text" pInputText [(ngModel)]="item.code" placeholder="Código" />
+        </div>
+        <div class="mb-3 flex gap-3 items-center">
+            <label htmlFor="amount" class="flex-0">Importe</label>
+            <div>
+                <p-inputnumber [(ngModel)]="item.amount" id="amount" mode="currency" currency="EUR" />
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label>Alumno</label>
+            <p-select
+                [options]="students"
+                [(ngModel)]="item.studentId"
+                optionValue="id"
+                appendTo="body"
+                [filter]="true"
+                [filterFields]="['name', 'surname', 'code', 'email']"
+                [virtualScroll]="true"
+                [virtualScrollItemSize]="34"
+                [style]="{ width: '100%' }"
+                [placeholder]="'Alumno'"
+                [showClear]="true"
+            >
+                <ng-template let-student pTemplate="item">
+                    <div class="flex items-center gap-2">
+                        <span>{{ student.name }} {{ student.surname }}</span>
+                        <small class="text-xs text-gray-500">{{ student.email }}</small>
+                    </div>
+                </ng-template>
+                <ng-template let-item pTemplate="selectedItem">
+                    <div class="flex items-center gap-2">
+                        <span>{{ item.name }} {{ item.surname }}</span>
+                        <small class="text-xs text-gray-500">{{ item.email }}</small>
+                    </div>
+                </ng-template>
+            </p-select>
+        </div>
+
+        <components-model-buttons
+            [showDelete]="!!item.id && isPermitted([Permissions.INVOICE.DELETE])"
+            [showAdd]="!item.id && isPermitted([Permissions.INVOICE.CREATE])"
+            [showSave]="!!item.id && isPermitted([Permissions.INVOICE.EDIT])"
+            (clickBack)="back()"
+            (clickAdd)="add()"
+            (clickDelete)="del()"
+            (clickSave)="save()"
+        ></components-model-buttons>
+    </p-card>
+</div>

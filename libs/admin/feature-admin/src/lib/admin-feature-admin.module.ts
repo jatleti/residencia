@@ -10,6 +10,7 @@ import {
     MenuComponent,
     ModelButtonsComponent,
     StatusActiveComponent,
+    AvatarComponent,
 } from '@workspace/shared/ui-components';
 import { UsersComponent } from './pages/users/users.component';
 import { CardModule } from 'primeng/card';
@@ -32,6 +33,22 @@ import { RippleModule } from 'primeng/ripple';
 import { EditorModule } from 'primeng/editor';
 import { FileUploadModule } from 'primeng/fileupload';
 import { SelectModule } from 'primeng/select';
+import { StudentsComponent } from './pages/students/students.component';
+import { StudentComponent } from './pages/students/student/student.component';
+import { TabsModule } from 'primeng/tabs';
+import { DatePickerModule } from 'primeng/datepicker';
+import { GuardiansComponent } from './pages/guardians/guardians.component';
+import { GuardianComponent } from './pages/guardians/guardian/guardian.component';
+import { InvoicesComponent } from './pages/invoices/invoices.component';
+import { InvoiceComponent } from './pages/invoices/invoice/invoice.component';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { StudentInvoicesComponent } from './pages/students/student/student-invoices/student-invoices.component';
+import { StudentGuardiansComponent } from './pages/students/student/student-guardians/student-guardians.component';
+import { StudentTutorshipsComponent } from './pages/students/student/student-tutorships/student-tutorships.component';
+import { StudentAttendancesComponent } from './pages/students/student/student-attendances/student-attendances.component';
+import { StudentSanctionsComponent } from './pages/students/student/student-sanctions/student-sanctions.component';
+import { DialogModule } from 'primeng/dialog';
+import { StudentAuthorizationsComponent } from './pages/students/student/student-authorizations/student-authorizations.component';
 
 @NgModule({
     imports: [
@@ -57,6 +74,11 @@ import { SelectModule } from 'primeng/select';
         FileUploadModule,
         SelectModule,
         StatusActiveComponent,
+        TabsModule,
+        AvatarComponent,
+        DatePickerModule,
+        InputNumberModule,
+        DialogModule,
     ],
     declarations: [
         AdminComponent,
@@ -67,6 +89,18 @@ import { SelectModule } from 'primeng/select';
         RolesComponent,
         SettingsComponent,
         RoleComponent,
+        StudentsComponent,
+        StudentComponent,
+        GuardiansComponent,
+        GuardianComponent,
+        InvoicesComponent,
+        InvoiceComponent,
+        StudentInvoicesComponent,
+        StudentGuardiansComponent,
+        StudentTutorshipsComponent,
+        StudentAttendancesComponent,
+        StudentSanctionsComponent,
+        StudentAuthorizationsComponent,
     ],
     exports: [AdminComponent],
 })

@@ -122,13 +122,9 @@ app.use('/v1/user', userRouter);
 app.use('/v1/role', roleRouter);
 app.use('/v1/rolePermission', rolePermissionRouter);
 app.use('/v1/userPermission', userPermissionRouter);
-app.use('/v1/attendance', attendanceRouter);
-app.use('/v1/authorization', authorizationRouter);
 app.use('/v1/guardian', guardianRouter);
-app.use('/v1/invoice', invoiceRouter);
-app.use('/v1/sanction', sanctionRouter);
 app.use('/v1/student', studentRouter);
-app.use('/v1/tutorship', tutorshipRouter);
+app.use('/v1/invoice', invoiceRouter);
 
 const port = process.env.PORT || 3333;
 const server = app.listen(port, () => {

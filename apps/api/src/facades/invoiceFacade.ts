@@ -18,7 +18,7 @@ export class InvoiceFacade {
     }
 
     public async list(): Promise<Invoice[]> {
-        return this.prisma.invoice.findMany({ where: { deleted_at: null } });
+        return this.prisma.invoice.findMany({ where: { deleted_at: null }, include: { User: true, Student: true } });
     }
 
     public async get(id: string): Promise<InvoiceWithPayload | null> {
@@ -37,6 +37,7 @@ export class InvoiceFacade {
 
     public async add(invoice: Invoice): Promise<InvoiceWithPayload> {
         try {
+            invoice.userId = this.body.userSession.userId;
             const i = await this.prisma.invoice.create({ data: invoice });
             if (i) {
                 return this.get(i.id);

@@ -18,7 +18,7 @@ export class SanctionFacade {
     }
 
     public async list(): Promise<Sanction[]> {
-        return this.prisma.sanction.findMany({ where: { deleted_at: null } });
+        return this.prisma.sanction.findMany({ where: { deleted_at: null }, include: { User: true, Student: true } });
     }
 
     public async get(id: string): Promise<SanctionWithPayload | null> {
@@ -37,6 +37,7 @@ export class SanctionFacade {
 
     public async add(sanction: Sanction): Promise<SanctionWithPayload> {
         try {
+            sanction.userId = this.body.userSession.userId;
             const s = await this.prisma.sanction.create({ data: sanction });
             if (s) {
                 return this.get(s.id);
