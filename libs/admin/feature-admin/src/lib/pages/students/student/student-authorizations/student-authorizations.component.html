@@ -57,7 +57,7 @@
 
 <p-dialog header="Autorización" [modal]="true" [(visible)]="showAddAuthorization" [style]="{ width: '60%' }">
     <div *ngIf="newAuthorization.User" class="mb-3 font-bold">
-        Creado por: {{ newAuthorization.User?.name }} {{ newAuthorization.User?.surname }}
+        Creado por: {{ newAuthorization.User.name }} {{ newAuthorization.User.surname }}
     </div>
     <div class="mb-3">
         <label htmlFor="name">Descripción</label>

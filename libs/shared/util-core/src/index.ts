@@ -26,6 +26,7 @@ export * from './lib/interceptors/auth.interceptor';
 export * from './lib/infrastructure/endpoints';
 export * from './lib/infrastructure/permissions';
 export * from './lib/infrastructure/comboValues';
+export * from './lib/infrastructure/attendaceTypes';
 
 export * from './lib/pipes/data-filter.pipe';
 

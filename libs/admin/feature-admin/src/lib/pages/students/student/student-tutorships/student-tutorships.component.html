@@ -43,7 +43,7 @@
 
 <p-dialog header="Tutoría" [modal]="true" [(visible)]="showAddTutorship" [style]="{ width: '60%' }">
     <div *ngIf="newTutorship.User" class="mb-3 font-bold">
-        Creado por: {{ newTutorship.User?.name }} {{ newTutorship.User?.surname }}
+        Creado por: {{ newTutorship.User.name }} {{ newTutorship.User.surname }}
     </div>
     <div class="mb-3">
         <label htmlFor="name">Descripción</label>

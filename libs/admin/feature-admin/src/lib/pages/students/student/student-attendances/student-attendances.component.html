@@ -1,1 +1,127 @@
-<p>student-attendances works!</p>
+<ng-container *ngIf="student">
+    <p-table
+        #dt1
+        [value]="student.Attendances || []"
+        styleClass="p-datatable-sm"
+        [paginator]="false"
+        [rows]="50"
+        [showCurrentPageReport]="true"
+        currentPageReportTemplate="Viendo {first} a {last} de {totalRecords} items"
+        [rowsPerPageOptions]="[20, 50]"
+        [globalFilterFields]="['date']"
+    >
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Desde</th>
+                <th>Hasta</th>
+                <th>Tipo</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-item>
+            <tr (click)="editAttendance(item)" class="cursor-pointer">
+                <td>{{ item.from | date: 'dd/MM/yyyy HH:mm' }}</td>
+                <td>{{ item.to | date: 'dd/MM/yyyy HH:mm' }}</td>
+                <td>{{ getType(item) }}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+    <span *ngIf="!student.Attendances || student.Attendances.length === 0">
+        Aún no tienes asistencias para mostrar.
+    </span>
+
+    <div class="flex gap-3 mb-3 justify-end">
+        <div *ngIf="isPermitted([Permissions.STUDENT.ATTENDANCE.CREATE])" class="flex-0 pt-6">
+            <div class="mb-3">
+                <button (click)="addAttendance()" pButton pRipple type="button">
+                    <i class="fa-sharp fa-solid fa-plus me-2"></i> Añadir asistencia
+                </button>
+            </div>
+        </div>
+    </div>
+</ng-container>
+
+<p-dialog header="Asistencia" [modal]="true" [(visible)]="showAddAttendance" [style]="{ width: '60%' }">
+    <!-- <div class="mb-3 flex items-center gap-3">
+        <label class="flex-0">Fecha</label>
+        <div class="flex-1">
+            <p-datepicker
+                class="w-full"
+                id="date"
+                [(ngModel)]="newAttendance.date"
+                dateFormat="dd/mm/yy"
+                [showTime]="true"
+                placeholder="Fecha"
+            ></p-datepicker>
+        </div>
+    </div> -->
+
+    <div class="flex gap-3 mb-3">
+        <div class="flex-1 flex items-center gap-3">
+            <label class="flex-0">Desde </label>
+            <div class="flex-1">
+                <p-datepicker
+                    class="w-full"
+                    id="date"
+                    [(ngModel)]="newAttendance.from"
+                    dateFormat="dd/mm/yy"
+                    [showTime]="true"
+                    appendTo="body"
+                    placeholder="Desde"
+                ></p-datepicker>
+            </div>
+        </div>
+        <div class="flex-1 flex items-center gap-3">
+            <label class="flex-0">Hasta </label>
+            <div class="flex-1">
+                <p-datepicker
+                    class="w-full"
+                    id="date"
+                    [(ngModel)]="newAttendance.to"
+                    dateFormat="dd/mm/yy"
+                    [showTime]="true"
+                    appendTo="body"
+                    placeholder="Hasta"
+                ></p-datepicker>
+            </div>
+        </div>
+        <div class="flex-1">
+            <label>Tipo</label>
+            <p-select
+                [options]="attendanceTypes"
+                [(ngModel)]="newAttendance.type"
+                optionLabel="label"
+                optionValue="value"
+                appendTo="body"
+                [filter]="false"
+                [virtualScroll]="false"
+                [style]="{ width: '100%' }"
+                [placeholder]="'Tipo'"
+            ></p-select>
+        </div>
+    </div>
+
+    <div class="flex justify-between gap-2 mt-10">
+        <button (click)="showAddAttendance = false" pButton pRipple class="p-button-outlined" type="button">
+            Cancelar
+        </button>
+        <div class="flex gap-3 justify-end items-center">
+            <button
+                *ngIf="newAttendance.id && isPermitted([Permissions.STUDENT.ATTENDANCE.DELETE])"
+                (click)="delAttendance(newAttendance)"
+                pButton
+                pRipple
+                type="button"
+                icon="pi pi-trash"
+                class="p-button-rounded p-button-danger p-button-outlined"
+            ></button>
+            <p-button
+                *ngIf="isPermitted([Permissions.STUDENT.ATTENDANCE.EDIT, Permissions.STUDENT.ATTENDANCE.CREATE])"
+                label="Guardar"
+                [disabled]="saving"
+                severity="primary"
+                (click)="saveAttendance()"
+            />
+        </div>
+    </div>
+</p-dialog>

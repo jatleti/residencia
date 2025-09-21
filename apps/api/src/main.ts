@@ -125,6 +125,7 @@ app.use('/v1/userPermission', userPermissionRouter);
 app.use('/v1/guardian', guardianRouter);
 app.use('/v1/student', studentRouter);
 app.use('/v1/invoice', invoiceRouter);
+app.use('/v1/attendance', attendanceRouter);
 
 const port = process.env.PORT || 3333;
 const server = app.listen(port, () => {

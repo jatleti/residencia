@@ -49,6 +49,7 @@ import { StudentAttendancesComponent } from './pages/students/student/student-at
 import { StudentSanctionsComponent } from './pages/students/student/student-sanctions/student-sanctions.component';
 import { DialogModule } from 'primeng/dialog';
 import { StudentAuthorizationsComponent } from './pages/students/student/student-authorizations/student-authorizations.component';
+import { StudentsStatusComponent } from './pages/students-status/students-status.component';
 
 @NgModule({
     imports: [
@@ -101,6 +102,7 @@ import { StudentAuthorizationsComponent } from './pages/students/student/student
         StudentAttendancesComponent,
         StudentSanctionsComponent,
         StudentAuthorizationsComponent,
+        StudentsStatusComponent,
     ],
     exports: [AdminComponent],
 })

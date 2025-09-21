@@ -335,6 +335,9 @@
                             <p-tabpanel [value]="6">
                                 <admin-student-sanctions *ngIf="item.id" [student]="item"></admin-student-sanctions>
                             </p-tabpanel>
+                            <p-tabpanel [value]="3">
+                                <admin-student-attendances *ngIf="item.id" [student]="item"></admin-student-attendances>
+                            </p-tabpanel>
                         </p-tabpanels>
                     </p-tabs>
                 </div>

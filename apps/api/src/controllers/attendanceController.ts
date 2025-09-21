@@ -15,6 +15,30 @@ export class AttendanceController {
             });
     };
 
+    public listAllStudents = async (req: Request, res: Response) => {
+        const facade = new AttendanceFacade(res.locals.prisma, req.body);
+        facade
+            .listAllStudents()
+            .then((result) => {
+                res.status(200).json(result);
+            })
+            .catch((e) => {
+                res.status(e.status || 500).json({ error: e });
+            });
+    };
+
+    public listAllStudentsDinner = async (req: Request, res: Response) => {
+        const facade = new AttendanceFacade(res.locals.prisma, req.body);
+        facade
+            .listAllStudentsDinner()
+            .then((result) => {
+                res.status(200).json(result);
+            })
+            .catch((e) => {
+                res.status(e.status || 500).json({ error: e });
+            });
+    };
+
     public get = async (req: Request, res: Response) => {
         const facade = new AttendanceFacade(res.locals.prisma, req.body);
         const id = req.params.id;

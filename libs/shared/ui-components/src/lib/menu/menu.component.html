@@ -41,6 +41,17 @@
             <span *ngIf="style === 'big'">Inicio</span>
         </a>
     </li>
+    <li *ngIf="isPermitted([permissions.STUDENT.LIST])">
+        <a
+            class="icon"
+            [routerLink]="baseUrl + '/students-status'"
+            [routerLinkActive]="'active'"
+            pTooltip="Asistencias"
+        >
+            <i class="fa-sharp fa-solid fa-timer"></i>
+            <span>Asistencias</span>
+        </a>
+    </li>
 
     <li *ngIf="isPermitted([permissions.STUDENT.VIEW])">
         <a class="icon" [routerLink]="baseUrl + '/students'" [routerLinkActive]="'active'" pTooltip="Alumnos">

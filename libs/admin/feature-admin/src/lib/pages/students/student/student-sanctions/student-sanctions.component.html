@@ -41,7 +41,7 @@
 
 <p-dialog header="Sanción" [modal]="true" [(visible)]="showAddSanction" [style]="{ width: '60%' }">
     <div *ngIf="newSanction.User" class="mb-3 font-bold">
-        Creado por: {{ newSanction.User?.name }} {{ newSanction.User?.surname }}
+        Creado por: {{ newSanction.User.name }} {{ newSanction.User.surname }}
     </div>
     <div class="mb-3">
         <label htmlFor="name">Descripción</label>

@@ -30,6 +30,14 @@ export class StudentDataService {
         return this.http.delete<CustomResponse>(Endpoints.API + '/student/' + student.id);
     }
 
+    listAllStudents(): Observable<Student[]> {
+        return this.http.get<Student[]>(Endpoints.API + '/attendance/listAllStudents');
+    }
+
+    listAllStudentsDinner(): Observable<Student[]> {
+        return this.http.get<Student[]>(Endpoints.API + '/attendance/listAllStudentsDinner');
+    }
+
     connectGuardian(studentId: string, guardianId: string): Observable<Student> {
         return this.http.post<Student>(`${Endpoints.API}/student/${studentId}/connectGuardian`, { guardianId });
     }

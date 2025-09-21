@@ -13,6 +13,7 @@ import { GuardiansComponent } from './pages/guardians/guardians.component';
 import { GuardianComponent } from './pages/guardians/guardian/guardian.component';
 import { InvoicesComponent } from './pages/invoices/invoices.component';
 import { InvoiceComponent } from './pages/invoices/invoice/invoice.component';
+import { StudentsStatusComponent } from './pages/students-status/students-status.component';
 
 export const noutlyFeatureAdminRoutes: Route[] = [
     {
@@ -27,6 +28,14 @@ export const noutlyFeatureAdminRoutes: Route[] = [
                 canActivate: [PermissionGuardService],
                 data: {
                     expectedPermission: [Permissions.DASHBOARD.VIEW],
+                },
+            },
+            {
+                path: 'students-status',
+                component: StudentsStatusComponent,
+                canActivate: [PermissionGuardService],
+                data: {
+                    expectedPermission: [Permissions.STUDENT.LIST],
                 },
             },
             {

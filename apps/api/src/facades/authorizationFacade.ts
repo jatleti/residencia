@@ -1,4 +1,4 @@
-import { Prisma, PrismaClient, Authorization } from '@prisma/client';
+import { Prisma, PrismaClient, Authorization, Student } from '@prisma/client';
 import { CustomResponse } from '../entities/customresponse';
 
 export type AuthorizationWithPayload = Prisma.AuthorizationGetPayload<{

@@ -193,5 +193,13 @@ export class StudentFacade {
 
     async delAttendance(studentId: string, attendanceId: string): Promise<any> {
         return await firstValueFrom(this.studentDataService.delAttendance(studentId, attendanceId));
-    }
+	}
+	
+	async listAllStudents(): Promise<Student[]> {
+		return await firstValueFrom(this.studentDataService.listAllStudents());
+	}
+
+	async listAllStudentsDinner(): Promise<Student[]> {
+		return await firstValueFrom(this.studentDataService.listAllStudentsDinner());
+	}
 }

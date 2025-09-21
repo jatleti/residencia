@@ -8,6 +8,12 @@ const attendanceRouter = express.Router();
 
 // base URL: /attendance
 attendanceRouter
+    .get('/listAllStudents', checkPermissions([Permissions.STUDENT.LIST]), attendanceController.listAllStudents)
+    .get(
+        '/listAllStudentsDinner',
+        checkPermissions([Permissions.STUDENT.LIST]),
+        attendanceController.listAllStudentsDinner,
+    )
     .get('', checkPermissions([Permissions.STUDENT.ATTENDANCE.LIST]), attendanceController.list)
     .get('/:id', checkPermissions([Permissions.STUDENT.ATTENDANCE.VIEW]), attendanceController.get)
     .post('', checkPermissions([Permissions.STUDENT.ATTENDANCE.CREATE]), attendanceController.add)
