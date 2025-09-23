@@ -1,12 +1,12 @@
 export class Endpoints {
     static API_DEV = 'http://localhost:3030/v1';
-    static API_PROD = 'https://api.noutly.com/v1';
+    static API_PROD = 'https://api.promanager360.com/v1';
 
     static DOMAIN_DEV = '.localhost';
-    static DOMAIN_PROD = '.noutly.com';
+    static DOMAIN_PROD = '.promanager360.com';
 
     static PUBLIC_API_DEV = 'http://localhost:3030';
-    static PUBLIC_API_PROD = 'https://api.noutly.com';
+    static PUBLIC_API_PROD = 'https://api.promanager360.com';
 
     public static get API(): string {
         if (window.location.origin.includes('localhost')) {

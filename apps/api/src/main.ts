@@ -90,13 +90,15 @@ app.use((req, res, next) => {
         name = '.env.faker';
     }
 
+    name = '.env'; // FORZAMOS A USAR ESTE TENANT
+
     res.locals.prisma = multiTenant.get(name);
     res.locals.referer = req.headers.referer;
     next();
 });
 
 app.get('/', async function (req, res) {
-    res.send('🔥 Noutly v0.0.1!');
+    res.send('🔥 Residencia v0.0.1!');
 });
 
 app.use('/v1/apikeytoken', apikeytokenRouter);
