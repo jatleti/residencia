@@ -1,6 +1,7 @@
 import { Prisma, PrismaClient, Attendance, Student } from '@prisma/client';
 import { CustomResponse } from '../entities/customresponse';
 import { getSignedUrlBucket } from '../factories/functions.factory';
+import { at } from 'lodash';
 
 export type AttendanceWithPayload = Prisma.AttendanceGetPayload<{
     include: {
@@ -86,6 +87,63 @@ export class AttendanceFacade {
                 status: 500,
                 message: 'Error creating attendance',
             };
+        }
+    }
+
+    public async addForStudent(code: string, attendance: Attendance): Promise<AttendanceWithPayload> {
+        if (!code) {
+            throw <CustomResponse>{
+                status: 500,
+                message: 'Student ID is required',
+            };
+        }
+
+        // buscamos el studente
+        const student = await this.prisma.student.findFirst({ where: { code: code } });
+        if (!student) {
+            throw <CustomResponse>{
+                status: 404,
+                message: 'Alumno no encontrado',
+            };
+        }
+
+        // asignamos el studentId al attendance
+        attendance.studentId = student.id;
+
+        // miramos si el student tiene un attendance abierto (sin to) con ese type
+        if (attendance.type !== undefined && attendance.type !== null) {
+            const openAttendance = await this.prisma.attendance.findFirst({
+                where: {
+                    studentId: student.id,
+                    type: attendance.type,
+                    to: null,
+                    deleted_at: null,
+                },
+            });
+            if (openAttendance) {
+                // si tiene un attendance abierto, lo cerramos
+                await this.prisma.attendance.update({
+                    where: { id: openAttendance.id },
+                    data: {
+                        to: new Date(),
+                    },
+                });
+                return this.get(openAttendance.id);
+            } else {
+                attendance.date = new Date();
+                try {
+                    const a = await this.prisma.attendance.create({ data: attendance });
+                    if (a) {
+                        return this.get(a.id);
+                    }
+                } catch (e) {
+                    console.error('e', e);
+                    throw <CustomResponse>{
+                        status: 500,
+                        message: 'Error creating attendance',
+                    };
+                }
+            }
         }
     }
 

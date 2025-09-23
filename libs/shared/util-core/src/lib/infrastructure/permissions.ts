@@ -58,6 +58,9 @@ export const Permissions = {
         DELETE: 'student:invoice:delete',
         CREATE: 'student:invoice:create',
     },
+    KIOSK: {
+        VIEW: 'kiosk:view',
+    },
     SETTINGS: {
         VIEW: 'settings:view',
         EDIT: 'settings:edit',
@@ -108,4 +111,5 @@ export const PermissionsES = [
     { label: 'SANCTION', value: 'Sanciones' },
     { label: 'AUTHORIZATION', value: 'Autorizaciones' },
     { label: 'ATTENDANCE', value: 'Asistencias' },
+    { label: 'KIOSK', value: 'Puesto de control' },
 ];

@@ -14,6 +14,7 @@ import { GuardianComponent } from './pages/guardians/guardian/guardian.component
 import { InvoicesComponent } from './pages/invoices/invoices.component';
 import { InvoiceComponent } from './pages/invoices/invoice/invoice.component';
 import { StudentsStatusComponent } from './pages/students-status/students-status.component';
+import { KioskComponent } from './pages/kiosk/kiosk.component';
 
 export const noutlyFeatureAdminRoutes: Route[] = [
     {
@@ -28,6 +29,15 @@ export const noutlyFeatureAdminRoutes: Route[] = [
                 canActivate: [PermissionGuardService],
                 data: {
                     expectedPermission: [Permissions.DASHBOARD.VIEW],
+                },
+            },
+            {
+                path: 'kiosk',
+                pathMatch: 'full',
+                component: KioskComponent,
+                canActivate: [PermissionGuardService],
+                data: {
+                    expectedPermission: [Permissions.KIOSK.VIEW],
                 },
             },
             {

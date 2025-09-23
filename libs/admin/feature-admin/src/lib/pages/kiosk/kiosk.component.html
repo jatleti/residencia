@@ -1,0 +1,72 @@
+<div class="p-2 md:p-8 mx-auto max-w-5xl w-full">
+    <p-card>
+        <div class="flex">
+            <div class="flex-1 pr-5">
+                <div class="mb-3">
+                    <label htmlFor="name">Código</label>
+                    <input
+                        class="w-full"
+                        id="code"
+                        #codeInput
+                        type="text"
+                        pInputText
+                        [(ngModel)]="code"
+                        placeholder="Código"
+                        (keydown.enter)="add()"
+                    />
+                </div>
+            </div>
+            <div *ngIf="isPermitted([Permissions.USER.CREATE])" class="flex-0 pt-6">
+                <div class="mb-3">
+                    <button (click)="add()" pButton pRipple type="button">
+                        <i class="fa-sharp fa-solid fa-plus me-2"></i> Fichar
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex gap-8 items-center">
+            <div class="flex-1">
+                <div
+                    class="text-center bg-gray-200 rounded-md p-8 border-green-500 cursor-pointer"
+                    (click)="setType(0)"
+                    [class.border-4]="type === 0"
+                >
+                    <div class="text-4xl text-primary-500 font-bold">Residencia</div>
+                </div>
+            </div>
+            <div class="flex-1">
+                <div
+                    class="text-center bg-gray-200 rounded-md p-8 border-green-500 cursor-pointer"
+                    (click)="setType(1)"
+                    [class.border-4]="type === 1"
+                >
+                    <div class="text-4xl text-primary-500 font-bold">Comedor</div>
+                </div>
+            </div>
+        </div>
+    </p-card>
+    <div
+        class="bg-green-50 border-green-200 text-green-500 font-bold text-center mt-5 p-8 text-2xl rounded-md"
+        *ngIf="showSuccess"
+    >
+        <ng-container *ngIf="attendance && attendance.to">
+            Salida registrada correctamente
+            <ng-container *ngIf="attendance.Student">
+                <br />{{ attendance.Student.name }} {{ attendance.Student.surname }} ({{ attendance.Student.code }})
+            </ng-container>
+        </ng-container>
+        <ng-container *ngIf="attendance && !attendance.to">
+            Entrada registrada correctamente
+            <ng-container *ngIf="attendance.Student">
+                <br />{{ attendance.Student.name }} {{ attendance.Student.surname }} ({{ attendance.Student.code }})
+            </ng-container>
+        </ng-container>
+    </div>
+    <div
+        class="bg-red-50 border-red-200 text-red-500 font-bold text-center mt-5 p-8 text-2xl rounded-md"
+        *ngIf="showError"
+    >
+        No se ha podido registrar la asistencia
+    </div>
+</div>

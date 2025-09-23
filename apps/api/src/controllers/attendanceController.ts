@@ -69,6 +69,21 @@ export class AttendanceController {
             });
     };
 
+    public addForStudent = async (req: Request, res: Response) => {
+        const facade = new AttendanceFacade(res.locals.prisma, req.body);
+        const attendance: Attendance = req.body.data.attendance;
+        const code: string = req.params.code;
+        facade
+            .addForStudent(code, attendance)
+            .then((result) => {
+                res.status(200).json(result);
+            })
+            .catch((e) => {
+                console.error('e', e);
+                res.status(e.status || 500).json({ error: e });
+            });
+    };
+
     public set = async (req: Request, res: Response) => {
         const facade = new AttendanceFacade(res.locals.prisma, req.body);
         const attendance: AttendanceWithPayload = req.body.data;

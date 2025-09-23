@@ -58,6 +58,9 @@ export const Permissions = {
         DELETE: 'student:invoice:delete',
         CREATE: 'student:invoice:create',
     },
+    KIOSK: {
+        VIEW: 'kiosk:view',
+    },
     SETTINGS: {
         VIEW: 'settings:view',
         EDIT: 'settings:edit',
