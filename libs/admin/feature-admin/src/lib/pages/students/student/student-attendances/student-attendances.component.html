@@ -63,6 +63,7 @@
                 <p-datepicker
                     class="w-full"
                     id="date"
+                    [firstDayOfWeek]="1"
                     [(ngModel)]="newAttendance.from"
                     dateFormat="dd/mm/yy"
                     [showTime]="true"
@@ -77,6 +78,7 @@
                 <p-datepicker
                     class="w-full"
                     id="date"
+                    [firstDayOfWeek]="1"
                     [(ngModel)]="newAttendance.to"
                     dateFormat="dd/mm/yy"
                     [showTime]="true"

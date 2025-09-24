@@ -39,11 +39,16 @@ export class StudentComponent extends PermissionsComponent implements OnInit {
     loading$: Observable<boolean> = this.facade.loadingSubject$;
     loading = false;
 
-    requiredFields: string[] = ['name'];
+    requiredFields: string[] = ['name', 'email'];
 
     comboYesNo = ComboValues.YES_NO;
 
     API_UPLOAD_URL = Endpoints.API + '/storage/upload/file';
+
+    blocks = ComboValues.BLOCKS;
+    rooms = ComboValues.ROOM;
+    floors = ComboValues.FLOOR;
+    beds = ComboValues.BED;
 
     signedPhoto = '';
 

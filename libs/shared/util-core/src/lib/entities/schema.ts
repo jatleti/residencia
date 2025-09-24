@@ -125,6 +125,10 @@ export interface Student {
   zip: string | null;
   phone: string | null;
   mobile: string | null;
+  block: string | null;
+  floor: string | null;
+  room: string | null;
+  bed: string | null;
   Guardians: Guardian[] | null;
   Tutorships: Tutorship[] | null;
   Authorizations: Authorization[] | null;

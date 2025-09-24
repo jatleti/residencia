@@ -63,6 +63,7 @@
             <p-datepicker
                 class="w-full"
                 id="birthdate"
+                [firstDayOfWeek]="1"
                 [(ngModel)]="newTutorship.date"
                 dateFormat="dd/mm/yy"
                 [showTime]="true"

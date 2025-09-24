@@ -1,7 +1,9 @@
 <div class="p-2 md:p-8">
     <p-card>
         <div class="flex gap-3 mb-3 justify-between w-full p-5 px-8">
-            <components-h1 class="mb-5 block text-primary-500 text-center md:text-start">Asistencias</components-h1>
+            <components-h1 class="mb-5 block text-primary-500 text-center md:text-start"
+                >Usuarios en el centro</components-h1
+            >
             <div *ngIf="isPermitted([Permissions.STUDENT.LIST])" class="flex-0 pt-6">
                 <div class="mb-3">
                     <button (click)="init()" pButton pRipple type="button">
@@ -12,7 +14,7 @@
         </div>
         <div class="flex gap-8 items-cente p-8">
             <div class="flex-1 w-full mx-auto max-w-[1000px] shadow-sm rounded-md p-8">
-                <div class="text-3xl font-bold text-primary-500 mb-8">Usuarios en el centro</div>
+                <!-- <div class="text-3xl font-bold text-primary-500 mb-8">Usuarios en el centro</div> -->
                 <div class="grid grid-cols-4 gap-4">
                     <div *ngFor="let student of studentsCenter" class="text-center font-bold text-xl">
                         <div
@@ -32,7 +34,7 @@
                     </div>
                 </div>
             </div>
-            <div class="flex-1 w-full mx-auto max-w-[1000px] shadow-sm rounded-md p-8">
+            <!-- <div class="flex-1 w-full mx-auto max-w-[1000px] shadow-sm rounded-md p-8">
                 <div class="text-3xl font-bold text-primary-500 mb-8">Comedor</div>
                 <div class="grid grid-cols-4 gap-4">
                     <div *ngFor="let student of studentDinner" class="text-center font-bold text-xl">
@@ -52,7 +54,7 @@
                         {{ student.name }} {{ student.surname }}
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
     </p-card>
 </div>

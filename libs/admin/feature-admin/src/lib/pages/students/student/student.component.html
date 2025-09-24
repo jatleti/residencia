@@ -124,6 +124,50 @@
                                         />
                                     </div>
                                 </div>
+                                <div class="flex gap-3 mb-3">
+                                    <div class="flex-1">
+                                        <label htmlFor="ingressed">Bloque</label>
+                                        <p-select
+                                            [options]="blocks"
+                                            [(ngModel)]="item.block"
+                                            optionLabel="label"
+                                            optionValue="value"
+                                            appendTo="body"
+                                            [filter]="false"
+                                            [virtualScroll]="false"
+                                            [style]="{ width: '100%' }"
+                                            [placeholder]="'Bloque'"
+                                        ></p-select>
+                                    </div>
+                                    <div class="flex-1">
+                                        <label htmlFor="ingressed">Habitación</label>
+                                        <p-select
+                                            [options]="rooms"
+                                            [(ngModel)]="item.room"
+                                            optionLabel="label"
+                                            optionValue="value"
+                                            appendTo="body"
+                                            [filter]="false"
+                                            [virtualScroll]="false"
+                                            [style]="{ width: '100%' }"
+                                            [placeholder]="'Habitación'"
+                                        ></p-select>
+                                    </div>
+                                    <div class="flex-1">
+                                        <label htmlFor="ingressed">Cama</label>
+                                        <p-select
+                                            [options]="beds"
+                                            [(ngModel)]="item.bed"
+                                            optionLabel="label"
+                                            optionValue="value"
+                                            appendTo="body"
+                                            [filter]="false"
+                                            [virtualScroll]="false"
+                                            [style]="{ width: '100%' }"
+                                            [placeholder]="'Cama'"
+                                        ></p-select>
+                                    </div>
+                                </div>
 
                                 <div class="flex gap-3 mb-3">
                                     <div class="flex-1">
@@ -183,6 +227,7 @@
                                             id="birthdate"
                                             [(ngModel)]="item.birthdate"
                                             dateFormat="dd/mm/yy"
+                                            [firstDayOfWeek]="1"
                                             placeholder="Fecha de nacimiento"
                                         ></p-datepicker>
                                     </div>

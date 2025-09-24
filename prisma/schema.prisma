@@ -147,6 +147,10 @@ model Student {
   zip        String?   @db.VarChar(10)
   phone      String?   @db.VarChar(20)
   mobile     String?   @db.VarChar(20)
+  block      String?   @db.VarChar(100)
+  floor      String?   @db.VarChar(100)
+  room       String?   @db.VarChar(100)
+  bed        String?   @db.VarChar(100)
 
   Guardians      Guardian[]
   Tutorships     Tutorship[]
