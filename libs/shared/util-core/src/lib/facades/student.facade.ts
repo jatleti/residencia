@@ -3,7 +3,7 @@ import { BehaviorSubject, firstValueFrom } from 'rxjs';
 import { MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
 import { StudentDataService } from '../infrastructure/student.data.service';
-import { Student, Tutorship, Sanction, Authorization, Attendance } from '../entities/schema';
+import { Student, Tutorship, Sanction, Authorization, Attendance, File } from '../entities/schema';
 import { Config } from '../config/config';
 
 @Injectable({ providedIn: 'root' })
@@ -193,13 +193,25 @@ export class StudentFacade {
 
     async delAttendance(studentId: string, attendanceId: string): Promise<any> {
         return await firstValueFrom(this.studentDataService.delAttendance(studentId, attendanceId));
-	}
-	
-	async listAllStudents(): Promise<Student[]> {
-		return await firstValueFrom(this.studentDataService.listAllStudents());
-	}
+    }
 
-	async listAllStudentsDinner(): Promise<Student[]> {
-		return await firstValueFrom(this.studentDataService.listAllStudentsDinner());
-	}
+    async listAllStudents(): Promise<Student[]> {
+        return await firstValueFrom(this.studentDataService.listAllStudents());
+    }
+
+    async listAllStudentsDinner(): Promise<Student[]> {
+        return await firstValueFrom(this.studentDataService.listAllStudentsDinner());
+    }
+
+    async addFile(id: string, file: File): Promise<File[]> {
+        return await firstValueFrom(this.studentDataService.addFile(id, file));
+    }
+
+    async getFile(id: string, fileId: string): Promise<File | null> {
+        return await firstValueFrom(this.studentDataService.getFile(id, fileId));
+    }
+
+    async delFile(id: string, fileId: string): Promise<File[]> {
+        return await firstValueFrom(this.studentDataService.delFile(id, fileId));
+    }
 }

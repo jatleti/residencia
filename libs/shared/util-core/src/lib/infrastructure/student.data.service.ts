@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Endpoints } from '../infrastructure/endpoints';
 import { CustomResponse } from '../entities/customresponse';
-import { Student, Tutorship, Sanction, Authorization, Attendance } from '../entities/schema';
+import { Student, Tutorship, Sanction, Authorization, Attendance, File } from '../entities/schema';
 
 @Injectable({ providedIn: 'root' })
 export class StudentDataService {
@@ -141,5 +141,23 @@ export class StudentDataService {
 
     delAttendance(studentId: string, attendanceId: string): Observable<CustomResponse> {
         return this.http.delete<CustomResponse>(`${Endpoints.API}/student/${studentId}/attendance/${attendanceId}`);
+    }
+
+    // files
+
+    addFile(id: string, file: File): Observable<File[]> {
+        return this.http.post<File[]>(Endpoints.API + '/student/' + id + '/fileDocuments', {
+            data: file,
+        });
+    }
+
+    getFile(id: string, fileId: string): Observable<File | null> {
+        return this.http.get<File>(`${Endpoints.API}/student/${id}/fileDocuments/${fileId}`);
+    }
+
+    delFile(id: string, fileId: string): Observable<File[]> {
+        return this.http.request<File[]>('delete', Endpoints.API + '/student/' + id + '/fileDocuments/' + fileId, {
+            body: {},
+        });
     }
 }

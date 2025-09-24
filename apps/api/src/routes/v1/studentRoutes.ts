@@ -96,4 +96,14 @@ studentRouter
         attendanceController.del,
     );
 
+// base URL: /student/:studentId/fileDocuments
+studentRouter
+    .post('/:studentId/fileDocuments', checkPermissions([Permissions.STUDENT.EDIT]), studentController.addFile)
+    .get('/:studentId/fileDocuments/:fileId', checkPermissions([Permissions.STUDENT.EDIT]), studentController.getFile)
+    .delete(
+        '/:studentId/fileDocuments/:fileId',
+        checkPermissions([Permissions.STUDENT.EDIT]),
+        studentController.delFile,
+    );
+
 export { studentRouter };

@@ -49,6 +49,15 @@
                             ></p-fileUpload>
                         </ng-template>
                     </div>
+                    <div class="mx-auto flex justify-center">
+                        <qrcode
+                            *ngIf="item.code"
+                            [qrdata]="item.code"
+                            [width]="180"
+                            [errorCorrectionLevel]="'H'"
+                            [margin]="1"
+                        ></qrcode>
+                    </div>
                 </div>
                 <div class="flex-1">
                     <p-tabs [(value)]="tabIndex">
@@ -67,6 +76,9 @@
                             >
                             <p-tab [value]="4" class="flex gap-2 items-center"
                                 ><i class="fa fa-solid fa-badge-check"></i>Autorizaciones</p-tab
+                            >
+                            <p-tab [value]="7" class="flex gap-2 items-center"
+                                ><i class="fa fa-solid fa-file"></i>Documentos</p-tab
                             >
                             <p-tab [value]="5" class="flex gap-2 items-center"
                                 ><i class="fa fa-solid fa-money-bill"></i>Recibos</p-tab
@@ -337,6 +349,9 @@
                             </p-tabpanel>
                             <p-tabpanel [value]="3">
                                 <admin-student-attendances *ngIf="item.id" [student]="item"></admin-student-attendances>
+                            </p-tabpanel>
+                            <p-tabpanel [value]="7">
+                                <admin-student-files *ngIf="item.id" [student]="item"></admin-student-files>
                             </p-tabpanel>
                         </p-tabpanels>
                     </p-tabs>

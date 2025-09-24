@@ -33,7 +33,7 @@ export function checkPermissions(requiredPermission: string[]) {
     };
 }
 
-export async function getSignedUrlBucket(key: string): Promise<string> {
+export async function getSignedUrlBucket(key: string, expiredTimeSeconds = -1): Promise<string> {
     if (process.env.S3_DEFAULT_PERMISSIONS === 'public-read') {
         return key;
     }
@@ -49,8 +49,13 @@ export async function getSignedUrlBucket(key: string): Promise<string> {
 
     const objectName = key.split('https://' + process.env.S3_BUCKET_URL + '/')[1];
 
+    let expiresIn = Number(process.env.S3_SIGNED_URL_EXPIRES_IN);
+    if (expiredTimeSeconds > 0) {
+        expiresIn = expiredTimeSeconds;
+    }
+
     return await getSignedUrl(S3, new GetObjectCommand({ Bucket: process.env.S3_BUCKET, Key: objectName }), {
-        expiresIn: Number(process.env.S3_SIGNED_URL_EXPIRES_IN),
+        expiresIn,
     });
 }
 

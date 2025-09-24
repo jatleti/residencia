@@ -103,4 +103,46 @@ export class StudentController {
                 res.status(e.status || 500).json({ error: e });
             });
     };
+
+    public addFile = async (req: Request, res: Response) => {
+        const facade = new StudentFacade(res.locals.prisma, req.body);
+        const studentId = req.params.studentId;
+        const data: any = req.body.data;
+        facade
+            .addFile(studentId, data)
+            .then((result) => {
+                res.status(200).json(result);
+            })
+            .catch((e) => {
+                res.status(e.status | e.status).json({ error: e });
+            });
+    };
+
+    public getFile = async (req: Request, res: Response) => {
+        const facade = new StudentFacade(res.locals.prisma, req.body);
+        const studentId = req.params.studentId;
+        const fileId = req.params.fileId;
+        facade
+            .getFile(studentId, fileId)
+            .then((result) => {
+                res.status(200).json(result);
+            })
+            .catch((e) => {
+                res.status(e.status | e.status).json({ error: e });
+            });
+    };
+
+    public delFile = async (req: Request, res: Response) => {
+        const facade = new StudentFacade(res.locals.prisma, req.body);
+        const studentId = req.params.studentId;
+        const fileId = req.params.fileId;
+        facade
+            .delFile(studentId, fileId)
+            .then((result) => {
+                res.status(200).json(result);
+            })
+            .catch((e) => {
+                res.status(e.status | e.status).json({ error: e });
+            });
+    };
 }

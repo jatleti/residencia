@@ -38,6 +38,7 @@ export interface User {
   Sanctions: Sanction[] | null;
   Invoices: Invoice[] | null;
   Students: Student[] | null;
+  Files: File[] | null;
 }
 
 export interface UserSession {
@@ -131,6 +132,7 @@ export interface Student {
   Invoices: Invoice[] | null;
   Users: User[] | null;
   Attendances: Attendance[] | null;
+  Files: File[] | null;
 }
 
 export interface Guardian {
@@ -232,6 +234,22 @@ export interface Attendance {
   updated_at: Date;
   deleted_at: Date | null;
   active: number;
+  studentId: string | null;
+  Student: Student | null;
+}
+
+export interface File {
+  id: string;
+  name: string | null;
+  description: string | null;
+  created_at: Date;
+  updated_at: Date;
+  deleted_at: Date | null;
+  active: number;
+  type: number | null;
+  url: string | null;
+  userId: string | null;
+  User: User | null;
   studentId: string | null;
   Student: Student | null;
 }

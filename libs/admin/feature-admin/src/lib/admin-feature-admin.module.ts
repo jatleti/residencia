@@ -51,6 +51,8 @@ import { DialogModule } from 'primeng/dialog';
 import { StudentAuthorizationsComponent } from './pages/students/student/student-authorizations/student-authorizations.component';
 import { StudentsStatusComponent } from './pages/students-status/students-status.component';
 import { KioskComponent } from './pages/kiosk/kiosk.component';
+import { StudentFilesComponent } from './pages/students/student/student-files/student-files.component';
+import { QRCodeComponent } from 'angularx-qrcode';
 
 @NgModule({
     imports: [
@@ -81,6 +83,7 @@ import { KioskComponent } from './pages/kiosk/kiosk.component';
         DatePickerModule,
         InputNumberModule,
         DialogModule,
+        QRCodeComponent,
     ],
     declarations: [
         AdminComponent,
@@ -105,6 +108,7 @@ import { KioskComponent } from './pages/kiosk/kiosk.component';
         StudentAuthorizationsComponent,
         StudentsStatusComponent,
         KioskComponent,
+        StudentFilesComponent,
     ],
     exports: [AdminComponent],
 })

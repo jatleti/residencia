@@ -1,4 +1,4 @@
-import { Prisma, PrismaClient, Student } from '@prisma/client';
+import { Prisma, PrismaClient, Student, File } from '@prisma/client';
 
 import bcrypt from 'bcryptjs';
 import { getSignedUrlBucket, isSignedUrlBucket } from '../factories/functions.factory';
@@ -13,6 +13,7 @@ export type StudentWithPayload = Prisma.StudentGetPayload<{
         Invoices: true;
         Users: true;
         Attendances: true;
+        Files: true;
     };
 }>;
 
@@ -84,6 +85,15 @@ export class StudentFacade {
                     where: { deleted_at: null },
                     orderBy: { from: 'desc' },
                 },
+                Files: {
+                    where: { deleted_at: null },
+                    include: {
+                        User: {
+                            select: { id: true, name: true, surname: true },
+                        },
+                    },
+                    orderBy: { created_at: 'desc' },
+                },
             },
         });
 
@@ -131,6 +141,7 @@ export class StudentFacade {
         delete student.Invoices;
         delete student.Users;
         delete student.Attendances;
+        delete student.Files;
 
         if (!id) {
             throw <CustomResponse>{
@@ -274,6 +285,84 @@ export class StudentFacade {
             throw <CustomResponse>{
                 status: 500,
                 message: 'Error disconnecting guardian from student ' + e,
+            };
+        }
+    }
+
+    public async addFile(studentId: string, file: File): Promise<File[]> {
+        file.studentId = studentId;
+        file.userId = this.body.userSession.userId;
+
+        try {
+            await this.prisma.file.create({ data: file });
+            return this.prisma.file.findMany({ where: { studentId, deleted_at: null } });
+        } catch (e) {
+            console.error('e', e);
+            throw <CustomResponse>{
+                status: 500,
+                message: 'Error creating File',
+            };
+        }
+    }
+
+    public async getFile(studentId: string, id: string): Promise<File | null> {
+        if (!studentId || !id) {
+            throw <CustomResponse>{
+                status: 500,
+                message: 'student ID or File ID not provided',
+            };
+        }
+
+        const file = await this.prisma.file.findUnique({ where: { id, studentId } });
+        if (file) {
+            file.url = await getSignedUrlBucket(file.url, 30);
+        }
+        return file;
+    }
+
+    public async delFile(studentId: string, id: string): Promise<File[]> {
+        if (!studentId) {
+            throw <CustomResponse>{
+                status: 500,
+                message: 'Student not found',
+            };
+        }
+        if (!id) {
+            throw <CustomResponse>{
+                status: 500,
+                message: 'File not found',
+            };
+        }
+        const file = await this.prisma.file.findUnique({
+            where: { id: id, studentId },
+            include: {
+                User: {
+                    select: { id: true, name: true, surname: true },
+                },
+            },
+        });
+        if (!file) {
+            throw <CustomResponse>{
+                status: 404,
+                message: 'File not found',
+            };
+        }
+
+        try {
+            await this.prisma.file.delete({ where: { id: id, studentId } });
+            return this.prisma.file.findMany({
+                where: { studentId, deleted_at: null },
+                include: {
+                    User: {
+                        select: { id: true, name: true, surname: true },
+                    },
+                },
+            });
+        } catch (e) {
+            console.error('e', e);
+            throw <CustomResponse>{
+                status: 500,
+                message: 'Error deleting File',
             };
         }
     }

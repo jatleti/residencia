@@ -48,6 +48,7 @@ model User {
   Sanctions       Sanction[]
   Invoices        Invoice[]
   Students        Student[]
+  Files           File[]
 
   @@map("NT_UsersUSR")
 }
@@ -154,6 +155,7 @@ model Student {
   Invoices       Invoice[]
   Users          User[]
   Attendances    Attendance[]
+  Files          File[]
 
   @@map("NT_StudentsSTU")
 }
@@ -280,4 +282,22 @@ model Attendance {
   Student    Student?  @relation(fields: [studentId], references: [id])
 
   @@map("NT_AttendanceATT")
+}
+
+model File {
+  id          String    @id @unique @default(uuid())
+  name        String?   @db.VarChar(255)
+  description String?   @db.VarChar(255)
+  created_at  DateTime  @default(now())
+  updated_at  DateTime  @updatedAt
+  deleted_at  DateTime?
+  active      Int       @default(1)
+  type        Int?      @default(0)
+  url         String?   @db.VarChar(255)
+  userId      String?
+  User        User?     @relation(fields: [userId], references: [id])
+  studentId   String?
+  Student     Student?  @relation(fields: [studentId], references: [id])
+
+  @@map("NT_FilesFIL")
 }
