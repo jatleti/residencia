@@ -33,6 +33,8 @@
                         <th>Apellidos</th>
                         <th>Email</th>
                         <th class="!text-center">Activo</th>
+                        <th class="!text-center">Admitido</th>
+                        <th class="!text-center">Ingresado</th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-item>
@@ -46,6 +48,12 @@
                             <td>{{ item.email }}</td>
                             <td class="!text-center">
                                 <components-status-active [status]="item.active"></components-status-active>
+                            </td>
+                            <td class="!text-center">
+                                <components-status-active [status]="item.admitted"></components-status-active>
+                            </td>
+                            <td class="!text-center">
+                                <components-status-active [status]="item.ingressed"></components-status-active>
                             </td>
                         </tr>
                     </ng-container>

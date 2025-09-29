@@ -25,7 +25,7 @@ export class AttendanceFacade {
 
     public async listAllStudents(): Promise<Student[]> {
         const students = await this.prisma.student.findMany({
-            where: { deleted_at: null },
+            where: { deleted_at: null, ingressed: 1 },
             include: {
                 Attendances: {
                     where: { deleted_at: null, type: 0 }, // tipo centro
@@ -45,7 +45,7 @@ export class AttendanceFacade {
 
     public async listAllStudentsDinner(): Promise<Student[]> {
         const students = await this.prisma.student.findMany({
-            where: { deleted_at: null },
+            where: { deleted_at: null, ingressed: 1 },
             include: {
                 Attendances: {
                     where: { deleted_at: null, type: 1 }, // tipo comedor
