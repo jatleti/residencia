@@ -4,8 +4,8 @@
             >{{ item.name || 'Nuevo alumno' }} {{ item.surname }}</components-h1
         >
         <div class="p-6">
-            <div class="flex gap-8">
-                <div class="flex-0">
+            <div class="flex gap-8 w-full">
+                <div class="w-[250px]">
                     <div class="mb-3 text-center">
                         <ng-container
                             *ngIf="
@@ -60,346 +60,341 @@
                     </div>
                 </div>
                 <div class="flex-1">
-                    <p-tabs [(value)]="tabIndex">
-                        <p-tablist>
-                            <p-tab [value]="0" class="flex gap-2 items-center"
-                                ><i class="fa fa-solid fa-file-lines"></i>Datos personales</p-tab
-                            >
-                            <p-tab [value]="2" class="flex gap-2 items-center"
-                                ><i class="fa fa-solid fa-user-tie"></i>Padres</p-tab
-                            >
-                            <p-tab [value]="1" class="flex gap-2 items-center"
-                                ><i class="fa fa-solid fa-chalkboard-user"></i>Tutorías</p-tab
-                            >
-                            <p-tab [value]="3" class="flex gap-2 items-center"
-                                ><i class="fa fa-solid fa-timer"></i>Asistencias y fichajes</p-tab
-                            >
-                            <p-tab [value]="4" class="flex gap-2 items-center"
-                                ><i class="fa fa-solid fa-badge-check"></i>Autorizaciones</p-tab
-                            >
-                            <p-tab [value]="7" class="flex gap-2 items-center"
-                                ><i class="fa fa-solid fa-file"></i>Documentos</p-tab
-                            >
-                            <p-tab [value]="5" class="flex gap-2 items-center"
-                                ><i class="fa fa-solid fa-money-bill"></i>Recibos</p-tab
-                            >
-                            <p-tab [value]="6" class="flex gap-2 items-center"
-                                ><i class="fa fa-solid fa-gavel"></i>Sanciones</p-tab
-                            >
-                        </p-tablist>
-                        <p-tabpanels>
-                            <p-tabpanel [value]="0">
-                                <div class="flex gap-3 mb-3">
-                                    <div class="flex-1">
-                                        <label htmlFor="code">Código</label>
-                                        <input
-                                            class="w-full"
-                                            id="code"
-                                            type="text"
-                                            pInputText
-                                            [(ngModel)]="item.code"
-                                            placeholder="Código"
-                                        />
+                    <div class="flex-shrink-0 w-full">
+                        <p-tabs [(value)]="tabIndex" scrollable class="w-full">
+                            <p-tablist class="w-full grid">
+                                <p-tab [value]="0" class="flex gap-2 items-center"
+                                    ><i class="fa fa-solid fa-file-lines"></i>Datos personales</p-tab
+                                >
+                                <p-tab [value]="2" class="flex gap-2 items-center"
+                                    ><i class="fa fa-solid fa-user-tie"></i>Padres</p-tab
+                                >
+                                <p-tab [value]="1" class="flex gap-2 items-center"
+                                    ><i class="fa fa-solid fa-chalkboard-user"></i>Tutorías</p-tab
+                                >
+                                <p-tab [value]="3" class="flex gap-2 items-center"
+                                    ><i class="fa fa-solid fa-timer"></i>Asistencias y fichajes</p-tab
+                                >
+                                <p-tab [value]="4" class="flex gap-2 items-center"
+                                    ><i class="fa fa-solid fa-badge-check"></i>Autorizaciones</p-tab
+                                >
+                                <p-tab [value]="7" class="flex gap-2 items-center"
+                                    ><i class="fa fa-solid fa-file"></i>Documentos</p-tab
+                                >
+                                <p-tab [value]="5" class="flex gap-2 items-center"
+                                    ><i class="fa fa-solid fa-money-bill"></i>Recibos</p-tab
+                                >
+                                <p-tab [value]="6" class="flex gap-2 items-center"
+                                    ><i class="fa fa-solid fa-gavel"></i>Sanciones</p-tab
+                                >
+                            </p-tablist>
+                            <p-tabpanels>
+                                <p-tabpanel [value]="0">
+                                    <div class="flex gap-3 mb-3">
+                                        <div class="flex-1">
+                                            <label htmlFor="code">Código</label>
+                                            <input
+                                                class="w-full"
+                                                id="code"
+                                                type="text"
+                                                pInputText
+                                                [(ngModel)]="item.code"
+                                                placeholder="Código"
+                                            />
+                                        </div>
+                                        <div class="flex-1">
+                                            <label htmlFor="nif">NIF</label>
+                                            <input
+                                                class="w-full"
+                                                id="nif"
+                                                type="text"
+                                                pInputText
+                                                [(ngModel)]="item.nif"
+                                                placeholder="NIF"
+                                            />
+                                        </div>
+                                        <div class="flex-1">
+                                            <label htmlFor="nir">NIR</label>
+                                            <input
+                                                class="w-full"
+                                                id="nir"
+                                                type="text"
+                                                pInputText
+                                                [(ngModel)]="item.nir"
+                                                placeholder="NIR"
+                                            />
+                                        </div>
                                     </div>
-                                    <div class="flex-1">
-                                        <label htmlFor="nif">NIF</label>
-                                        <input
-                                            class="w-full"
-                                            id="nif"
-                                            type="text"
-                                            pInputText
-                                            [(ngModel)]="item.nif"
-                                            placeholder="NIF"
-                                        />
-                                    </div>
-                                    <div class="flex-1">
-                                        <label htmlFor="nir">NIR</label>
-                                        <input
-                                            class="w-full"
-                                            id="nir"
-                                            type="text"
-                                            pInputText
-                                            [(ngModel)]="item.nir"
-                                            placeholder="NIR"
-                                        />
-                                    </div>
-                                </div>
-                                <div class="flex gap-3 mb-3">
-                                    <div class="flex-1">
-                                        <label htmlFor="ingressed">Bloque</label>
-                                        <p-select
-                                            [options]="blocks"
-                                            [(ngModel)]="item.block"
-                                            optionLabel="label"
-                                            optionValue="value"
-                                            appendTo="body"
-                                            [filter]="false"
-                                            [virtualScroll]="false"
-                                            [style]="{ width: '100%' }"
-                                            [placeholder]="'Bloque'"
-                                        ></p-select>
-                                    </div>
-                                    <div class="flex-1">
-                                        <label htmlFor="ingressed">Habitación</label>
-                                        <p-select
-                                            [options]="rooms"
-                                            [(ngModel)]="item.room"
-                                            optionLabel="label"
-                                            optionValue="value"
-                                            appendTo="body"
-                                            [filter]="false"
-                                            [virtualScroll]="false"
-                                            [style]="{ width: '100%' }"
-                                            [placeholder]="'Habitación'"
-                                        ></p-select>
-                                    </div>
-                                    <div class="flex-1">
-                                        <label htmlFor="ingressed">Cama</label>
-                                        <p-select
-                                            [options]="beds"
-                                            [(ngModel)]="item.bed"
-                                            optionLabel="label"
-                                            optionValue="value"
-                                            appendTo="body"
-                                            [filter]="false"
-                                            [virtualScroll]="false"
-                                            [style]="{ width: '100%' }"
-                                            [placeholder]="'Cama'"
-                                        ></p-select>
-                                    </div>
-                                </div>
-
-                                <div class="flex gap-3 mb-3">
-                                    <div class="flex-1">
-                                        <label htmlFor="name">Nombre</label>
-                                        <input
-                                            class="w-full"
-                                            id="name"
-                                            type="text"
-                                            pInputText
-                                            [(ngModel)]="item.name"
-                                            placeholder="Nombre"
-                                        />
-                                    </div>
-                                    <div class="flex-1">
-                                        <label htmlFor="surname">Apellidos</label>
-                                        <input
-                                            class="w-full"
-                                            id="surname"
-                                            type="text"
-                                            pInputText
-                                            [(ngModel)]="item.surname"
-                                            placeholder="Apellidos"
-                                        />
-                                    </div>
-                                    <div class="flex-1">
-                                        <label htmlFor="email">Email</label>
-                                        <input
-                                            class="w-full"
-                                            id="email"
-                                            type="email"
-                                            required
-                                            pInputText
-                                            [(ngModel)]="item.email"
-                                            placeholder="Email"
-                                        />
-                                    </div>
-                                </div>
-
-                                <!-- <div class="mb-3">
-									<label htmlFor="email">Contraseña (Rellenar para cambiar)</label>
-									<input
-										class="w-full"
-										id="password"
-										type="password"
-										required
-										pInputText
-										[(ngModel)]="item.password"
-										placeholder="Contraseña"
-									/>
-								</div> -->
-
-                                <div class="mb-3 flex items-center gap-3">
-                                    <label class="flex-0">Fecha de nacimiento</label>
-                                    <div class="flex-1">
-                                        <p-datepicker
-                                            class="w-full"
-                                            id="birthdate"
-                                            [(ngModel)]="item.birthdate"
-                                            dateFormat="dd/mm/yy"
-                                            [firstDayOfWeek]="1"
-                                            placeholder="Fecha de nacimiento"
-                                        ></p-datepicker>
-                                    </div>
-                                </div>
-                                <div class="mb-3">
-                                    <label htmlFor="address">Dirección</label>
-                                    <input
-                                        class="w-full"
-                                        id="address"
-                                        type="text"
-                                        pInputText
-                                        [(ngModel)]="item.address"
-                                        placeholder="Dirección"
-                                    />
-                                </div>
-                                <div class="flex gap-3 mb-3">
-                                    <div class="flex-1">
-                                        <label htmlFor="city">Ciudad</label>
-                                        <input
-                                            class="w-full"
-                                            id="city"
-                                            type="text"
-                                            pInputText
-                                            [(ngModel)]="item.city"
-                                            placeholder="Ciudad"
-                                        />
-                                    </div>
-                                    <div class="flex-1">
-                                        <label htmlFor="province">Provincia</label>
-                                        <input
-                                            class="w-full"
-                                            id="province"
-                                            type="text"
-                                            pInputText
-                                            [(ngModel)]="item.province"
-                                            placeholder="Provincia"
-                                        />
-                                    </div>
-                                    <div class="flex-1">
-                                        <label htmlFor="zip">Código Postal</label>
-                                        <input
-                                            class="w-full"
-                                            id="zip"
-                                            type="text"
-                                            pInputText
-                                            [(ngModel)]="item.zip"
-                                            placeholder="Código Postal"
-                                        />
-                                    </div>
-                                </div>
-                                <div class="flex gap-3 mb-3">
-                                    <div class="flex-1">
-                                        <label htmlFor="phone">Teléfono</label>
-                                        <input
-                                            class="w-full"
-                                            id="phone"
-                                            type="text"
-                                            pInputText
-                                            [(ngModel)]="item.phone"
-                                            placeholder="Teléfono"
-                                        />
-                                    </div>
-                                    <div class="flex-1">
-                                        <label htmlFor="mobile">Móvil</label>
-                                        <input
-                                            class="w-full"
-                                            id="mobile"
-                                            type="text"
-                                            pInputText
-                                            [(ngModel)]="item.mobile"
-                                            placeholder="Móvil"
-                                        />
-                                    </div>
-                                </div>
-                                <div class="flex gap-3 mb-3">
-                                    <div class="flex-1">
-                                        <label htmlFor="admitted">Admitido</label>
-                                        <p-select
-                                            [options]="comboYesNo"
-                                            [(ngModel)]="item.admitted"
-                                            optionLabel="label"
-                                            optionValue="value"
-                                            appendTo="body"
-                                            [filter]="false"
-                                            [virtualScroll]="false"
-                                            [style]="{ width: '100%' }"
-                                            [placeholder]="'Admitido'"
-                                        ></p-select>
-                                    </div>
-                                    <div class="flex-1">
-                                        <label htmlFor="ingressed">Ingresado</label>
-                                        <p-select
-                                            [options]="comboYesNo"
-                                            [(ngModel)]="item.ingressed"
-                                            optionLabel="label"
-                                            optionValue="value"
-                                            appendTo="body"
-                                            [filter]="false"
-                                            [virtualScroll]="false"
-                                            [style]="{ width: '100%' }"
-                                            [placeholder]="'Ingresado'"
-                                        ></p-select>
-                                    </div>
-                                    <div class="flex-1">
-                                        <label htmlFor="graduated">Graduado</label>
-                                        <p-select
-                                            [options]="comboYesNo"
-                                            [(ngModel)]="item.graduated"
-                                            optionLabel="label"
-                                            optionValue="value"
-                                            appendTo="body"
-                                            [filter]="false"
-                                            [virtualScroll]="false"
-                                            [style]="{ width: '100%' }"
-                                            [placeholder]="'Graduado'"
-                                        ></p-select>
+                                    <div class="flex gap-3 mb-3">
+                                        <div class="flex-1">
+                                            <label htmlFor="ingressed">Bloque</label>
+                                            <p-select
+                                                [options]="blocks"
+                                                [(ngModel)]="item.block"
+                                                optionLabel="label"
+                                                optionValue="value"
+                                                appendTo="body"
+                                                [filter]="false"
+                                                [virtualScroll]="false"
+                                                [style]="{ width: '100%' }"
+                                                [placeholder]="'Bloque'"
+                                            ></p-select>
+                                        </div>
+                                        <div class="flex-1">
+                                            <label htmlFor="ingressed">Habitación</label>
+                                            <p-select
+                                                [options]="rooms"
+                                                [(ngModel)]="item.room"
+                                                optionLabel="label"
+                                                optionValue="value"
+                                                appendTo="body"
+                                                [filter]="false"
+                                                [virtualScroll]="false"
+                                                [style]="{ width: '100%' }"
+                                                [placeholder]="'Habitación'"
+                                            ></p-select>
+                                        </div>
+                                        <div class="flex-1">
+                                            <label htmlFor="ingressed">Cama</label>
+                                            <p-select
+                                                [options]="beds"
+                                                [(ngModel)]="item.bed"
+                                                optionLabel="label"
+                                                optionValue="value"
+                                                appendTo="body"
+                                                [filter]="false"
+                                                [virtualScroll]="false"
+                                                [style]="{ width: '100%' }"
+                                                [placeholder]="'Cama'"
+                                            ></p-select>
+                                        </div>
                                     </div>
 
-                                    <div class="flex-1">
-                                        <label>Activo</label>
-                                        <p-select
-                                            [options]="comboYesNo"
-                                            [(ngModel)]="item.active"
-                                            optionLabel="label"
-                                            optionValue="value"
-                                            appendTo="body"
-                                            [filter]="false"
-                                            [virtualScroll]="false"
-                                            [style]="{ width: '100%' }"
-                                            [placeholder]="'Activo'"
-                                        >
-                                        </p-select>
+                                    <div class="flex gap-3 mb-3">
+                                        <div class="flex-1">
+                                            <label htmlFor="name">Nombre</label>
+                                            <input
+                                                class="w-full"
+                                                id="name"
+                                                type="text"
+                                                pInputText
+                                                [(ngModel)]="item.name"
+                                                placeholder="Nombre"
+                                            />
+                                        </div>
+                                        <div class="flex-1">
+                                            <label htmlFor="surname">Apellidos</label>
+                                            <input
+                                                class="w-full"
+                                                id="surname"
+                                                type="text"
+                                                pInputText
+                                                [(ngModel)]="item.surname"
+                                                placeholder="Apellidos"
+                                            />
+                                        </div>
+                                        <div class="flex-1">
+                                            <label htmlFor="email">Email</label>
+                                            <input
+                                                class="w-full"
+                                                id="email"
+                                                type="email"
+                                                required
+                                                pInputText
+                                                [(ngModel)]="item.email"
+                                                placeholder="Email"
+                                            />
+                                        </div>
                                     </div>
-                                </div>
 
-                                <components-model-buttons
-                                    [showDelete]="!!item.id && isPermitted([Permissions.STUDENT.DELETE])"
-                                    [showAdd]="!item.id && isPermitted([Permissions.STUDENT.CREATE])"
-                                    [showSave]="!!item.id && isPermitted([Permissions.STUDENT.EDIT])"
-                                    (clickBack)="back()"
-                                    (clickAdd)="add()"
-                                    (clickDelete)="del()"
-                                    (clickSave)="save()"
-                                ></components-model-buttons>
-                            </p-tabpanel>
+                                    <div class="mb-3 flex items-center gap-3">
+                                        <label class="flex-0">Fecha de nacimiento</label>
+                                        <div class="flex-1">
+                                            <p-datepicker
+                                                class="w-full"
+                                                id="birthdate"
+                                                [(ngModel)]="item.birthdate"
+                                                dateFormat="dd/mm/yy"
+                                                [firstDayOfWeek]="1"
+                                                placeholder="Fecha de nacimiento"
+                                            ></p-datepicker>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label htmlFor="address">Dirección</label>
+                                        <input
+                                            class="w-full"
+                                            id="address"
+                                            type="text"
+                                            pInputText
+                                            [(ngModel)]="item.address"
+                                            placeholder="Dirección"
+                                        />
+                                    </div>
+                                    <div class="flex gap-3 mb-3">
+                                        <div class="flex-1">
+                                            <label htmlFor="city">Ciudad</label>
+                                            <input
+                                                class="w-full"
+                                                id="city"
+                                                type="text"
+                                                pInputText
+                                                [(ngModel)]="item.city"
+                                                placeholder="Ciudad"
+                                            />
+                                        </div>
+                                        <div class="flex-1">
+                                            <label htmlFor="province">Provincia</label>
+                                            <input
+                                                class="w-full"
+                                                id="province"
+                                                type="text"
+                                                pInputText
+                                                [(ngModel)]="item.province"
+                                                placeholder="Provincia"
+                                            />
+                                        </div>
+                                        <div class="flex-1">
+                                            <label htmlFor="zip">Código Postal</label>
+                                            <input
+                                                class="w-full"
+                                                id="zip"
+                                                type="text"
+                                                pInputText
+                                                [(ngModel)]="item.zip"
+                                                placeholder="Código Postal"
+                                            />
+                                        </div>
+                                    </div>
+                                    <div class="flex gap-3 mb-3">
+                                        <div class="flex-1">
+                                            <label htmlFor="phone">Teléfono</label>
+                                            <input
+                                                class="w-full"
+                                                id="phone"
+                                                type="text"
+                                                pInputText
+                                                [(ngModel)]="item.phone"
+                                                placeholder="Teléfono"
+                                            />
+                                        </div>
+                                        <div class="flex-1">
+                                            <label htmlFor="mobile">Móvil</label>
+                                            <input
+                                                class="w-full"
+                                                id="mobile"
+                                                type="text"
+                                                pInputText
+                                                [(ngModel)]="item.mobile"
+                                                placeholder="Móvil"
+                                            />
+                                        </div>
+                                    </div>
+                                    <div class="flex gap-3 mb-3">
+                                        <div class="flex-1">
+                                            <label htmlFor="admitted">Admitido</label>
+                                            <p-select
+                                                [options]="comboYesNo"
+                                                [(ngModel)]="item.admitted"
+                                                optionLabel="label"
+                                                optionValue="value"
+                                                appendTo="body"
+                                                [filter]="false"
+                                                [virtualScroll]="false"
+                                                [style]="{ width: '100%' }"
+                                                [placeholder]="'Admitido'"
+                                            ></p-select>
+                                        </div>
+                                        <div class="flex-1">
+                                            <label htmlFor="ingressed">Ingresado</label>
+                                            <p-select
+                                                [options]="comboYesNo"
+                                                [(ngModel)]="item.ingressed"
+                                                optionLabel="label"
+                                                optionValue="value"
+                                                appendTo="body"
+                                                [filter]="false"
+                                                [virtualScroll]="false"
+                                                [style]="{ width: '100%' }"
+                                                [placeholder]="'Ingresado'"
+                                            ></p-select>
+                                        </div>
+                                        <div class="flex-1">
+                                            <label htmlFor="graduated">Graduado</label>
+                                            <p-select
+                                                [options]="comboYesNo"
+                                                [(ngModel)]="item.graduated"
+                                                optionLabel="label"
+                                                optionValue="value"
+                                                appendTo="body"
+                                                [filter]="false"
+                                                [virtualScroll]="false"
+                                                [style]="{ width: '100%' }"
+                                                [placeholder]="'Graduado'"
+                                            ></p-select>
+                                        </div>
 
-                            <p-tabpanel [value]="2">
-                                <admin-student-guardians *ngIf="item.id" [student]="item"></admin-student-guardians>
-                            </p-tabpanel>
-                            <p-tabpanel [value]="1">
-                                <admin-student-tutorships *ngIf="item.id" [student]="item"></admin-student-tutorships>
-                            </p-tabpanel>
-                            <p-tabpanel [value]="4">
-                                <admin-student-authorizations
-                                    *ngIf="item.id"
-                                    [student]="item"
-                                ></admin-student-authorizations>
-                            </p-tabpanel>
-                            <p-tabpanel [value]="5">
-                                <admin-student-invoices *ngIf="item.id" [student]="item"></admin-student-invoices>
-                            </p-tabpanel>
-                            <p-tabpanel [value]="6">
-                                <admin-student-sanctions *ngIf="item.id" [student]="item"></admin-student-sanctions>
-                            </p-tabpanel>
-                            <p-tabpanel [value]="3">
-                                <admin-student-attendances *ngIf="item.id" [student]="item"></admin-student-attendances>
-                            </p-tabpanel>
-                            <p-tabpanel [value]="7">
-                                <admin-student-files *ngIf="item.id" [student]="item"></admin-student-files>
-                            </p-tabpanel>
-                        </p-tabpanels>
-                    </p-tabs>
+                                        <div class="flex-1">
+                                            <label>Activo</label>
+                                            <p-select
+                                                [options]="comboYesNo"
+                                                [(ngModel)]="item.active"
+                                                optionLabel="label"
+                                                optionValue="value"
+                                                appendTo="body"
+                                                [filter]="false"
+                                                [virtualScroll]="false"
+                                                [style]="{ width: '100%' }"
+                                                [placeholder]="'Activo'"
+                                            >
+                                            </p-select>
+                                        </div>
+                                    </div>
+
+                                    <components-model-buttons
+                                        [showDelete]="!!item.id && isPermitted([Permissions.STUDENT.DELETE])"
+                                        [showAdd]="!item.id && isPermitted([Permissions.STUDENT.CREATE])"
+                                        [showSave]="!!item.id && isPermitted([Permissions.STUDENT.EDIT])"
+                                        (clickBack)="back()"
+                                        (clickAdd)="add()"
+                                        (clickDelete)="del()"
+                                        (clickSave)="save()"
+                                    ></components-model-buttons>
+                                </p-tabpanel>
+
+                                <p-tabpanel [value]="2">
+                                    <admin-student-guardians *ngIf="item.id" [student]="item"></admin-student-guardians>
+                                </p-tabpanel>
+                                <p-tabpanel [value]="1">
+                                    <admin-student-tutorships
+                                        *ngIf="item.id"
+                                        [student]="item"
+                                    ></admin-student-tutorships>
+                                </p-tabpanel>
+                                <p-tabpanel [value]="4">
+                                    <admin-student-authorizations
+                                        *ngIf="item.id"
+                                        [student]="item"
+                                    ></admin-student-authorizations>
+                                </p-tabpanel>
+                                <p-tabpanel [value]="5">
+                                    <admin-student-invoices *ngIf="item.id" [student]="item"></admin-student-invoices>
+                                </p-tabpanel>
+                                <p-tabpanel [value]="6">
+                                    <admin-student-sanctions *ngIf="item.id" [student]="item"></admin-student-sanctions>
+                                </p-tabpanel>
+                                <p-tabpanel [value]="3">
+                                    <admin-student-attendances
+                                        *ngIf="item.id"
+                                        [student]="item"
+                                    ></admin-student-attendances>
+                                </p-tabpanel>
+                                <p-tabpanel [value]="7">
+                                    <admin-student-files *ngIf="item.id" [student]="item"></admin-student-files>
+                                </p-tabpanel>
+                            </p-tabpanels>
+                        </p-tabs>
+                    </div>
                 </div>
             </div>
         </div>

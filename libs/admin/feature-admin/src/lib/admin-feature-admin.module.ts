@@ -53,6 +53,7 @@ import { StudentsStatusComponent } from './pages/students-status/students-status
 import { KioskComponent } from './pages/kiosk/kiosk.component';
 import { StudentFilesComponent } from './pages/students/student/student-files/student-files.component';
 import { QRCodeComponent } from 'angularx-qrcode';
+import { KioskDinnerComponent } from './pages/kiosk-dinner/kiosk-dinner.component';
 
 @NgModule({
     imports: [
@@ -109,6 +110,7 @@ import { QRCodeComponent } from 'angularx-qrcode';
         StudentsStatusComponent,
         KioskComponent,
         StudentFilesComponent,
+        KioskDinnerComponent,
     ],
     exports: [AdminComponent],
 })

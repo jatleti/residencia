@@ -47,6 +47,17 @@
             <span>Puesto de control</span>
         </a>
     </li>
+    <li *ngIf="isPermitted([permissions.KIOSK.VIEW])">
+        <a
+            class="icon"
+            [routerLink]="baseUrl + '/kiosk-dinner'"
+            [routerLinkActive]="'active'"
+            pTooltip="Puesto de comedor"
+        >
+            <i class="fa-sharp fa-solid fa-desktop"></i>
+            <span>Puesto de comedor</span>
+        </a>
+    </li>
     <li *ngIf="isPermitted([permissions.STUDENT.LIST])">
         <a
             class="icon"

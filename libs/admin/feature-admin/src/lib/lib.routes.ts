@@ -15,6 +15,7 @@ import { InvoicesComponent } from './pages/invoices/invoices.component';
 import { InvoiceComponent } from './pages/invoices/invoice/invoice.component';
 import { StudentsStatusComponent } from './pages/students-status/students-status.component';
 import { KioskComponent } from './pages/kiosk/kiosk.component';
+import { KioskDinnerComponent } from './pages/kiosk-dinner/kiosk-dinner.component';
 
 export const noutlyFeatureAdminRoutes: Route[] = [
     {
@@ -35,6 +36,15 @@ export const noutlyFeatureAdminRoutes: Route[] = [
                 path: 'kiosk',
                 pathMatch: 'full',
                 component: KioskComponent,
+                canActivate: [PermissionGuardService],
+                data: {
+                    expectedPermission: [Permissions.KIOSK.VIEW],
+                },
+            },
+            {
+                path: 'kiosk-dinner',
+                pathMatch: 'full',
+                component: KioskDinnerComponent,
                 canActivate: [PermissionGuardService],
                 data: {
                     expectedPermission: [Permissions.KIOSK.VIEW],

@@ -2,6 +2,7 @@ import { Prisma, PrismaClient, Attendance, Student } from '@prisma/client';
 import { CustomResponse } from '../entities/customresponse';
 import { getSignedUrlBucket } from '../factories/functions.factory';
 import { at } from 'lodash';
+import { AttendanceTypes } from '../infrastructure/attendaceTypes';
 
 export type AttendanceWithPayload = Prisma.AttendanceGetPayload<{
     include: {
@@ -104,6 +105,22 @@ export class AttendanceFacade {
             throw <CustomResponse>{
                 status: 404,
                 message: 'Alumno no encontrado',
+            };
+        }
+
+        // miramos si el student está fuera de la resudencia y el type es dinner
+        const attendanceOld = await this.prisma.attendance.findFirst({
+            where: {
+                studentId: student.id,
+                type: AttendanceTypes.BUILDING,
+                deleted_at: null,
+            },
+            orderBy: { created_at: 'desc' },
+        });
+        if (attendanceOld && attendanceOld.to && attendance?.type === AttendanceTypes.DINNER) {
+            throw <CustomResponse>{
+                status: 400,
+                message: 'El alumno no puede fichar en el comedor si no ha entrado a la residencia',
             };
         }
 
