@@ -7,6 +7,7 @@ import {
     Student,
     ComboValues,
     Endpoints,
+    getAgeNumber,
 } from '@workspace/shared/util-core';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { FileBeforeUploadEvent } from 'primeng/fileupload';
@@ -49,6 +50,8 @@ export class StudentComponent extends PermissionsComponent implements OnInit {
     rooms = ComboValues.ROOM;
     floors = ComboValues.FLOOR;
     beds = ComboValues.BED;
+
+    getAgeNumber = getAgeNumber; // función para calcular la edad
 
     signedPhoto = '';
 
@@ -97,6 +100,9 @@ export class StudentComponent extends PermissionsComponent implements OnInit {
             }
         });
         if (error) return;
+
+        if (!this.validate()) return;
+
         this.facade.add(this.item);
     }
 
@@ -115,6 +121,9 @@ export class StudentComponent extends PermissionsComponent implements OnInit {
             }
         });
         if (error) return;
+
+        if (!this.validate()) return;
+
         this.facade.set(this.item);
     }
 
@@ -125,6 +134,29 @@ export class StudentComponent extends PermissionsComponent implements OnInit {
                 this.facade.del(this.item);
             },
         });
+    }
+
+    validate(): boolean {
+        if (this.item.active === 0) {
+            if (this.item.ingressed === 1 || this.item.admitted === 1) {
+                this.messageService.add({
+                    severity: 'error',
+                    summary: 'Error',
+                    detail: 'Un alumno inactivo no puede estar ingresado o admitido si está inactivo',
+                });
+                return false;
+            }
+        } else {
+            if (this.item.ingressed === 1 && this.item.admitted === 0) {
+                this.messageService.add({
+                    severity: 'error',
+                    summary: 'Error',
+                    detail: 'Un alumno ingresado debe estar admitido',
+                });
+                return false;
+            }
+        }
+        return true;
     }
 
     onUpload(event: any) {

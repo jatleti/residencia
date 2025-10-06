@@ -1,5 +1,12 @@
 import { AfterViewInit, Component, inject, OnInit, ViewChild } from '@angular/core';
-import { PermissionsComponent, AttendanceFacade, AttendanceTypes, Attendance } from '@workspace/shared/util-core';
+import {
+    PermissionsComponent,
+    AttendanceFacade,
+    AttendanceTypes,
+    Attendance,
+    Student,
+    AttendanceSubTypes,
+} from '@workspace/shared/util-core';
 import { MessageService } from 'primeng/api';
 
 @Component({
@@ -16,8 +23,13 @@ export class KioskDinnerComponent extends PermissionsComponent implements OnInit
 
     code = '';
     type = AttendanceTypes.DINNER;
+    subtype = AttendanceSubTypes.HOME;
+
+    attebdanceTypes = AttendanceTypes;
+    attendanceSubTypes = AttendanceSubTypes;
 
     attendance: Attendance | null = null;
+    student: Student | null = null;
 
     showSuccess = false;
     showError = false;
@@ -38,11 +50,34 @@ export class KioskDinnerComponent extends PermissionsComponent implements OnInit
         }, 10);
     }
 
+    setSubtype(subtype: number) {
+        this.subtype = subtype;
+        setTimeout(() => {
+            this.codeInput?.nativeElement.focus();
+        }, 10);
+    }
+
+    cancel() {
+        this.code = '';
+        this.attendance = null;
+        this.student = null;
+    }
+
+    async search() {
+        this.student = null;
+        if (!this.code || this.code.trim() === '') {
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: 'El código no puede estar vacío' });
+            return;
+        }
+        this.student = await this.attendanceFacade.search(this.code);
+    }
+
     async add() {
         const newAttendante = <Attendance>{};
         this.showSuccess = false;
         this.attendance = null;
         newAttendante.type = this.type;
+        newAttendante.subtype = this.subtype;
         if (!this.code || this.code.trim() === '') {
             this.messageService.add({ severity: 'error', summary: 'Error', detail: 'El código no puede estar vacío' });
             return;
@@ -63,5 +98,7 @@ export class KioskDinnerComponent extends PermissionsComponent implements OnInit
                 this.showError = false;
             }, 5000);
         }
+
+        this.cancel();
     }
 }

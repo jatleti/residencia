@@ -28,7 +28,7 @@ export class AttendanceFacade {
             where: { deleted_at: null, ingressed: 1 },
             include: {
                 Attendances: {
-                    where: { deleted_at: null, type: 0 }, // tipo centro
+                    where: { deleted_at: null, type: { in: [0, 2] } }, // tipo centro
                     orderBy: { created_at: 'desc' },
                 },
             },
@@ -91,6 +91,38 @@ export class AttendanceFacade {
         }
     }
 
+    public async getStudent(code: string): Promise<Student> {
+        if (!code) {
+            throw <CustomResponse>{
+                status: 500,
+                message: 'Student code is required',
+            };
+        }
+
+        const student = await this.prisma.student.findFirst({
+            where: { code: code, deleted_at: null },
+            include: {
+                Attendances: {
+                    where: { deleted_at: null, type: { in: [0, 2] } }, // tipo centro
+                    orderBy: { created_at: 'desc' },
+                },
+            },
+        });
+
+        if (!student) {
+            throw <CustomResponse>{
+                status: 404,
+                message: 'Alumno no encontrado',
+            };
+        }
+
+        if (student.photo) {
+            student.photo = await getSignedUrlBucket(student.photo);
+        }
+
+        return student;
+    }
+
     public async addForStudent(code: string, attendance: Attendance): Promise<AttendanceWithPayload> {
         if (!code) {
             throw <CustomResponse>{
@@ -112,12 +144,16 @@ export class AttendanceFacade {
         const attendanceOld = await this.prisma.attendance.findFirst({
             where: {
                 studentId: student.id,
-                type: AttendanceTypes.BUILDING,
+                type: { in: [AttendanceTypes.LEAVE, AttendanceTypes.ARRIVE] },
                 deleted_at: null,
             },
             orderBy: { created_at: 'desc' },
         });
-        if (attendanceOld && attendanceOld.to && attendance?.type === AttendanceTypes.DINNER) {
+        if (
+            attendanceOld &&
+            attendanceOld?.type === AttendanceTypes.LEAVE &&
+            attendance.type === AttendanceTypes.DINNER
+        ) {
             throw <CustomResponse>{
                 status: 400,
                 message: 'El alumno no puede fichar en el comedor si no ha entrado a la residencia',
@@ -137,30 +173,30 @@ export class AttendanceFacade {
                     deleted_at: null,
                 },
             });
-            if (openAttendance) {
-                // si tiene un attendance abierto, lo cerramos
-                await this.prisma.attendance.update({
-                    where: { id: openAttendance.id },
-                    data: {
-                        to: new Date(),
-                    },
-                });
-                return this.get(openAttendance.id);
-            } else {
-                attendance.date = new Date();
-                try {
-                    const a = await this.prisma.attendance.create({ data: attendance });
-                    if (a) {
-                        return this.get(a.id);
-                    }
-                } catch (e) {
-                    console.error('e', e);
-                    throw <CustomResponse>{
-                        status: 500,
-                        message: 'Error creating attendance',
-                    };
+            // if (openAttendance) {
+            //     // si tiene un attendance abierto, lo cerramos
+            //     await this.prisma.attendance.update({
+            //         where: { id: openAttendance.id },
+            //         data: {
+            //             to: new Date(),
+            //         },
+            //     });
+            //     return this.get(openAttendance.id);
+            // } else {
+            attendance.date = new Date();
+            try {
+                const a = await this.prisma.attendance.create({ data: attendance });
+                if (a) {
+                    return this.get(a.id);
                 }
+            } catch (e) {
+                console.error('e', e);
+                throw <CustomResponse>{
+                    status: 500,
+                    message: 'Error creating attendance',
+                };
             }
+            //}
         }
     }
 

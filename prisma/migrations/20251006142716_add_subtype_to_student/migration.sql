@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE `NT_AttendanceATT` ADD COLUMN `subtype` INTEGER NOT NULL DEFAULT 0;

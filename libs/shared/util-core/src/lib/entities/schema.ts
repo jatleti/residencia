@@ -232,6 +232,7 @@ export interface Attendance {
   date: Date;
   status: number;
   type: number;
+  subtype: number;
   from: Date | null;
   to: Date | null;
   created_at: Date;

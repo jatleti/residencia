@@ -276,6 +276,7 @@ model Attendance {
   date       DateTime
   status     Int       @default(0)
   type       Int       @default(0)
+  subtype    Int       @default(0)
   from       DateTime?
   to         DateTime?
   created_at DateTime  @default(now())

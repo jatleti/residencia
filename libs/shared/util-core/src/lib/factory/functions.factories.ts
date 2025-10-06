@@ -87,3 +87,18 @@ export const detectAutofill = (element: any) => {
         }, 600);
     });
 };
+
+export function getAgeNumber(birthDate: Date | null): number {
+    if (!birthDate) {
+        return 0;
+    }
+    const birth = new Date(birthDate);
+    // vamos a calcular la edad en años a partir de la fecha de nacimiento
+    const today = new Date();
+    let age = today.getFullYear() - birth.getFullYear();
+    const m = today.getMonth() - birth.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birth.getDate())) {
+        age--;
+    }
+    return age;
+}

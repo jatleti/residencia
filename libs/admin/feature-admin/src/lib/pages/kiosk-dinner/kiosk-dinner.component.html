@@ -1,4 +1,4 @@
-<div class="p-2 md:p-8 mx-auto max-w-5xl w-full">
+<div class="p-2 md:p-8 mx-auto max-w-[1200px] w-full">
     <p-card>
         <div class="flex">
             <div class="flex-1 pr-5">
@@ -12,18 +12,108 @@
                         pInputText
                         [(ngModel)]="code"
                         placeholder="Código"
-                        (keydown.enter)="add()"
+                        (keydown.enter)="search()"
                     />
                 </div>
             </div>
-            <div *ngIf="isPermitted([Permissions.USER.CREATE])" class="flex-0 pt-6">
+            <div class="flex-0 pt-6">
                 <div class="mb-3">
-                    <button (click)="add()" pButton pRipple type="button">
+                    <button (click)="search()" pButton pRipple type="button">
                         <i class="fa-sharp fa-solid fa-plus me-2"></i> Fichar
                     </button>
                 </div>
             </div>
         </div>
+
+        <ng-container *ngIf="student">
+            <div class="flex gap-4">
+                <div class="flex-0">
+                    <div
+                        *ngIf="student.photo && student.photo !== ''"
+                        class="image flex items-center max-w-[200px] mx-auto mb-5 aspect-square overflow-hidden rounded-md"
+                    >
+                        <img src="{{ student.photo }}" />
+                    </div>
+                </div>
+                <div class="flex-1">
+                    <div class="bg-gray-50 font-bold text-start p-8 text-lg rounded-md">
+                        Nombre: <b>{{ student.name }} {{ student.surname }}</b
+                        ><br />
+                        Código: <b>{{ student.code }}</b
+                        ><br />
+                        Bloque: <b>{{ student.block }}</b
+                        ><br />
+                        Habitación: <b>{{ student.room }}</b
+                        ><br />
+                        Cama: <b>{{ student.bed }}</b>
+                    </div>
+                    <div
+                        class="bg-gray-50 font-bold text-center mt-5 p-8 text-2xl rounded-md"
+                        *ngIf="student.Attendances && student.Attendances.length > 0"
+                    >
+                        Estado actual:
+                        <ng-container *ngIf="student.Attendances && student.Attendances.length > 0">
+                            <ng-container *ngIf="student.Attendances[0].type === attebdanceTypes.ARRIVE">
+                                <span class="text-green-500">En la residencia</span>
+                            </ng-container>
+                            <ng-container
+                                *ngIf="
+                                    student.Attendances[0].type === attebdanceTypes.LEAVE &&
+                                    student.Attendances[0].subtype === attendanceSubTypes.HOME
+                                "
+                            >
+                                <span class="text-red-500">En casa</span>
+                            </ng-container>
+                            <ng-container
+                                *ngIf="
+                                    student.Attendances[0].type === attebdanceTypes.LEAVE &&
+                                    student.Attendances[0].subtype === attendanceSubTypes.WALK
+                                "
+                            >
+                                <span class="text-red-500">De paseo</span>
+                            </ng-container>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+            <div class="flex gap-8 bg-gray-100 p-8 rounded-md mt-5">
+                <div class="flex-1 text-center">
+                    <span class="text-3xl font-bold block mb-4">Comedor</span>
+                    <div
+                        class="text-center bg-yellow-200 rounded-md p-8 border-gray-900 cursor-pointer mb-5"
+                        (click)="setType(1); setSubtype(attendanceSubTypes.BREAKFAST)"
+                        [class.border-4]="type === 1 && subtype === attendanceSubTypes.BREAKFAST"
+                    >
+                        <div class="text-4xl text-primary-500 font-bold">Desayuno</div>
+                    </div>
+                    <div
+                        class="text-center bg-orange-200 rounded-md p-8 border-gray-900 cursor-pointer mb-5"
+                        (click)="setType(1); setSubtype(attendanceSubTypes.LUNCH)"
+                        [class.border-4]="type === 1 && subtype === attendanceSubTypes.LUNCH"
+                    >
+                        <div class="text-4xl text-primary-500 font-bold">Comida</div>
+                    </div>
+                    <div
+                        class="text-center bg-blue-200 rounded-md p-8 border-gray-900 cursor-pointer"
+                        (click)="setType(1); setSubtype(attendanceSubTypes.DINNER)"
+                        [class.border-4]="type === 1 && subtype === attendanceSubTypes.DINNER"
+                    >
+                        <div class="text-4xl text-primary-500 font-bold">Cena</div>
+                    </div>
+                </div>
+
+                <div class="flex-1 text-center h-full">
+                    <br /><br /><br /><br />
+                    <button (click)="add()" pButton pRipple type="button" class="w-full max-w-[200px]">
+                        <i class="fa-sharp fa-solid fa-check me-2"></i> Validar
+                    </button>
+                    <br /><br /><br /><br />
+                    <button (click)="cancel()" pButton pRipple type="button" class="w-full max-w-[200px] bg-red-500">
+                        <i class="fa-sharp fa-solid fa-times me-2"></i> cancelar
+                    </button>
+                </div>
+            </div>
+        </ng-container>
 
         <!-- <div class="flex gap-8 items-center">
             <div class="flex-1">
@@ -50,18 +140,7 @@
         class="bg-green-50 border-green-200 text-green-500 font-bold text-center mt-5 p-8 text-2xl rounded-md"
         *ngIf="showSuccess"
     >
-        <ng-container *ngIf="attendance && attendance.to">
-            Salida registrada correctamente
-            <ng-container *ngIf="attendance.Student">
-                <br />{{ attendance.Student.name }} {{ attendance.Student.surname }} ({{ attendance.Student.code }})
-            </ng-container>
-        </ng-container>
-        <ng-container *ngIf="attendance && !attendance.to">
-            Entrada registrada correctamente
-            <ng-container *ngIf="attendance.Student">
-                <br />{{ attendance.Student.name }} {{ attendance.Student.surname }} ({{ attendance.Student.code }})
-            </ng-container>
-        </ng-container>
+        Fichaje realizado con éxito
     </div>
     <div
         class="bg-red-50 border-red-200 text-red-500 font-bold text-center mt-5 p-8 text-2xl rounded-md"

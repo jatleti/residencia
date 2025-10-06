@@ -1,5 +1,12 @@
 import { AfterViewInit, Component, inject, OnInit, ViewChild } from '@angular/core';
-import { Attendance, AttendanceFacade, AttendanceTypes, PermissionsComponent } from '@workspace/shared/util-core';
+import {
+    Attendance,
+    AttendanceFacade,
+    AttendanceSubTypes,
+    AttendanceTypes,
+    PermissionsComponent,
+    Student,
+} from '@workspace/shared/util-core';
 import { MessageService } from 'primeng/api';
 
 @Component({
@@ -15,9 +22,14 @@ export class KioskComponent extends PermissionsComponent implements OnInit, Afte
     @ViewChild('codeInput') codeInput: any;
 
     code = '';
-    type = AttendanceTypes.BUILDING;
+    type = AttendanceTypes.ARRIVE;
+    subtype = AttendanceSubTypes.HOME;
+
+    attebdanceTypes = AttendanceTypes;
+    attendanceSubTypes = AttendanceSubTypes;
 
     attendance: Attendance | null = null;
+    student: Student | null = null;
 
     showSuccess = false;
     showError = false;
@@ -38,11 +50,34 @@ export class KioskComponent extends PermissionsComponent implements OnInit, Afte
         }, 10);
     }
 
+    setSubtype(subtype: number) {
+        this.subtype = subtype;
+        setTimeout(() => {
+            this.codeInput?.nativeElement.focus();
+        }, 10);
+    }
+
+    cancel() {
+        this.code = '';
+        this.attendance = null;
+        this.student = null;
+    }
+
+    async search() {
+        this.student = null;
+        if (!this.code || this.code.trim() === '') {
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: 'El código no puede estar vacío' });
+            return;
+        }
+        this.student = await this.attendanceFacade.search(this.code);
+    }
+
     async add() {
         const newAttendante = <Attendance>{};
         this.showSuccess = false;
         this.attendance = null;
         newAttendante.type = this.type;
+        newAttendante.subtype = this.subtype;
         if (!this.code || this.code.trim() === '') {
             this.messageService.add({ severity: 'error', summary: 'Error', detail: 'El código no puede estar vacío' });
             return;
@@ -63,5 +98,6 @@ export class KioskComponent extends PermissionsComponent implements OnInit, Afte
                 this.showError = false;
             }, 5000);
         }
+        this.cancel();
     }
 }

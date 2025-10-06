@@ -3,7 +3,7 @@
         #dt1
         [value]="student.Attendances || []"
         styleClass="p-datatable-sm"
-        [paginator]="false"
+        [paginator]="true"
         [rows]="50"
         [showCurrentPageReport]="true"
         currentPageReportTemplate="Viendo {first} a {last} de {totalRecords} items"
@@ -12,16 +12,20 @@
     >
         <ng-template pTemplate="header">
             <tr>
-                <th>Desde</th>
-                <th>Hasta</th>
+                <th>Fecha</th>
                 <th>Tipo</th>
+                <th></th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-item>
             <tr (click)="editAttendance(item)" class="cursor-pointer">
-                <td>{{ item.from | date: 'dd/MM/yyyy HH:mm' }}</td>
-                <td>{{ item.to | date: 'dd/MM/yyyy HH:mm' }}</td>
+                <td>{{ item.created_at | date: 'dd/MM/yyyy HH:mm' }}</td>
                 <td>{{ getType(item) }}</td>
+                <td>
+                    <ng-container *ngIf="item.type !== attendanceTypesEnum.ARRIVE">
+                        {{ getSubType(item) }}
+                    </ng-container>
+                </td>
             </tr>
         </ng-template>
     </p-table>

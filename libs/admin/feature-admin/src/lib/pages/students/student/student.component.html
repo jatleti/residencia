@@ -15,16 +15,17 @@
                         >
                             <div
                                 *ngIf="item.photo && item.photo !== '' && signedPhoto === ''"
-                                class="image flex items-center max-w-[200px] mx-auto mb-5 aspect-square overflow-hidden rounded-full"
+                                class="image flex items-center max-w-[200px] mx-auto mb-5 aspect-square overflow-hidden rounded-md"
                             >
                                 <img src="{{ item.photo }}" />
                             </div>
                             <div
                                 *ngIf="signedPhoto && signedPhoto !== ''"
-                                class="image flex items-center max-w-[200px] mx-auto mb-5 aspect-square overflow-hidden rounded-full"
+                                class="image flex items-center max-w-[200px] mx-auto mb-5 aspect-square overflow-hidden rounded-md"
                             >
                                 <img src="{{ signedPhoto }}" />
                             </div>
+
                             <a (click)="item.photo = ''" class="cursor-pointer"
                                 ><i class="fa-regular fa-times-circle"></i
                             ></a>
@@ -48,6 +49,9 @@
                                 [auto]="true"
                             ></p-fileUpload>
                         </ng-template>
+                    </div>
+                    <div class="text-center font-bold mb-3 text-2xl">
+                        {{ item.code }}
                     </div>
                     <div class="mx-auto flex justify-center">
                         <qrcode
@@ -208,7 +212,12 @@
                                     </div>
 
                                     <div class="mb-3 flex items-center gap-3">
-                                        <label class="flex-0">Fecha de nacimiento</label>
+                                        <label class="flex-0"
+                                            >Fecha de nacimiento ({{
+                                                getAgeNumber(item.birthdate || null)
+                                            }}
+                                            años)</label
+                                        >
                                         <div class="flex-1">
                                             <p-datepicker
                                                 class="w-full"

@@ -12,49 +12,132 @@
                 </div>
             </div>
         </div>
-        <div class="flex gap-8 items-cente p-8">
-            <div class="flex-1 w-full mx-auto max-w-[1000px] shadow-sm rounded-md p-8">
-                <!-- <div class="text-3xl font-bold text-primary-500 mb-8">Usuarios en el centro</div> -->
-                <div class="grid grid-cols-4 gap-4">
-                    <div *ngFor="let student of studentsCenter" class="text-center font-bold text-xl">
-                        <div
-                            *ngIf="student.photo && student.photo !== ''"
-                            (click)="viewStudent(student)"
-                            class="image flex items-center max-w-[200px] mx-auto mb-3 aspect-square overflow-hidden rounded-full border-8 cursor-pointer"
-                            [class.border-green-500]="
-                                student.Attendances && student.Attendances.length > 0 && !student.Attendances[0].to
-                            "
-                            [class.border-red-500]="
-                                student.Attendances && student.Attendances.length > 0 && student.Attendances[0].to
-                            "
-                        >
-                            <img src="{{ student.photo }}" />
+        <div class="flex gap-8 items-cente p-1">
+            <div class="flex-1 w-full mx-auto max-w-[1200px] shadow-sm rounded-md p-8">
+                <p-tabs [(value)]="tabIndex" scrollable class="w-full">
+                    <p-tablist class="w-full grid">
+                        <p-tab [value]="0" class="flex gap-2 items-center">Bloque 1</p-tab>
+                        <p-tab [value]="1" class="flex gap-2 items-center">Bloque 2</p-tab>
+                        <p-tab [value]="2" class="flex gap-2 items-center">Bloque 3</p-tab>
+                        <p-tab [value]="3" class="flex gap-2 items-center">Bloque 4</p-tab>
+                        <p-tab [value]="4" class="flex gap-2 items-center">Bloque 5</p-tab>
+                    </p-tablist>
+                    <p-tabpanels>
+                        <p-tabpanel [value]="0">
+                            <ng-container
+                                *ngTemplateOutlet="blockTemplate; context: { $implicit: block1 }"
+                            ></ng-container>
+                        </p-tabpanel>
+                        <p-tabpanel [value]="1">
+                            <ng-container
+                                *ngTemplateOutlet="blockTemplate; context: { $implicit: block2 }"
+                            ></ng-container>
+                        </p-tabpanel>
+                        <p-tabpanel [value]="2">
+                            <ng-container
+                                *ngTemplateOutlet="blockTemplate; context: { $implicit: block3 }"
+                            ></ng-container>
+                        </p-tabpanel>
+                        <p-tabpanel [value]="3">
+                            <ng-container
+                                *ngTemplateOutlet="blockTemplate; context: { $implicit: block4 }"
+                            ></ng-container>
+                        </p-tabpanel>
+                        <p-tabpanel [value]="4">
+                            <ng-container
+                                *ngTemplateOutlet="blockTemplate; context: { $implicit: block5 }"
+                            ></ng-container>
+                        </p-tabpanel>
+                    </p-tabpanels>
+                </p-tabs>
+
+                <!-- Template reutilizable para todos los bloques -->
+                <ng-template #blockTemplate let-block>
+                    <div
+                        *ngFor="let room of block.rooms"
+                        class="grid grid-cols-5 gap-4 items-center bg-gray-50 rounded-md mb-3"
+                    >
+                        <div class="font-bold text-end w-[100px]">Hab: {{ room.room }}</div>
+                        <div *ngFor="let bed of room.beds" class="text-center font-bold text-xl">
+                            <ng-container *ngIf="bed.student; else noStudent">
+                                <div
+                                    *ngIf="bed.student.photo && bed.student.photo !== ''"
+                                    (click)="viewStudent(bed.student)"
+                                    class="image flex items-center max-w-[200px] mx-auto mb-3 aspect-square overflow-hidden rounded-md border-8 cursor-pointer relative"
+                                    [class.border-green-500]="
+                                        bed.student.Attendances &&
+                                        bed.student.Attendances.length > 0 &&
+                                        bed.student.Attendances[0].type === attendanceTypes.ARRIVE
+                                    "
+                                    [class.border-red-500]="
+                                        bed.student.Attendances &&
+                                        bed.student.Attendances.length > 0 &&
+                                        bed.student.Attendances[0].type === attendanceTypes.LEAVE
+                                    "
+                                >
+                                    <img src="{{ bed.student.photo }}" />
+                                    <div class="absolute bottom-0 left-0 right-0 w-full">
+                                        <div class="bg-black bg-opacity-50 text-white text-sm p-1">
+                                            {{ bed.student.name }} {{ bed.student.surname }}
+                                        </div>
+                                        <div
+                                            *ngIf="
+                                                bed.student.Attendances &&
+                                                bed.student.Attendances.length > 0 &&
+                                                bed.student.Attendances[0].type === attendanceTypes.ARRIVE
+                                            "
+                                            class="bg-green-500 text-white text-sm p-1"
+                                        >
+                                            RESIDENCIA
+                                        </div>
+                                        <div
+                                            *ngIf="
+                                                bed.student.Attendances &&
+                                                bed.student.Attendances.length > 0 &&
+                                                bed.student.Attendances[0].type === attendanceTypes.LEAVE &&
+                                                bed.student.Attendances[0].subtype === attendanceSubTypes.HOME
+                                            "
+                                            class="bg-red-500 text-white text-sm p-1"
+                                        >
+                                            EN CASA
+                                        </div>
+                                        <div
+                                            *ngIf="
+                                                bed.student.Attendances &&
+                                                bed.student.Attendances.length > 0 &&
+                                                bed.student.Attendances[0].type === attendanceTypes.LEAVE &&
+                                                bed.student.Attendances[0].subtype === attendanceSubTypes.WALK
+                                            "
+                                            class="bg-red-500 text-white text-sm p-1"
+                                        >
+                                            DE PASEO
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="absolute top-0 left-0 bg-yellow-500 text-black text-sm p-1 rounded-br-md"
+                                    >
+                                        {{ bed.student.code }}
+                                    </div>
+                                    <div
+                                        *ngIf="getAgeNumber(bed.student.birthdate || null) < 18"
+                                        class="absolute top-0 right-0 bg-yellow-500 text-black text-sm p-1 rounded-bl-md"
+                                    >
+                                        Menor
+                                    </div>
+                                </div>
+                            </ng-container>
                         </div>
-                        {{ student.name }} {{ student.surname }}
                     </div>
-                </div>
+                </ng-template>
+
+                <ng-template #noStudent>
+                    <div
+                        class="image flex items-center max-w-[200px] mx-auto mb-3 aspect-square overflow-hidden rounded-md border-8 cursor-pointer"
+                    >
+                        <img src="/assets/img/dummy.jpg" />
+                    </div>
+                </ng-template>
             </div>
-            <!-- <div class="flex-1 w-full mx-auto max-w-[1000px] shadow-sm rounded-md p-8">
-                <div class="text-3xl font-bold text-primary-500 mb-8">Comedor</div>
-                <div class="grid grid-cols-4 gap-4">
-                    <div *ngFor="let student of studentDinner" class="text-center font-bold text-xl">
-                        <div
-                            *ngIf="student.photo && student.photo !== ''"
-                            (click)="viewStudent(student)"
-                            class="image flex items-center max-w-[200px] mx-auto mb-3 aspect-square overflow-hidden rounded-full border-8 cursor-pointer"
-                            [class.border-green-500]="
-                                student.Attendances && student.Attendances.length > 0 && !student.Attendances[0].to
-                            "
-                            [class.border-red-500]="
-                                student.Attendances && student.Attendances.length > 0 && student.Attendances[0].to
-                            "
-                        >
-                            <img src="{{ student.photo }}" />
-                        </div>
-                        {{ student.name }} {{ student.surname }}
-                    </div>
-                </div>
-            </div> -->
         </div>
     </p-card>
 </div>

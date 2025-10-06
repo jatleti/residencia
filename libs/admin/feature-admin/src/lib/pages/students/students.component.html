@@ -1,9 +1,9 @@
 <div class="p-2 md:p-8">
     <p-card>
-        <components-h1 class="mb-5 block text-primary-500 text-center md:text-start">Alumnos</components-h1>
         <div class="flex">
             <div class="flex-grow pr-5">
-                <input pInputText class="w-full" [(ngModel)]="filter" type="text" placeholder="Filtrar" />
+                <components-h1 class="mb-5 block text-primary-500 text-center md:text-start">Alumnos</components-h1>
+                <!-- <input pInputText class="w-full" [(ngModel)]="filter" type="text" placeholder="Filtrar" /> -->
             </div>
             <div *ngIf="isPermitted([Permissions.STUDENT.CREATE])" class="flex-grow-0">
                 <div class="mb-3">
@@ -14,53 +14,415 @@
             </div>
         </div>
 
-        <ng-container *ngLet="list$ | async as items">
-            <p-table
-                #dt1
-                [value]="items | dataFilter: filter"
-                styleClass="p-datatable-sm"
-                [paginator]="true"
-                [rows]="50"
-                [showCurrentPageReport]="true"
-                currentPageReportTemplate="Viendo {first} a {last} de {totalRecords} items"
-                [rowsPerPageOptions]="[20, 50]"
-                [globalFilterFields]="['name']"
-            >
-                <ng-template pTemplate="header">
-                    <tr>
-                        <th></th>
-                        <th>Nombre</th>
-                        <th>Apellidos</th>
-                        <th>Email</th>
-                        <th class="!text-center">Activo</th>
-                        <th class="!text-center">Admitido</th>
-                        <th class="!text-center">Ingresado</th>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="body" let-item>
-                    <ng-container>
-                        <tr (click)="get(item.id)" class="cursor-pointer">
-                            <td>
-                                <components-avatar [student]="item"></components-avatar>
-                            </td>
-                            <td>{{ item.name }}</td>
-                            <td>{{ item.surname }}</td>
-                            <td>{{ item.email }}</td>
-                            <td class="!text-center">
-                                <components-status-active [status]="item.active"></components-status-active>
-                            </td>
-                            <td class="!text-center">
-                                <components-status-active [status]="item.admitted"></components-status-active>
-                            </td>
-                            <td class="!text-center">
-                                <components-status-active [status]="item.ingressed"></components-status-active>
-                            </td>
-                        </tr>
-                    </ng-container>
-                </ng-template>
-            </p-table>
+        <p-tabs [(value)]="tabIndex" scrollable class="w-full">
+            <p-tablist class="w-full grid">
+                <p-tab [value]="0" class="flex gap-2 items-center">Ingresados</p-tab>
+                <p-tab [value]="1" class="flex gap-2 items-center">Admitidos</p-tab>
+                <p-tab [value]="2" class="flex gap-2 items-center">Inactivos</p-tab>
+                <p-tab [value]="3" class="flex gap-2 items-center">Todos</p-tab>
+            </p-tablist>
+            <p-tabpanels>
+                <p-tabpanel [value]="0">
+                    <p-table
+                        #dt1
+                        [value]="ingressedStudents"
+                        styleClass="p-datatable-sm"
+                        [paginator]="true"
+                        [rows]="50"
+                        [showCurrentPageReport]="true"
+                        currentPageReportTemplate="Viendo {first} a {last} de {totalRecords} alumnos"
+                        [rowsPerPageOptions]="[20, 50]"
+                        [globalFilterFields]="['name']"
+                    >
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th></th>
+                                <th>Nombre</th>
+                                <th>Apellidos</th>
+                                <th>Email</th>
+                                <th>Teléfono</th>
+                                <th>Móvil</th>
+                                <th>Bloque</th>
+                                <th>Habitación</th>
+                                <th>Cama</th>
+                                <!-- <th class="!text-center">Activo</th>
+                                <th class="!text-center">Admitido</th>
+                                <th class="!text-center">Ingresado</th> -->
+                            </tr>
+                            <tr>
+                                <th></th>
+                                <th>
+                                    <p-columnFilter
+                                        matchMode="contains"
+                                        type="text"
+                                        field="name"
+                                        placeholder="Filtrar"
+                                        ariaLabel="Filtrar"
+                                    />
+                                </th>
+                                <th>
+                                    <p-columnFilter
+                                        matchMode="contains"
+                                        type="text"
+                                        field="surname"
+                                        placeholder="Filtrar"
+                                        ariaLabel="Filtrar"
+                                    />
+                                </th>
+                                <th>
+                                    <p-columnFilter
+                                        matchMode="contains"
+                                        type="text"
+                                        field="email"
+                                        placeholder="Filtrar"
+                                        ariaLabel="Filtrar"
+                                    />
+                                </th>
+                                <th>
+                                    <p-columnFilter
+                                        matchMode="contains"
+                                        type="text"
+                                        field="phone"
+                                        placeholder="Filtrar"
+                                        ariaLabel="Filtrar"
+                                    />
+                                </th>
+                                <th>
+                                    <p-columnFilter
+                                        matchMode="contains"
+                                        type="text"
+                                        field="mobile"
+                                        placeholder="Filtrar"
+                                        ariaLabel="Filtrar"
+                                    />
+                                </th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-item>
+                            <ng-container>
+                                <tr (click)="get(item.id)" class="cursor-pointer">
+                                    <td>
+                                        <components-avatar [student]="item"></components-avatar>
+                                    </td>
+                                    <td>{{ item.name }}</td>
+                                    <td>{{ item.surname }}</td>
+                                    <td>{{ item.email }}</td>
+                                    <td>{{ item.phone }}</td>
+                                    <td>{{ item.mobile }}</td>
+                                    <td>{{ item.block }}</td>
+                                    <td>{{ item.room }}</td>
+                                    <td>{{ item.bed }}</td>
+                                    <!-- <td class="!text-center">
+                                        <components-status-active [status]="item.active"></components-status-active>
+                                    </td>
+                                    <td class="!text-center">
+                                        <components-status-active [status]="item.admitted"></components-status-active>
+                                    </td>
+                                    <td class="!text-center">
+                                        <components-status-active [status]="item.ingressed"></components-status-active>
+                                    </td> -->
+                                </tr>
+                            </ng-container>
+                        </ng-template>
+                    </p-table>
 
-            <span *ngIf="items.length === 0 && !loading$">Aún no tienes items para mostrar.</span>
-        </ng-container>
+                    <span *ngIf="ingressedStudents.length === 0 && !loading$">Aún no tienes alumnos para mostrar.</span>
+                </p-tabpanel>
+                <p-tabpanel [value]="1">
+                    <p-table
+                        #dt1
+                        [value]="admittedStudents"
+                        styleClass="p-datatable-sm"
+                        [paginator]="true"
+                        [rows]="50"
+                        [showCurrentPageReport]="true"
+                        currentPageReportTemplate="Viendo {first} a {last} de {totalRecords} alumnos"
+                        [rowsPerPageOptions]="[20, 50]"
+                        [globalFilterFields]="['name']"
+                    >
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th></th>
+                                <th>Nombre</th>
+                                <th>Apellidos</th>
+                                <th>Email</th>
+                                <th>Teléfono</th>
+                                <th>Móvil</th>
+                                <th>Bloque</th>
+                                <th>Habitación</th>
+                                <th>Cama</th>
+                            </tr>
+                            <tr>
+                                <th></th>
+                                <th>
+                                    <p-columnFilter
+                                        matchMode="contains"
+                                        type="text"
+                                        field="name"
+                                        placeholder="Filtrar"
+                                        ariaLabel="Filtrar"
+                                    />
+                                </th>
+                                <th>
+                                    <p-columnFilter
+                                        matchMode="contains"
+                                        type="text"
+                                        field="surname"
+                                        placeholder="Filtrar"
+                                        ariaLabel="Filtrar"
+                                    />
+                                </th>
+                                <th>
+                                    <p-columnFilter
+                                        matchMode="contains"
+                                        type="text"
+                                        field="email"
+                                        placeholder="Filtrar"
+                                        ariaLabel="Filtrar"
+                                    />
+                                </th>
+                                <th>
+                                    <p-columnFilter
+                                        matchMode="contains"
+                                        type="text"
+                                        field="phone"
+                                        placeholder="Filtrar"
+                                        ariaLabel="Filtrar"
+                                    />
+                                </th>
+                                <th>
+                                    <p-columnFilter
+                                        matchMode="contains"
+                                        type="text"
+                                        field="mobile"
+                                        placeholder="Filtrar"
+                                        ariaLabel="Filtrar"
+                                    />
+                                </th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-item>
+                            <ng-container>
+                                <tr (click)="get(item.id)" class="cursor-pointer">
+                                    <td>
+                                        <components-avatar [student]="item"></components-avatar>
+                                    </td>
+                                    <td>{{ item.name }}</td>
+                                    <td>{{ item.surname }}</td>
+                                    <td>{{ item.email }}</td>
+                                    <td>{{ item.phone }}</td>
+                                    <td>{{ item.mobile }}</td>
+                                    <td>{{ item.block }}</td>
+                                    <td>{{ item.room }}</td>
+                                    <td>{{ item.bed }}</td>
+                                </tr>
+                            </ng-container>
+                        </ng-template>
+                    </p-table>
+
+                    <span *ngIf="ingressedStudents.length === 0 && !loading$">Aún no tienes alumnos para mostrar.</span>
+                </p-tabpanel>
+                <p-tabpanel [value]="2">
+                    <p-table
+                        #dt1
+                        [value]="inactiveStudents"
+                        styleClass="p-datatable-sm"
+                        [paginator]="true"
+                        [rows]="50"
+                        [showCurrentPageReport]="true"
+                        currentPageReportTemplate="Viendo {first} a {last} de {totalRecords} alumnos"
+                        [rowsPerPageOptions]="[20, 50]"
+                        [globalFilterFields]="['name']"
+                    >
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th></th>
+                                <th>Nombre</th>
+                                <th>Apellidos</th>
+                                <th>Email</th>
+                                <th>Teléfono</th>
+                                <th>Móvil</th>
+                                <th>Bloque</th>
+                                <th>Habitación</th>
+                                <th>Cama</th>
+                            </tr>
+                            <tr>
+                                <th></th>
+                                <th>
+                                    <p-columnFilter
+                                        matchMode="contains"
+                                        type="text"
+                                        field="name"
+                                        placeholder="Filtrar"
+                                        ariaLabel="Filtrar"
+                                    />
+                                </th>
+                                <th>
+                                    <p-columnFilter
+                                        matchMode="contains"
+                                        type="text"
+                                        field="surname"
+                                        placeholder="Filtrar"
+                                        ariaLabel="Filtrar"
+                                    />
+                                </th>
+                                <th>
+                                    <p-columnFilter
+                                        matchMode="contains"
+                                        type="text"
+                                        field="email"
+                                        placeholder="Filtrar"
+                                        ariaLabel="Filtrar"
+                                    />
+                                </th>
+                                <th>
+                                    <p-columnFilter
+                                        matchMode="contains"
+                                        type="text"
+                                        field="phone"
+                                        placeholder="Filtrar"
+                                        ariaLabel="Filtrar"
+                                    />
+                                </th>
+                                <th>
+                                    <p-columnFilter
+                                        matchMode="contains"
+                                        type="text"
+                                        field="mobile"
+                                        placeholder="Filtrar"
+                                        ariaLabel="Filtrar"
+                                    />
+                                </th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-item>
+                            <ng-container>
+                                <tr (click)="get(item.id)" class="cursor-pointer">
+                                    <td>
+                                        <components-avatar [student]="item"></components-avatar>
+                                    </td>
+                                    <td>{{ item.name }}</td>
+                                    <td>{{ item.surname }}</td>
+                                    <td>{{ item.email }}</td>
+                                    <td>{{ item.phone }}</td>
+                                    <td>{{ item.mobile }}</td>
+                                    <td>{{ item.block }}</td>
+                                    <td>{{ item.room }}</td>
+                                    <td>{{ item.bed }}</td>
+                                </tr>
+                            </ng-container>
+                        </ng-template>
+                    </p-table>
+
+                    <span *ngIf="ingressedStudents.length === 0 && !loading$">Aún no tienes alumnos para mostrar.</span>
+                </p-tabpanel>
+                <p-tabpanel [value]="3">
+                    <p-table
+                        #dt1
+                        [value]="allStudents"
+                        styleClass="p-datatable-sm"
+                        [paginator]="true"
+                        [rows]="50"
+                        [showCurrentPageReport]="true"
+                        currentPageReportTemplate="Viendo {first} a {last} de {totalRecords} alumnos"
+                        [rowsPerPageOptions]="[20, 50]"
+                        [globalFilterFields]="['name']"
+                    >
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th></th>
+                                <th>Nombre</th>
+                                <th>Apellidos</th>
+                                <th>Email</th>
+                                <th>Teléfono</th>
+                                <th>Móvil</th>
+                                <th>Bloque</th>
+                                <th>Habitación</th>
+                                <th>Cama</th>
+                            </tr>
+                            <tr>
+                                <th></th>
+                                <th>
+                                    <p-columnFilter
+                                        matchMode="contains"
+                                        type="text"
+                                        field="name"
+                                        placeholder="Filtrar"
+                                        ariaLabel="Filtrar"
+                                    />
+                                </th>
+                                <th>
+                                    <p-columnFilter
+                                        matchMode="contains"
+                                        type="text"
+                                        field="surname"
+                                        placeholder="Filtrar"
+                                        ariaLabel="Filtrar"
+                                    />
+                                </th>
+                                <th>
+                                    <p-columnFilter
+                                        matchMode="contains"
+                                        type="text"
+                                        field="email"
+                                        placeholder="Filtrar"
+                                        ariaLabel="Filtrar"
+                                    />
+                                </th>
+                                <th>
+                                    <p-columnFilter
+                                        matchMode="contains"
+                                        type="text"
+                                        field="phone"
+                                        placeholder="Filtrar"
+                                        ariaLabel="Filtrar"
+                                    />
+                                </th>
+                                <th>
+                                    <p-columnFilter
+                                        matchMode="contains"
+                                        type="text"
+                                        field="mobile"
+                                        placeholder="Filtrar"
+                                        ariaLabel="Filtrar"
+                                    />
+                                </th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-item>
+                            <ng-container>
+                                <tr (click)="get(item.id)" class="cursor-pointer">
+                                    <td>
+                                        <components-avatar [student]="item"></components-avatar>
+                                    </td>
+                                    <td>{{ item.name }}</td>
+                                    <td>{{ item.surname }}</td>
+                                    <td>{{ item.email }}</td>
+                                    <td>{{ item.phone }}</td>
+                                    <td>{{ item.mobile }}</td>
+                                    <td>{{ item.block }}</td>
+                                    <td>{{ item.room }}</td>
+                                    <td>{{ item.bed }}</td>
+                                </tr>
+                            </ng-container>
+                        </ng-template>
+                    </p-table>
+
+                    <span *ngIf="ingressedStudents.length === 0 && !loading$">Aún no tienes alumnos para mostrar.</span>
+                </p-tabpanel>
+            </p-tabpanels>
+        </p-tabs>
     </p-card>
 </div>

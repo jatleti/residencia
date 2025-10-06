@@ -83,7 +83,7 @@ export class StudentFacade {
                 },
                 Attendances: {
                     where: { deleted_at: null },
-                    orderBy: { from: 'desc' },
+                    orderBy: { created_at: 'desc' },
                 },
                 Files: {
                     where: { deleted_at: null },

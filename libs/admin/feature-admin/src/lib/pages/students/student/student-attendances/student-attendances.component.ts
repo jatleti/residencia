@@ -7,6 +7,8 @@ import {
     Attendance,
     ComboValues,
     AttendanceTypesDropdown,
+    AttendanceSubTypesDropdown,
+    AttendanceTypes,
 } from '@workspace/shared/util-core';
 import { MessageService, ConfirmationService } from 'primeng/api';
 
@@ -31,6 +33,8 @@ export class StudentAttendancesComponent extends PermissionsComponent implements
 
     comboYesNo = ComboValues.YES_NO;
     attendanceTypes = AttendanceTypesDropdown;
+    attendanceSubTypes = AttendanceSubTypesDropdown;
+    attendanceTypesEnum = AttendanceTypes;
 
     ngOnInit() {
         this.newAttendance = <Attendance>{};
@@ -105,5 +109,13 @@ export class StudentAttendancesComponent extends PermissionsComponent implements
     getType(attendance: Attendance): string {
         const type = this.attendanceTypes.find((t) => t.value === attendance.type);
         return type ? type.label : 'Desconocido';
+    }
+
+    getSubType(attendance: Attendance): string {
+        if (attendance.subtype === null || attendance.subtype === undefined) {
+            return '';
+        }
+        const subtype = this.attendanceSubTypes.find((t) => t.value === attendance.subtype);
+        return subtype ? subtype.label : '';
     }
 }

@@ -16,6 +16,7 @@ attendanceRouter
     )
     .get('', checkPermissions([Permissions.STUDENT.ATTENDANCE.LIST]), attendanceController.list)
     .get('/:id', checkPermissions([Permissions.STUDENT.ATTENDANCE.VIEW]), attendanceController.get)
+    .get('/student/:code', attendanceController.getStudent)
     .post('/student/:code', attendanceController.addForStudent)
     .post('', checkPermissions([Permissions.STUDENT.ATTENDANCE.CREATE]), attendanceController.add)
     .patch('/:id', checkPermissions([Permissions.STUDENT.ATTENDANCE.EDIT]), attendanceController.set)
