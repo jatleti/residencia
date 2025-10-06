@@ -10,4 +10,4 @@ then
 fi
 
 
-rsync -e "ssh -i ~/Dropbox/Trabajos/dataRush/dataRushPublish" -arvuz dist/apps/admin/* jatleti@195.248.231.166:/home/promanager360.com/public_html
+rsync -e "ssh -i ~/Dropbox/Trabajos/dataRush/dataRushPublish" -arvuz dist/apps/admin/* jatleti@195.248.231.166:/home/panel.residenciaescolar.com/public_html
