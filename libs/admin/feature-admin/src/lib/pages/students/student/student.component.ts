@@ -40,7 +40,8 @@ export class StudentComponent extends PermissionsComponent implements OnInit {
     loading$: Observable<boolean> = this.facade.loadingSubject$;
     loading = false;
 
-    requiredFields: string[] = ['name', 'email'];
+    requiredFields: string[] = ['name', 'email', 'code'];
+    requiredFieldsTranslations: string[] = ['nombre', 'email', 'código'];
 
     comboYesNo = ComboValues.YES_NO;
 
@@ -50,6 +51,12 @@ export class StudentComponent extends PermissionsComponent implements OnInit {
     rooms = ComboValues.ROOM;
     floors = ComboValues.FLOOR;
     beds = ComboValues.BED;
+    courses = ComboValues.COURSE;
+    turn = ComboValues.TURN;
+    motives = ComboValues.MOTIVES;
+    gender = ComboValues.GENDER;
+    isNew = ComboValues.ISNEW;
+    studies = ComboValues.STUDIES;
 
     getAgeNumber = getAgeNumber; // función para calcular la edad
 
@@ -70,6 +77,8 @@ export class StudentComponent extends PermissionsComponent implements OnInit {
                 this.item = item;
                 this.originalItem = JSON.parse(JSON.stringify(item));
                 if (this.item.birthdate) this.item.birthdate = new Date(this.item.birthdate);
+                if (this.item.ingressedAt) this.item.ingressedAt = new Date(this.item.ingressedAt);
+                if (this.item.inactiveAt) this.item.inactiveAt = new Date(this.item.inactiveAt);
             }
         });
         this.loading$.pipe(takeUntil(this.destroy$)).subscribe((loading) => {
@@ -87,13 +96,13 @@ export class StudentComponent extends PermissionsComponent implements OnInit {
 
     add() {
         let error = false;
-        this.requiredFields.forEach((field) => {
+        this.requiredFields.forEach((field, index) => {
             const value = this.item[field as keyof Student];
             if (!value) {
                 this.messageService.add({
                     severity: 'error',
                     summary: 'Error',
-                    detail: 'Faltan datos importantes por rellenar ' + field,
+                    detail: 'Faltan datos importantes por rellenar ' + this.requiredFieldsTranslations[index],
                 });
                 error = true;
                 return;
@@ -108,13 +117,13 @@ export class StudentComponent extends PermissionsComponent implements OnInit {
 
     save() {
         let error = false;
-        this.requiredFields.forEach((field) => {
+        this.requiredFields.forEach((field, index) => {
             const value = this.item[field as keyof Student];
             if (!value) {
                 this.messageService.add({
                     severity: 'error',
                     summary: 'Error',
-                    detail: 'Faltan datos importantes por rellenar ' + field,
+                    detail: 'Faltan datos importantes por rellenar ' + this.requiredFieldsTranslations[index],
                 });
                 error = true;
                 return;

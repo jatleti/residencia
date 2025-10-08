@@ -16,6 +16,8 @@ export class AttendanceSubTypes {
     public static readonly BREAKFAST = 2;
     public static readonly LUNCH = 3;
     public static readonly DINNER = 4;
+    public static readonly TRAINING = 5;
+    public static readonly AUTHORIZED = 6;
 }
 
 export const AttendanceSubTypesDropdown = [
@@ -24,4 +26,6 @@ export const AttendanceSubTypesDropdown = [
     { label: 'Desayuno', value: AttendanceSubTypes.BREAKFAST },
     { label: 'Comida', value: AttendanceSubTypes.LUNCH },
     { label: 'Cena', value: AttendanceSubTypes.DINNER },
+    { label: 'Entrenamiento', value: AttendanceSubTypes.TRAINING },
+    { label: 'Salida autorizada', value: AttendanceSubTypes.AUTHORIZED },
 ];

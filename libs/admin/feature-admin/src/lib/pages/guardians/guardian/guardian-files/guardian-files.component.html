@@ -1,0 +1,79 @@
+<div class="flex flex-col md:flex-row mb-3 gap-3">
+    <div class="flex-1">
+        <label>Descripción</label>
+        <input
+            class="w-full"
+            type="text"
+            pInputText
+            [maxlength]="255"
+            [(ngModel)]="newFile.description"
+            placeholder="Descripción"
+        />
+        <a
+            *ngIf="newFile.url && newFile.url !== ''"
+            (click)="newFile.url = ''; newFile.name = ''"
+            class="cursor-pointer"
+            >{{ newFile.name }} <i class="fa-regular fa-times-circle"></i>
+        </a>
+    </div>
+    <div class="flex-grow-0 pt-6">
+        <p-fileUpload
+            name="file"
+            url="{{ API_UPLOAD_URL }}"
+            uploadLabel="Subir"
+            chooseLabel="Seleccionar fichero"
+            cancelLabel="Cancelar"
+            mode="basic"
+            (onBeforeUpload)="onBeforeUploadFile($event)"
+            (onUpload)="onUploadFile($event)"
+            [auto]="true"
+        ></p-fileUpload>
+    </div>
+    <div class="flex-grow-0 pt-6">
+        <button pButton type="button" (click)="addFile()">
+            <i class="fa-regular fa-upload me-2"></i>
+            Añadir
+        </button>
+    </div>
+</div>
+
+<p-table
+    #dt1
+    [value]="files || []"
+    styleClass="p-datatable-sm"
+    [paginator]="true"
+    [rows]="50"
+    [showCurrentPageReport]="true"
+    currentPageReportTemplate="Viendo {first} a {last} de {totalRecords} items"
+    [rowsPerPageOptions]="[20, 50]"
+    [globalFilterFields]="['name']"
+>
+    <ng-template pTemplate="header">
+        <tr>
+            <th></th>
+            <th>Descripción</th>
+            <th>Fichero</th>
+            <th>Subido el</th>
+            <th>Por</th>
+            <th></th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-item>
+        <ng-container>
+            <tr>
+                <td>
+                    <a (click)="getFile(item)" target="_blank" class="cursor-pointer">
+                        <i class="fa-regular fa-download"></i>
+                    </a>
+                </td>
+                <td>{{ item.description }}</td>
+                <td>{{ item.name }}</td>
+                <td>{{ item.created_at | date: 'dd/MM/yyyy HH:mm' }}</td>
+                <td>{{ item.User?.name }} {{ item.User?.surname }}</td>
+                <td>
+                    <i (click)="deleteFile(item)" class="fa-regular fa-trash-alt cursor-pointer"></i>
+                </td>
+            </tr>
+        </ng-container>
+    </ng-template>
+</p-table>

@@ -67,7 +67,7 @@ export class StudentsStatusComponent extends PermissionsComponent implements OnI
 
     formatStudents() {
         // vamos a rellenar los bloques con habitaciones desde la 01 a la 20
-        for (let i = 1; i <= 20; i++) {
+        for (let i = 1; i <= 15; i++) {
             const roomNumber = i.toString().padStart(2, '0');
             // las camas son de la A a la D
             const beds: Bed[] = [{ name: 'A' }, { name: 'B' }, { name: 'C' }, { name: 'D' }];

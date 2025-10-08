@@ -14,4 +14,14 @@ guardianRouter
     .patch('/:id', checkPermissions([Permissions.GUARDIAN.EDIT]), guardianController.set)
     .delete('/:id', checkPermissions([Permissions.GUARDIAN.DELETE]), guardianController.del);
 
+// base URL: /student/:studentId/fileDocuments
+guardianRouter
+    .post('/:studentId/fileDocuments', checkPermissions([Permissions.GUARDIAN.EDIT]), guardianController.addFile)
+    .get('/:studentId/fileDocuments/:fileId', checkPermissions([Permissions.GUARDIAN.EDIT]), guardianController.getFile)
+    .delete(
+        '/:studentId/fileDocuments/:fileId',
+        checkPermissions([Permissions.GUARDIAN.EDIT]),
+        guardianController.delFile,
+    );
+
 export { guardianRouter };

@@ -115,6 +115,17 @@ export interface Student {
   ingressed: number;
   graduated: number;
   birthdate: Date | null;
+  ingressedAt: Date | null;
+  inactiveAt: Date | null;
+  observations: string | null;
+  allergies: string | null;
+  diseases: string | null;
+  course: string | null;
+  studies: string | null;
+  turn: string | null;
+  gender: number | null;
+  motiveIngressed: string | null;
+  isNew: number | null;
   photo: string | null;
   code: string | null;
   nif: string | null;
@@ -156,7 +167,9 @@ export interface Guardian {
   zip: string | null;
   phone: string | null;
   mobile: string | null;
+  observations: string | null;
   Students: Student[] | null;
+  Files: File[] | null;
 }
 
 export interface Tutorship {
@@ -257,4 +270,6 @@ export interface File {
   User: User | null;
   studentId: string | null;
   Student: Student | null;
+  guardianId: string | null;
+  Guardian: Guardian | null;
 }

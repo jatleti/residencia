@@ -70,6 +70,9 @@
                                 <p-tab [value]="0" class="flex gap-2 items-center"
                                     ><i class="fa fa-solid fa-file-lines"></i>Datos personales</p-tab
                                 >
+                                <p-tab [value]="8" class="flex gap-2 items-center"
+                                    ><i class="fa fa-solid fa-file-lines"></i>Más datos</p-tab
+                                >
                                 <p-tab [value]="2" class="flex gap-2 items-center"
                                     ><i class="fa fa-solid fa-user-tie"></i>Padres</p-tab
                                 >
@@ -127,6 +130,20 @@
                                                 [(ngModel)]="item.nir"
                                                 placeholder="NIR"
                                             />
+                                        </div>
+                                        <div class="flex-1">
+                                            <label htmlFor="ingressed">Género</label>
+                                            <p-select
+                                                [options]="gender"
+                                                [(ngModel)]="item.gender"
+                                                optionLabel="label"
+                                                optionValue="value"
+                                                appendTo="body"
+                                                [filter]="false"
+                                                [virtualScroll]="false"
+                                                [style]="{ width: '100%' }"
+                                                [placeholder]="'Género'"
+                                            ></p-select>
                                         </div>
                                     </div>
                                     <div class="flex gap-3 mb-3">
@@ -211,22 +228,125 @@
                                         </div>
                                     </div>
 
-                                    <div class="mb-3 flex items-center gap-3">
-                                        <label class="flex-0"
-                                            >Fecha de nacimiento ({{
-                                                getAgeNumber(item.birthdate || null)
-                                            }}
-                                            años)</label
-                                        >
+                                    <div class="flex gap-3 mb-3">
                                         <div class="flex-1">
-                                            <p-datepicker
-                                                class="w-full"
-                                                id="birthdate"
-                                                [(ngModel)]="item.birthdate"
-                                                dateFormat="dd/mm/yy"
-                                                [firstDayOfWeek]="1"
-                                                placeholder="Fecha de nacimiento"
-                                            ></p-datepicker>
+                                            <label htmlFor="ingressed">Curso</label>
+                                            <p-select
+                                                [options]="courses"
+                                                [(ngModel)]="item.course"
+                                                optionLabel="label"
+                                                optionValue="value"
+                                                appendTo="body"
+                                                [filter]="false"
+                                                [virtualScroll]="false"
+                                                [style]="{ width: '100%' }"
+                                                [placeholder]="'Curso'"
+                                            ></p-select>
+                                        </div>
+                                        <div class="flex-1">
+                                            <label htmlFor="ingressed">Turno de clase</label>
+                                            <p-select
+                                                [options]="turn"
+                                                [(ngModel)]="item.turn"
+                                                optionLabel="label"
+                                                optionValue="value"
+                                                appendTo="body"
+                                                [filter]="false"
+                                                [virtualScroll]="false"
+                                                [style]="{ width: '100%' }"
+                                                [placeholder]="'Turno'"
+                                            ></p-select>
+                                        </div>
+                                        <div class="flex-1">
+                                            <label htmlFor="ingressed">Motivo de solicitud</label>
+                                            <p-select
+                                                [options]="motives"
+                                                [(ngModel)]="item.motiveIngressed"
+                                                optionLabel="label"
+                                                optionValue="value"
+                                                appendTo="body"
+                                                [filter]="false"
+                                                [virtualScroll]="false"
+                                                [style]="{ width: '100%' }"
+                                                [placeholder]="'Motivo de solicitud'"
+                                            ></p-select>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex gap-8 mb-3">
+                                        <div class="flex-1">
+                                            <label htmlFor="ingressed">Es:</label>
+                                            <p-select
+                                                [options]="isNew"
+                                                [(ngModel)]="item.isNew"
+                                                optionLabel="label"
+                                                optionValue="value"
+                                                appendTo="body"
+                                                [filter]="false"
+                                                [virtualScroll]="false"
+                                                [style]="{ width: '100%' }"
+                                                [placeholder]="'Nueva/Renovacion/traslado'"
+                                            ></p-select>
+                                        </div>
+                                        <div class="flex-1">
+                                            <label htmlFor="ingressed">Estudios:</label>
+                                            <p-select
+                                                [options]="studies"
+                                                [(ngModel)]="item.studies"
+                                                optionLabel="label"
+                                                optionValue="value"
+                                                appendTo="body"
+                                                [filter]="true"
+                                                [virtualScroll]="false"
+                                                [style]="{ width: '100%' }"
+                                                [placeholder]="'Estudios'"
+                                            ></p-select>
+                                        </div>
+                                    </div>
+                                    <div class="flex gap-8 mb-3">
+                                        <div class="mb-3 flex items-start flex-col gap-3">
+                                            <label class="flex-0"
+                                                >Fecha de nacimiento ({{
+                                                    getAgeNumber(item.birthdate || null)
+                                                }}
+                                                años)</label
+                                            >
+                                            <div class="flex-1">
+                                                <p-datepicker
+                                                    class="w-full"
+                                                    id="birthdate"
+                                                    [(ngModel)]="item.birthdate"
+                                                    dateFormat="dd/mm/yy"
+                                                    [firstDayOfWeek]="1"
+                                                    placeholder="Fecha de nacimiento"
+                                                ></p-datepicker>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3 flex items-start flex-col gap-3">
+                                            <label class="flex-0">Fecha de ingreso</label>
+                                            <div class="flex-1">
+                                                <p-datepicker
+                                                    class="w-full"
+                                                    id="ingressedAt"
+                                                    [(ngModel)]="item.ingressedAt"
+                                                    dateFormat="dd/mm/yy"
+                                                    [firstDayOfWeek]="1"
+                                                    placeholder="Fecha de ingreso"
+                                                ></p-datepicker>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3 flex items-start flex-col gap-3">
+                                            <label class="flex-0">Fecha de baja</label>
+                                            <div class="flex-1">
+                                                <p-datepicker
+                                                    class="w-full"
+                                                    id="inactiveAt"
+                                                    [(ngModel)]="item.inactiveAt"
+                                                    dateFormat="dd/mm/yy"
+                                                    [firstDayOfWeek]="1"
+                                                    placeholder="Fecha de baja"
+                                                ></p-datepicker>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="mb-3">
@@ -242,7 +362,7 @@
                                     </div>
                                     <div class="flex gap-3 mb-3">
                                         <div class="flex-1">
-                                            <label htmlFor="city">Ciudad</label>
+                                            <label htmlFor="city">Localidad</label>
                                             <input
                                                 class="w-full"
                                                 id="city"
@@ -328,7 +448,7 @@
                                                 [placeholder]="'Ingresado'"
                                             ></p-select>
                                         </div>
-                                        <div class="flex-1">
+                                        <!-- <div class="flex-1">
                                             <label htmlFor="graduated">Graduado</label>
                                             <p-select
                                                 [options]="comboYesNo"
@@ -341,7 +461,7 @@
                                                 [style]="{ width: '100%' }"
                                                 [placeholder]="'Graduado'"
                                             ></p-select>
-                                        </div>
+                                        </div> -->
 
                                         <div class="flex-1">
                                             <label>Activo</label>
@@ -358,6 +478,30 @@
                                             >
                                             </p-select>
                                         </div>
+                                    </div>
+
+                                    <components-model-buttons
+                                        [showDelete]="!!item.id && isPermitted([Permissions.STUDENT.DELETE])"
+                                        [showAdd]="!item.id && isPermitted([Permissions.STUDENT.CREATE])"
+                                        [showSave]="!!item.id && isPermitted([Permissions.STUDENT.EDIT])"
+                                        (clickBack)="back()"
+                                        (clickAdd)="add()"
+                                        (clickDelete)="del()"
+                                        (clickSave)="save()"
+                                    ></components-model-buttons>
+                                </p-tabpanel>
+                                <p-tabpanel [value]="8">
+                                    <div class="mb-3">
+                                        <label>Observaciones</label>
+                                        <p-editor [(ngModel)]="item.observations" [style]="{ height: '120px' }" />
+                                    </div>
+                                    <div class="mb-3">
+                                        <label>Alergias</label>
+                                        <p-editor [(ngModel)]="item.allergies" [style]="{ height: '120px' }" />
+                                    </div>
+                                    <div class="mb-3">
+                                        <label>Enfermedades</label>
+                                        <p-editor [(ngModel)]="item.diseases" [style]="{ height: '120px' }" />
                                     </div>
 
                                     <components-model-buttons

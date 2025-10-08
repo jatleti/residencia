@@ -62,7 +62,7 @@
                                     student.Attendances[0].subtype === attendanceSubTypes.HOME
                                 "
                             >
-                                <span class="text-red-500">En casa</span>
+                                <span class="text-red-500">En domicilio</span>
                             </ng-container>
                             <ng-container
                                 *ngIf="
@@ -71,6 +71,22 @@
                                 "
                             >
                                 <span class="text-red-500">De paseo</span>
+                            </ng-container>
+                            <ng-container
+                                *ngIf="
+                                    student.Attendances[0].type === attebdanceTypes.LEAVE &&
+                                    student.Attendances[0].subtype === attendanceSubTypes.TRAINING
+                                "
+                            >
+                                <span class="text-red-500">Entrenamiento</span>
+                            </ng-container>
+                            <ng-container
+                                *ngIf="
+                                    student.Attendances[0].type === attebdanceTypes.LEAVE &&
+                                    student.Attendances[0].subtype === attendanceSubTypes.AUTHORIZED
+                                "
+                            >
+                                <span class="text-red-500">Salida autorizada</span>
                             </ng-container>
                         </ng-container>
                     </div>
@@ -84,7 +100,7 @@
                         (click)="setType(0)"
                         [class.border-4]="type === 0"
                     >
-                        <div class="text-4xl text-primary-500 font-bold">Llegada</div>
+                        <div class="text-4xl text-primary-500 font-bold">Residencia</div>
                     </div>
                 </div>
                 <div class="flex-1 text-center">
@@ -94,14 +110,28 @@
                         (click)="setType(2); setSubtype(attendanceSubTypes.HOME)"
                         [class.border-4]="type === 2 && subtype === attendanceSubTypes.HOME"
                     >
-                        <div class="text-4xl text-primary-500 font-bold">Casa</div>
+                        <div class="text-4xl text-primary-500 font-bold">A domicilio</div>
                     </div>
                     <div
-                        class="text-center bg-orange-200 rounded-md p-8 border-gray-900 cursor-pointer"
+                        class="text-center bg-orange-200 rounded-md p-8 border-gray-900 cursor-pointer mb-5"
                         (click)="setType(2); setSubtype(attendanceSubTypes.WALK)"
                         [class.border-4]="type === 2 && subtype === attendanceSubTypes.WALK"
                     >
                         <div class="text-4xl text-primary-500 font-bold">Paseo menores</div>
+                    </div>
+                    <div
+                        class="text-center bg-blue-200 rounded-md p-8 border-gray-900 cursor-pointer mb-5"
+                        (click)="setType(2); setSubtype(attendanceSubTypes.TRAINING)"
+                        [class.border-4]="type === 2 && subtype === attendanceSubTypes.TRAINING"
+                    >
+                        <div class="text-4xl text-primary-500 font-bold">Entrenamiento</div>
+                    </div>
+                    <div
+                        class="text-center bg-purple-200 rounded-md p-8 border-gray-900 cursor-pointer"
+                        (click)="setType(2); setSubtype(attendanceSubTypes.AUTHORIZED)"
+                        [class.border-4]="type === 2 && subtype === attendanceSubTypes.AUTHORIZED"
+                    >
+                        <div class="text-4xl text-primary-500 font-bold">Salida autorizada</div>
                     </div>
                 </div>
                 <div class="flex-1 text-center h-full">

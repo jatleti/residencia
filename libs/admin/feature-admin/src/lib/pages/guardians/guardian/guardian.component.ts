@@ -39,13 +39,14 @@ export class GuardianComponent extends PermissionsComponent implements OnInit {
     loading$: Observable<boolean> = this.facade.loadingSubject$;
     loading = false;
 
-    requiredFields: string[] = ['name', 'email'];
+    requiredFields: string[] = ['name'];
 
     comboYesNo = ComboValues.YES_NO;
 
     API_UPLOAD_URL = Endpoints.API + '/storage/upload/file';
 
     signedPhoto = '';
+    tabIndex = 0;
 
     ngOnInit() {
         this.activatedRoute.params.subscribe((routeParams: any) => {

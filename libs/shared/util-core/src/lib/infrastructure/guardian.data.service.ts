@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Endpoints } from '../infrastructure/endpoints';
 import { CustomResponse } from '../entities/customresponse';
-import { Guardian } from '../entities/schema';
+import { Guardian, File } from '../entities/schema';
 
 @Injectable({ providedIn: 'root' })
 export class GuardianDataService {
@@ -28,5 +28,23 @@ export class GuardianDataService {
 
     del(guardian: Guardian): Observable<CustomResponse> {
         return this.http.delete<CustomResponse>(Endpoints.API + '/guardian/' + guardian.id);
+    }
+
+    // files
+
+    addFile(id: string, file: File): Observable<File[]> {
+        return this.http.post<File[]>(Endpoints.API + '/guardian/' + id + '/fileDocuments', {
+            data: file,
+        });
+    }
+
+    getFile(id: string, fileId: string): Observable<File | null> {
+        return this.http.get<File>(`${Endpoints.API}/guardian/${id}/fileDocuments/${fileId}`);
+    }
+
+    delFile(id: string, fileId: string): Observable<File[]> {
+        return this.http.request<File[]>('delete', Endpoints.API + '/guardian/' + id + '/fileDocuments/' + fileId, {
+            body: {},
+        });
     }
 }

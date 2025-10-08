@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, firstValueFrom } from 'rxjs';
 import { MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
 import { GuardianDataService } from '../infrastructure/guardian.data.service';
-import { Guardian } from '../entities/schema';
+import { Guardian, File } from '../entities/schema';
 import { Config } from '../config/config';
 
 @Injectable({ providedIn: 'root' })
@@ -104,5 +104,17 @@ export class GuardianFacade {
                 console.error('err', err);
             },
         });
+    }
+
+    async addFile(id: string, file: File): Promise<File[]> {
+        return await firstValueFrom(this.guardianDataService.addFile(id, file));
+    }
+
+    async getFile(id: string, fileId: string): Promise<File | null> {
+        return await firstValueFrom(this.guardianDataService.getFile(id, fileId));
+    }
+
+    async delFile(id: string, fileId: string): Promise<File[]> {
+        return await firstValueFrom(this.guardianDataService.delFile(id, fileId));
     }
 }

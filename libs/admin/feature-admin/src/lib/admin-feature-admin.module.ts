@@ -54,6 +54,8 @@ import { KioskComponent } from './pages/kiosk/kiosk.component';
 import { StudentFilesComponent } from './pages/students/student/student-files/student-files.component';
 import { QRCodeComponent } from 'angularx-qrcode';
 import { KioskDinnerComponent } from './pages/kiosk-dinner/kiosk-dinner.component';
+import { Tooltip } from 'primeng/tooltip';
+import { GuardianFilesComponent } from './pages/guardians/guardian/guardian-files/guardian-files.component';
 
 @NgModule({
     imports: [
@@ -85,6 +87,7 @@ import { KioskDinnerComponent } from './pages/kiosk-dinner/kiosk-dinner.componen
         InputNumberModule,
         DialogModule,
         QRCodeComponent,
+        Tooltip,
     ],
     declarations: [
         AdminComponent,
@@ -111,6 +114,7 @@ import { KioskDinnerComponent } from './pages/kiosk-dinner/kiosk-dinner.componen
         KioskComponent,
         StudentFilesComponent,
         KioskDinnerComponent,
+        GuardianFilesComponent,
     ],
     exports: [AdminComponent],
 })

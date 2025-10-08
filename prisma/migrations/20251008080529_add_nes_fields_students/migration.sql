@@ -1,0 +1,16 @@
+-- AlterTable
+ALTER TABLE `NT_FilesFIL` ADD COLUMN `guardianId` VARCHAR(191) NULL;
+
+-- AlterTable
+ALTER TABLE `NT_StudentsSTU` ADD COLUMN `course` VARCHAR(100) NULL,
+    ADD COLUMN `gender` INTEGER NULL DEFAULT 0,
+    ADD COLUMN `inactiveAt` DATETIME(3) NULL,
+    ADD COLUMN `ingressedAt` DATETIME(3) NULL,
+    ADD COLUMN `isNew` INTEGER NULL DEFAULT 1,
+    ADD COLUMN `motiveIngressed` VARCHAR(255) NULL,
+    ADD COLUMN `observations` TEXT NULL,
+    ADD COLUMN `studies` VARCHAR(255) NULL,
+    ADD COLUMN `turn` VARCHAR(100) NULL;
+
+-- AddForeignKey
+ALTER TABLE `NT_FilesFIL` ADD CONSTRAINT `NT_FilesFIL_guardianId_fkey` FOREIGN KEY (`guardianId`) REFERENCES `NT_GuardiansGUA`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;

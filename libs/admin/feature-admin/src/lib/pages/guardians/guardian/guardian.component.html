@@ -1,37 +1,96 @@
-<div class="p-2 md:p-8 mx-auto w-full max-w-[1000px]">
+<div class="p-2 md:p-8 mx-auto w-full">
     <p-card class="mb-5 block">
         <components-h1 class="mb-5 block text-primary-500 text-center md:text-start"
             >{{ item.name || 'Nuevo padre' }} {{ item.surname }}</components-h1
         >
 
-        <div class="mb-3">
-            <label htmlFor="name">Nombre</label>
-            <input class="w-full" id="name" type="text" pInputText [(ngModel)]="item.name" placeholder="Nombre" />
-        </div>
-        <div class="mb-3">
-            <label htmlFor="surname">Apellidos</label>
-            <input
-                class="w-full"
-                id="surname"
-                type="text"
-                pInputText
-                [(ngModel)]="item.surname"
-                placeholder="Apellidos"
-            />
-        </div>
-        <div class="mb-3">
-            <label htmlFor="email">Email</label>
-            <input
-                class="w-full"
-                id="email"
-                type="email"
-                required
-                pInputText
-                [(ngModel)]="item.email"
-                placeholder="Email"
-            />
-        </div>
-        <!-- <div class="mb-3">
+        <p-tabs [(value)]="tabIndex" scrollable class="w-full">
+            <p-tablist class="w-full grid">
+                <p-tab [value]="0" class="flex gap-2 items-center"
+                    ><i class="fa fa-solid fa-file-lines"></i>Datos personales</p-tab
+                >
+                <p-tab [value]="1" class="flex gap-2 items-center"><i class="fa fa-solid fa-file"></i>Documentos</p-tab>
+            </p-tablist>
+            <p-tabpanels>
+                <p-tabpanel [value]="0">
+                    <div class="flex gap-3 mb-3">
+                        <div class="flex-1">
+                            <label htmlFor="name">Nombre</label>
+                            <input
+                                class="w-full"
+                                id="name"
+                                type="text"
+                                pInputText
+                                [(ngModel)]="item.name"
+                                placeholder="Nombre"
+                            />
+                        </div>
+                        <div class="flex-1">
+                            <label htmlFor="surname">Apellidos</label>
+                            <input
+                                class="w-full"
+                                id="surname"
+                                type="text"
+                                pInputText
+                                [(ngModel)]="item.surname"
+                                placeholder="Apellidos"
+                            />
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label htmlFor="email">Email</label>
+                        <input
+                            class="w-full"
+                            id="email"
+                            type="email"
+                            required
+                            pInputText
+                            [(ngModel)]="item.email"
+                            placeholder="Email"
+                        />
+                    </div>
+                    <div class="flex gap-3 mb-3">
+                        <div class="flex-1">
+                            <label htmlFor="phone">DNI</label>
+                            <input
+                                class="w-full"
+                                id="nif"
+                                type="text"
+                                pInputText
+                                [(ngModel)]="item.nif"
+                                placeholder="DNI"
+                            />
+                        </div>
+                        <div class="flex-1">
+                            <label htmlFor="phone">Teléfono</label>
+                            <input
+                                class="w-full"
+                                id="phone"
+                                type="text"
+                                pInputText
+                                [(ngModel)]="item.phone"
+                                placeholder="Teléfono"
+                            />
+                        </div>
+                        <div class="flex-1">
+                            <label htmlFor="mobile">Móvil</label>
+                            <input
+                                class="w-full"
+                                id="mobile"
+                                type="text"
+                                pInputText
+                                [(ngModel)]="item.mobile"
+                                placeholder="Móvil"
+                            />
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Observaciones</label>
+                        <p-editor [(ngModel)]="item.observations" [style]="{ height: '200px' }" />
+                    </div>
+
+                    <!-- <div class="mb-3">
             <label htmlFor="email">Contraseña (Rellenar para cambiar)</label>
             <input
                 class="w-full"
@@ -44,31 +103,37 @@
             />
         </div> -->
 
-        <div class="mb-3">
-            <label>Activo</label>
-            <p-select
-                [options]="comboYesNo"
-                [(ngModel)]="item.active"
-                optionLabel="label"
-                optionValue="value"
-                appendTo="body"
-                [filter]="false"
-                [virtualScroll]="false"
-                [style]="{ width: '100%' }"
-                [placeholder]="'Activo'"
-            >
-            </p-select>
-        </div>
+                    <div class="mb-3">
+                        <label>Activo</label>
+                        <p-select
+                            [options]="comboYesNo"
+                            [(ngModel)]="item.active"
+                            optionLabel="label"
+                            optionValue="value"
+                            appendTo="body"
+                            [filter]="false"
+                            [virtualScroll]="false"
+                            [style]="{ width: '100%' }"
+                            [placeholder]="'Activo'"
+                        >
+                        </p-select>
+                    </div>
 
-        <components-model-buttons
-            [showDelete]="!!item.id && isPermitted([Permissions.GUARDIAN.DELETE])"
-            [showAdd]="!item.id && isPermitted([Permissions.GUARDIAN.CREATE])"
-            [showSave]="!!item.id && isPermitted([Permissions.GUARDIAN.EDIT])"
-            (clickBack)="back()"
-            (clickAdd)="add()"
-            (clickDelete)="del()"
-            (clickSave)="save()"
-        ></components-model-buttons>
+                    <components-model-buttons
+                        [showDelete]="!!item.id && isPermitted([Permissions.GUARDIAN.DELETE])"
+                        [showAdd]="!item.id && isPermitted([Permissions.GUARDIAN.CREATE])"
+                        [showSave]="!!item.id && isPermitted([Permissions.GUARDIAN.EDIT])"
+                        (clickBack)="back()"
+                        (clickAdd)="add()"
+                        (clickDelete)="del()"
+                        (clickSave)="save()"
+                    ></components-model-buttons>
+                </p-tabpanel>
+                <p-tabpanel [value]="1">
+                    <admin-guardian-files *ngIf="item.id" [guardian]="item"></admin-guardian-files>
+                </p-tabpanel>
+            </p-tabpanels>
+        </p-tabs>
     </p-card>
 
     <p-card *ngIf="item.id" class="mb-5 block">

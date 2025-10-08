@@ -124,33 +124,44 @@ model UserPermission {
 }
 
 model Student {
-  id         String    @id @unique @default(uuid())
-  name       String    @db.VarChar(255)
-  surname    String?   @db.VarChar(255)
-  email      String    @unique
-  password   String?   @db.VarChar(255)
-  created_at DateTime  @default(now())
-  updated_at DateTime  @updatedAt
-  deleted_at DateTime?
-  active     Int       @default(1)
-  admitted   Int       @default(0)
-  ingressed  Int       @default(0)
-  graduated  Int       @default(0)
-  birthdate  DateTime?
-  photo      String?   @db.VarChar(255)
-  code       String?   @db.VarChar(100)
-  nif        String?   @db.VarChar(20)
-  nir        String?   @db.VarChar(20)
-  address    String?   @db.VarChar(255)
-  city       String?   @db.VarChar(100)
-  province   String?   @db.VarChar(100)
-  zip        String?   @db.VarChar(10)
-  phone      String?   @db.VarChar(20)
-  mobile     String?   @db.VarChar(20)
-  block      String?   @db.VarChar(100)
-  floor      String?   @db.VarChar(100)
-  room       String?   @db.VarChar(100)
-  bed        String?   @db.VarChar(100)
+  id              String    @id @unique @default(uuid())
+  name            String    @db.VarChar(255)
+  surname         String?   @db.VarChar(255)
+  email           String    @unique
+  password        String?   @db.VarChar(255)
+  created_at      DateTime  @default(now())
+  updated_at      DateTime  @updatedAt
+  deleted_at      DateTime?
+  active          Int       @default(1)
+  admitted        Int       @default(0)
+  ingressed       Int       @default(0)
+  graduated       Int       @default(0)
+  birthdate       DateTime?
+  ingressedAt     DateTime?
+  inactiveAt      DateTime?
+  observations    String?   @db.Text()
+  allergies       String?   @db.Text()
+  diseases        String?   @db.Text()
+  course          String?   @db.VarChar(100)
+  studies         String?   @db.VarChar(255)
+  turn            String?   @db.VarChar(100)
+  gender          Int?      @default(0)
+  motiveIngressed String?   @db.VarChar(255)
+  isNew           Int?      @default(1)
+  photo           String?   @db.VarChar(255)
+  code            String?   @db.VarChar(100)
+  nif             String?   @db.VarChar(20)
+  nir             String?   @db.VarChar(20)
+  address         String?   @db.VarChar(255)
+  city            String?   @db.VarChar(100)
+  province        String?   @db.VarChar(100)
+  zip             String?   @db.VarChar(10)
+  phone           String?   @db.VarChar(20)
+  mobile          String?   @db.VarChar(20)
+  block           String?   @db.VarChar(100)
+  floor           String?   @db.VarChar(100)
+  room            String?   @db.VarChar(100)
+  bed             String?   @db.VarChar(100)
 
   Guardians      Guardian[]
   Tutorships     Tutorship[]
@@ -165,24 +176,26 @@ model Student {
 }
 
 model Guardian {
-  id         String    @id @unique @default(uuid())
-  name       String    @db.VarChar(255)
-  surname    String?   @db.VarChar(255)
-  email      String    @unique
-  password   String?   @db.VarChar(255)
-  created_at DateTime  @default(now())
-  updated_at DateTime  @updatedAt
-  deleted_at DateTime?
-  active     Int       @default(1)
-  nif        String?   @db.VarChar(20)
-  address    String?   @db.VarChar(255)
-  city       String?   @db.VarChar(100)
-  province   String?   @db.VarChar(100)
-  zip        String?   @db.VarChar(10)
-  phone      String?   @db.VarChar(20)
-  mobile     String?   @db.VarChar(20)
+  id           String    @id @unique @default(uuid())
+  name         String    @db.VarChar(255)
+  surname      String?   @db.VarChar(255)
+  email        String    @unique
+  password     String?   @db.VarChar(255)
+  created_at   DateTime  @default(now())
+  updated_at   DateTime  @updatedAt
+  deleted_at   DateTime?
+  active       Int       @default(1)
+  nif          String?   @db.VarChar(20)
+  address      String?   @db.VarChar(255)
+  city         String?   @db.VarChar(100)
+  province     String?   @db.VarChar(100)
+  zip          String?   @db.VarChar(10)
+  phone        String?   @db.VarChar(20)
+  mobile       String?   @db.VarChar(20)
+  observations String?   @db.Text()
 
   Students Student[]
+  Files    File[]
 
   @@map("NT_GuardiansGUA")
 }
@@ -303,6 +316,8 @@ model File {
   User        User?     @relation(fields: [userId], references: [id])
   studentId   String?
   Student     Student?  @relation(fields: [studentId], references: [id])
+  guardianId  String?
+  Guardian    Guardian? @relation(fields: [guardianId], references: [id])
 
   @@map("NT_FilesFIL")
 }
