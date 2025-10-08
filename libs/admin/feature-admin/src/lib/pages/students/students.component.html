@@ -16,10 +16,10 @@
 
         <p-tabs [(value)]="tabIndex" scrollable class="w-full">
             <p-tablist class="w-full grid">
-                <p-tab [value]="1" class="flex gap-2 items-center">Admitidos ({{ admittedStudents.length }})</p-tab>
                 <p-tab [value]="0" class="flex gap-2 items-center">Ingresados ({{ ingressedStudents.length }})</p-tab>
                 <p-tab [value]="2" class="flex gap-2 items-center">Bajas ({{ inactiveStudents.length }})</p-tab>
                 <p-tab [value]="3" class="flex gap-2 items-center">Todos ({{ allStudents.length }})</p-tab>
+                <p-tab [value]="1" class="flex gap-2 items-center">Admitidos ({{ admittedStudents.length }})</p-tab>
             </p-tablist>
             <p-tabpanels>
                 <p-tabpanel [value]="0">
@@ -37,11 +37,12 @@
                         <ng-template pTemplate="header">
                             <tr>
                                 <th></th>
+                                <th>Código</th>
                                 <th>Nombre</th>
                                 <th>Apellidos</th>
-                                <th>Email</th>
+                                <!-- <th>Email</th>
                                 <th>Teléfono</th>
-                                <th>Móvil</th>
+                                <th>Móvil</th> -->
                                 <th>DNI</th>
                                 <th>Bloque</th>
                                 <th>Habitación</th>
@@ -52,6 +53,16 @@
                             </tr>
                             <tr>
                                 <th></th>
+
+                                <th>
+                                    <p-columnFilter
+                                        matchMode="contains"
+                                        type="text"
+                                        field="code"
+                                        placeholder="Filtrar"
+                                        ariaLabel="Filtrar"
+                                    />
+                                </th>
                                 <th>
                                     <p-columnFilter
                                         matchMode="contains"
@@ -70,7 +81,7 @@
                                         ariaLabel="Filtrar"
                                     />
                                 </th>
-                                <th>
+                                <!-- <th>
                                     <p-columnFilter
                                         matchMode="contains"
                                         type="text"
@@ -96,7 +107,7 @@
                                         placeholder="Filtrar"
                                         ariaLabel="Filtrar"
                                     />
-                                </th>
+                                </th> -->
                                 <th>
                                     <p-columnFilter
                                         matchMode="contains"
@@ -106,9 +117,33 @@
                                         ariaLabel="Filtrar"
                                     />
                                 </th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
+                                <th>
+                                    <p-columnFilter
+                                        matchMode="contains"
+                                        type="text"
+                                        field="block"
+                                        placeholder="Filtrar"
+                                        ariaLabel="Filtrar"
+                                    />
+                                </th>
+                                <th>
+                                    <p-columnFilter
+                                        matchMode="contains"
+                                        type="text"
+                                        field="room"
+                                        placeholder="Filtrar"
+                                        ariaLabel="Filtrar"
+                                    />
+                                </th>
+                                <th>
+                                    <p-columnFilter
+                                        matchMode="contains"
+                                        type="text"
+                                        field="bed"
+                                        placeholder="Filtrar"
+                                        ariaLabel="Filtrar"
+                                    />
+                                </th>
                             </tr>
                         </ng-template>
                         <ng-template pTemplate="body" let-item>
@@ -117,11 +152,12 @@
                                     <td>
                                         <components-avatar [student]="item"></components-avatar>
                                     </td>
+                                    <td>{{ item.code }}</td>
                                     <td>{{ item.name }}</td>
                                     <td>{{ item.surname }}</td>
-                                    <td>{{ item.email }}</td>
+                                    <!-- <td>{{ item.email }}</td>
                                     <td>{{ item.phone }}</td>
-                                    <td>{{ item.mobile }}</td>
+                                    <td>{{ item.mobile }}</td> -->
                                     <td>{{ item.nif }}</td>
                                     <td>{{ item.block }}</td>
                                     <td>{{ item.room }}</td>
@@ -157,11 +193,12 @@
                         <ng-template pTemplate="header">
                             <tr>
                                 <th></th>
+                                <th>Código</th>
                                 <th>Nombre</th>
                                 <th>Apellidos</th>
-                                <th>Email</th>
+                                <!-- <th>Email</th>
                                 <th>Teléfono</th>
-                                <th>Móvil</th>
+                                <th>Móvil</th> -->
                                 <th>DNI</th>
                                 <th>Bloque</th>
                                 <th>Habitación</th>
@@ -169,6 +206,15 @@
                             </tr>
                             <tr>
                                 <th></th>
+                                <th>
+                                    <p-columnFilter
+                                        matchMode="contains"
+                                        type="text"
+                                        field="code"
+                                        placeholder="Filtrar"
+                                        ariaLabel="Filtrar"
+                                    />
+                                </th>
                                 <th>
                                     <p-columnFilter
                                         matchMode="contains"
@@ -187,7 +233,7 @@
                                         ariaLabel="Filtrar"
                                     />
                                 </th>
-                                <th>
+                                <!-- <th>
                                     <p-columnFilter
                                         matchMode="contains"
                                         type="text"
@@ -213,7 +259,7 @@
                                         placeholder="Filtrar"
                                         ariaLabel="Filtrar"
                                     />
-                                </th>
+                                </th> -->
                                 <th>
                                     <p-columnFilter
                                         matchMode="contains"
@@ -223,9 +269,33 @@
                                         ariaLabel="Filtrar"
                                     />
                                 </th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
+                                <th>
+                                    <p-columnFilter
+                                        matchMode="contains"
+                                        type="text"
+                                        field="block"
+                                        placeholder="Filtrar"
+                                        ariaLabel="Filtrar"
+                                    />
+                                </th>
+                                <th>
+                                    <p-columnFilter
+                                        matchMode="contains"
+                                        type="text"
+                                        field="room"
+                                        placeholder="Filtrar"
+                                        ariaLabel="Filtrar"
+                                    />
+                                </th>
+                                <th>
+                                    <p-columnFilter
+                                        matchMode="contains"
+                                        type="text"
+                                        field="bed"
+                                        placeholder="Filtrar"
+                                        ariaLabel="Filtrar"
+                                    />
+                                </th>
                             </tr>
                         </ng-template>
                         <ng-template pTemplate="body" let-item>
@@ -234,11 +304,12 @@
                                     <td>
                                         <components-avatar [student]="item"></components-avatar>
                                     </td>
+                                    <td>{{ item.code }}</td>
                                     <td>{{ item.name }}</td>
                                     <td>{{ item.surname }}</td>
-                                    <td>{{ item.email }}</td>
+                                    <!-- <td>{{ item.email }}</td>
                                     <td>{{ item.phone }}</td>
-                                    <td>{{ item.mobile }}</td>
+                                    <td>{{ item.mobile }}</td> -->
                                     <td>{{ item.nif }}</td>
                                     <td>{{ item.block }}</td>
                                     <td>{{ item.room }}</td>
@@ -265,11 +336,12 @@
                         <ng-template pTemplate="header">
                             <tr>
                                 <th></th>
+                                <th>Código</th>
                                 <th>Nombre</th>
                                 <th>Apellidos</th>
-                                <th>Email</th>
+                                <!-- <th>Email</th>
                                 <th>Teléfono</th>
-                                <th>Móvil</th>
+                                <th>Móvil</th> -->
                                 <th>DNI</th>
                                 <th>Bloque</th>
                                 <th>Habitación</th>
@@ -277,6 +349,15 @@
                             </tr>
                             <tr>
                                 <th></th>
+                                <th>
+                                    <p-columnFilter
+                                        matchMode="contains"
+                                        type="text"
+                                        field="code"
+                                        placeholder="Filtrar"
+                                        ariaLabel="Filtrar"
+                                    />
+                                </th>
                                 <th>
                                     <p-columnFilter
                                         matchMode="contains"
@@ -295,7 +376,7 @@
                                         ariaLabel="Filtrar"
                                     />
                                 </th>
-                                <th>
+                                <!-- <th>
                                     <p-columnFilter
                                         matchMode="contains"
                                         type="text"
@@ -321,7 +402,7 @@
                                         placeholder="Filtrar"
                                         ariaLabel="Filtrar"
                                     />
-                                </th>
+                                </th> -->
                                 <th>
                                     <p-columnFilter
                                         matchMode="contains"
@@ -331,9 +412,33 @@
                                         ariaLabel="Filtrar"
                                     />
                                 </th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
+                                <th>
+                                    <p-columnFilter
+                                        matchMode="contains"
+                                        type="text"
+                                        field="block"
+                                        placeholder="Filtrar"
+                                        ariaLabel="Filtrar"
+                                    />
+                                </th>
+                                <th>
+                                    <p-columnFilter
+                                        matchMode="contains"
+                                        type="text"
+                                        field="room"
+                                        placeholder="Filtrar"
+                                        ariaLabel="Filtrar"
+                                    />
+                                </th>
+                                <th>
+                                    <p-columnFilter
+                                        matchMode="contains"
+                                        type="text"
+                                        field="bed"
+                                        placeholder="Filtrar"
+                                        ariaLabel="Filtrar"
+                                    />
+                                </th>
                             </tr>
                         </ng-template>
                         <ng-template pTemplate="body" let-item>
@@ -342,11 +447,12 @@
                                     <td>
                                         <components-avatar [student]="item"></components-avatar>
                                     </td>
+                                    <td>{{ item.code }}</td>
                                     <td>{{ item.name }}</td>
                                     <td>{{ item.surname }}</td>
-                                    <td>{{ item.email }}</td>
+                                    <!-- <td>{{ item.email }}</td>
                                     <td>{{ item.phone }}</td>
-                                    <td>{{ item.mobile }}</td>
+                                    <td>{{ item.mobile }}</td> -->
                                     <td>{{ item.nif }}</td>
                                     <td>{{ item.block }}</td>
                                     <td>{{ item.room }}</td>
@@ -373,11 +479,12 @@
                         <ng-template pTemplate="header">
                             <tr>
                                 <th></th>
+                                <th>Código</th>
                                 <th>Nombre</th>
                                 <th>Apellidos</th>
-                                <th>Email</th>
+                                <!-- <th>Email</th>
                                 <th>Teléfono</th>
-                                <th>Móvil</th>
+                                <th>Móvil</th> -->
                                 <th>DNI</th>
                                 <th>Bloque</th>
                                 <th>Habitación</th>
@@ -385,6 +492,15 @@
                             </tr>
                             <tr>
                                 <th></th>
+                                <th>
+                                    <p-columnFilter
+                                        matchMode="contains"
+                                        type="text"
+                                        field="code"
+                                        placeholder="Filtrar"
+                                        ariaLabel="Filtrar"
+                                    />
+                                </th>
                                 <th>
                                     <p-columnFilter
                                         matchMode="contains"
@@ -403,7 +519,7 @@
                                         ariaLabel="Filtrar"
                                     />
                                 </th>
-                                <th>
+                                <!-- <th>
                                     <p-columnFilter
                                         matchMode="contains"
                                         type="text"
@@ -429,7 +545,7 @@
                                         placeholder="Filtrar"
                                         ariaLabel="Filtrar"
                                     />
-                                </th>
+                                </th> -->
                                 <th>
                                     <p-columnFilter
                                         matchMode="contains"
@@ -439,9 +555,33 @@
                                         ariaLabel="Filtrar"
                                     />
                                 </th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
+                                <th>
+                                    <p-columnFilter
+                                        matchMode="contains"
+                                        type="text"
+                                        field="block"
+                                        placeholder="Filtrar"
+                                        ariaLabel="Filtrar"
+                                    />
+                                </th>
+                                <th>
+                                    <p-columnFilter
+                                        matchMode="contains"
+                                        type="text"
+                                        field="room"
+                                        placeholder="Filtrar"
+                                        ariaLabel="Filtrar"
+                                    />
+                                </th>
+                                <th>
+                                    <p-columnFilter
+                                        matchMode="contains"
+                                        type="text"
+                                        field="bed"
+                                        placeholder="Filtrar"
+                                        ariaLabel="Filtrar"
+                                    />
+                                </th>
                             </tr>
                         </ng-template>
                         <ng-template pTemplate="body" let-item>
@@ -450,11 +590,12 @@
                                     <td>
                                         <components-avatar [student]="item"></components-avatar>
                                     </td>
+                                    <td>{{ item.code }}</td>
                                     <td>{{ item.name }}</td>
                                     <td>{{ item.surname }}</td>
-                                    <td>{{ item.email }}</td>
+                                    <!-- <td>{{ item.email }}</td>
                                     <td>{{ item.phone }}</td>
-                                    <td>{{ item.mobile }}</td>
+                                    <td>{{ item.mobile }}</td> -->
                                     <td>{{ item.nif }}</td>
                                     <td>{{ item.block }}</td>
                                     <td>{{ item.room }}</td>

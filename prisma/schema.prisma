@@ -143,6 +143,7 @@ model Student {
   allergies       String?   @db.Text()
   diseases        String?   @db.Text()
   course          String?   @db.VarChar(100)
+  typeStudies     Int?      @default(0)
   studies         String?   @db.VarChar(255)
   turn            String?   @db.VarChar(100)
   gender          Int?      @default(0)

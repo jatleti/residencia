@@ -57,6 +57,10 @@ export class StudentComponent extends PermissionsComponent implements OnInit {
     gender = ComboValues.GENDER;
     isNew = ComboValues.ISNEW;
     studies = ComboValues.STUDIES;
+    superiorStudies = ComboValues.SUPERIOR_STUDIES;
+    esoStudies = ComboValues.ESO_STUDIES;
+    bachilleratoStudies = ComboValues.BACHILLERATO_STUDIES;
+    typeStudies = ComboValues.TYPE_STUDIES;
 
     getAgeNumber = getAgeNumber; // función para calcular la edad
 

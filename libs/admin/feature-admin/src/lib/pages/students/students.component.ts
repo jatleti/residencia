@@ -23,7 +23,7 @@ export class StudentsComponent extends PermissionsComponent implements OnInit {
     inactiveStudents: Student[] = [];
     admittedStudents: Student[] = [];
 
-    tabIndex = 1;
+    tabIndex = 0;
 
     ngOnInit() {
         this.list$.pipe(takeUntil(this.destroy$)).subscribe((students) => {

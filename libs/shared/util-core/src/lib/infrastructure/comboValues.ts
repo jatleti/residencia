@@ -75,6 +75,7 @@ export class ComboValues {
         { label: 'Madre con violencia de género', value: 'Madre con violencia de género' },
         { label: 'Música o Danza', value: 'Música o Danza' },
         { label: 'Actividad deportiva', value: 'Actividad deportiva' },
+        { label: 'Sin requisitos: alumno libre', value: 'Sin requisitos: alumno libre' },
     ];
 
     public static GENDER = [
@@ -87,6 +88,25 @@ export class ComboValues {
         { label: 'Renovación', value: 1 },
         { label: 'Nueva incorporacion', value: 0 },
         { label: 'Traslado', value: 2 },
+    ];
+
+    public static TYPE_STUDIES = [
+        { label: 'ESO', value: 0 },
+        { label: 'Bachillerato', value: 1 },
+        { label: 'Ciclo Medio', value: 2 },
+        { label: 'Ciclo Superior', value: 3 },
+    ];
+
+    public static ESO_STUDIES = [
+        { label: '1º ESO', value: '1º ESO' },
+        { label: '2º ESO', value: '2º ESO' },
+        { label: '3º ESO', value: '3º ESO' },
+        { label: '4º ESO', value: '4º ESO' },
+    ];
+
+    public static BACHILLERATO_STUDIES = [
+        { label: '1º Bachillerato', value: '1º Bachillerato' },
+        { label: '2º Bachillerato', value: '2º Bachillerato' },
     ];
 
     public static STUDIES = [
@@ -202,6 +222,271 @@ export class ComboValues {
         },
         { label: 'Técnico en Soldadura y Calderería', value: 'Técnico en Soldadura y Calderería' },
         { label: 'Técnico en Vídeo Disc-jockey y Sonido', value: 'Técnico en Vídeo Disc-jockey y Sonido' },
+    ];
+
+    public static SUPERIOR_STUDIES = [
+        { label: 'Técnico Superior en Acuicultura', value: 'Técnico Superior en Acuicultura' },
+        {
+            label: 'Técnico Superior en Administración y Finanzas',
+            value: 'Técnico Superior en Administración y Finanzas',
+        },
+        {
+            label: 'Técnico Superior en Administracion de Sistemas Informáticos en Red',
+            value: 'Técnico Superior en Administracion de Sistemas Informáticos en Red',
+        },
+        {
+            label: 'Técnico Superior en Acondicionamiento Físico',
+            value: 'Técnico Superior en Acondicionamiento Físico',
+        },
+        {
+            label: 'Técnico Superior en Agencias de Viajes y Gestión de Eventos',
+            value: 'Técnico Superior en Agencias de Viajes y Gestión de Eventos',
+        },
+        {
+            label: 'Técnico Superior en Anatomía Patológica y Citodiagnóstico',
+            value: 'Técnico Superior en Anatomía Patológica y Citodiagnóstico',
+        },
+        {
+            label: 'Técnico Superior en Animación Sociocultural y Turística',
+            value: 'Técnico Superior en Animación Sociocultural y Turística',
+        },
+        {
+            label: 'Técnico Superior en Animaciones 3D, Juegos y Entornos Interactivos',
+            value: 'Técnico Superior en Animaciones 3D, Juegos y Entornos Interactivos',
+        },
+        {
+            label: 'Técnico Superior en Asesoría de Imagen Personal y Corporativa',
+            value: 'Técnico Superior en Asesoría de Imagen Personal y Corporativa',
+        },
+        {
+            label: 'Técnico Superior en Asistencia a la Dirección',
+            value: 'Técnico Superior en Asistencia a la Dirección',
+        },
+        {
+            label: 'Técnico Superior en Automatización y Robótica Industrial',
+            value: 'Técnico Superior en Automatización y Robótica Industrial',
+        },
+        { label: 'Técnico Superior en Audiología Protésica', value: 'Técnico Superior en Audiología Protésica' },
+        {
+            label: 'Técnico Superior en Caracterización y Maquillaje Profesional',
+            value: 'Técnico Superior en Caracterización y Maquillaje Profesional',
+        },
+        { label: 'Técnico Superior en Comercio Internacional', value: 'Técnico Superior en Comercio Internacional' },
+        {
+            label: 'Técnico Superior en Construcciones Metálicas',
+            value: 'Técnico Superior en Construcciones Metálicas',
+        },
+        {
+            label: 'Técnico Superior en Coordinación de Emergencias y Protección Civil',
+            value: 'Técnico Superior en Coordinación de Emergencias y Protección Civil',
+        },
+        {
+            label: 'Técnico Superior en Desarrollo de Aplicaciones Multiplataforma',
+            value: 'Técnico Superior en Desarrollo de Aplicaciones Multiplataforma',
+        },
+        {
+            label: 'Técnico Superior en Desarrollo de Aplicaciones Web',
+            value: 'Técnico Superior en Desarrollo de Aplicaciones Web',
+        },
+        {
+            label: 'Técnico Superior en Desarrollo de Proyectos de Instalaciones Térmicas y de Fluidos',
+            value: 'Técnico Superior en Desarrollo de Proyectos de Instalaciones Térmicas y de Fluidos',
+        },
+        { label: 'Técnico Superior en Dietética (LOGSE)', value: 'Técnico Superior en Dietética (LOGSE)' },
+        { label: 'Técnico Superior en Dirección de Cocina', value: 'Técnico Superior en Dirección de Cocina' },
+        {
+            label: 'Técnico Superior en Dirección de Servicios en Restauración',
+            value: 'Técnico Superior en Dirección de Servicios en Restauración',
+        },
+        { label: 'Técnico Superior en Diseño y Amueblamiento', value: 'Técnico Superior en Diseño y Amueblamiento' },
+        {
+            label: 'Técnico Superior en Diseño y Edición de Publicaciones Impresas y Multimedia',
+            value: 'Técnico Superior en Diseño y Edición de Publicaciones Impresas y Multimedia',
+        },
+        {
+            label: 'Técnico Superior en Diseño y Gestión de la Producción Gráfica',
+            value: 'Técnico Superior en Diseño y Gestión de la Producción Gráfica',
+        },
+        {
+            label: 'Técnico Superior en Diseño en Fabricación Mecánica',
+            value: 'Técnico Superior en Diseño en Fabricación Mecánica',
+        },
+        {
+            label: 'Técnico Superior en Documentación y Administración Sanitarias',
+            value: 'Técnico Superior en Documentación y Administración Sanitarias',
+        },
+        { label: 'Técnico Superior en Educación Infantil', value: 'Técnico Superior en Educación Infantil' },
+        {
+            label: 'Técnico Superior en Educación y Control Ambiental',
+            value: 'Técnico Superior en Educación y Control Ambiental',
+        },
+        {
+            label: 'Técnico Superior en Eficiencia Energética y Energía Solar Térmica',
+            value: 'Técnico Superior en Eficiencia Energética y Energía Solar Térmica',
+        },
+        { label: 'Técnico Superior en Electromedicina Clínica', value: 'Técnico Superior en Electromedicina Clínica' },
+        {
+            label: 'Técnico Superior en Enseñanza y Animación Sociodeportiva',
+            value: 'Técnico Superior en Enseñanza y Animación Sociodeportiva',
+        },
+        { label: 'Técnico Superior en Energías Renovables', value: 'Técnico Superior en Energías Renovables' },
+        {
+            label: 'Técnico Superior en Estética Integral y Bienestar',
+            value: 'Técnico Superior en Estética Integral y Bienestar',
+        },
+        {
+            label: 'Técnico Superior en Estilismo y Dirección de Peluquería',
+            value: 'Técnico Superior en Estilismo y Dirección de Peluquería',
+        },
+        {
+            label: 'Técnico Superior en Fabricación de productos farmacéuticos, biotecnológicos y afines',
+            value: 'Técnico Superior en Fabricación de productos farmacéuticos, biotecnológicos y afines',
+        },
+        {
+            label: 'Técnico Superior en Formación para la Movilidad Segura y Sostenible',
+            value: 'Técnico Superior en Formación para la Movilidad Segura y Sostenible',
+        },
+        {
+            label: 'Técnico Superior en Ganadería y Asistencia en Sanidad Animal',
+            value: 'Técnico Superior en Ganadería y Asistencia en Sanidad Animal',
+        },
+        {
+            label: 'Técnico Superior en Gestión de Alojamientos Turísticos',
+            value: 'Técnico Superior en Gestión de Alojamientos Turísticos',
+        },
+        {
+            label: 'Técnico Superior en Gestión de Ventas y Espacios Comerciales',
+            value: 'Técnico Superior en Gestión de Ventas y Espacios Comerciales',
+        },
+        { label: 'Técnico Superior en Gestión del Agua', value: 'Técnico Superior en Gestión del Agua' },
+        {
+            label: 'Técnico Superior en Gestión Forestal y del Medio Natural',
+            value: 'Técnico Superior en Gestión Forestal y del Medio Natural',
+        },
+        {
+            label: 'Técnico Superior en Guía, Información y Asistencias Turísticas',
+            value: 'Técnico Superior en Guía, Información y Asistencias Turísticas',
+        },
+        { label: 'Técnico Superior en Higiene Bucodental', value: 'Técnico Superior en Higiene Bucodental' },
+        {
+            label: 'Técnico Superior en Iluminación, Captación y Tratamiento de Imagen',
+            value: 'Técnico Superior en Iluminación, Captación y Tratamiento de Imagen',
+        },
+        {
+            label: 'Técnico Superior en Imagen para el Diagnóstico y Medicina Nuclear',
+            value: 'Técnico Superior en Imagen para el Diagnóstico y Medicina Nuclear',
+        },
+        { label: 'Técnico Superior en Integración Social', value: 'Técnico Superior en Integración Social' },
+        {
+            label: 'Técnico Superior en Laboratorio Clínico y Biomédico',
+            value: 'Técnico Superior en Laboratorio Clínico y Biomédico',
+        },
+        {
+            label: 'Técnico Superior en Laboratorio de Análisis y de Control de Calidad',
+            value: 'Técnico Superior en Laboratorio de Análisis y de Control de Calidad',
+        },
+        {
+            label: 'Técnico Superior en Mantenimiento de Instalaciones Térmicas y de Fluidos',
+            value: 'Técnico Superior en Mantenimiento de Instalaciones Térmicas y de Fluidos',
+        },
+        {
+            label: 'Técnico Superior en mantenimiento de sistemas electrónicos y aviónicos en aeronaves',
+            value: 'Técnico Superior en mantenimiento de sistemas electrónicos y aviónicos en aeronaves',
+        },
+        {
+            label: 'Técnico Superior en Mantenimiento Electrónico',
+            value: 'Técnico Superior en Mantenimiento Electrónico',
+        },
+        { label: 'Técnico Superior en Marketing y Publicidad', value: 'Técnico Superior en Marketing y Publicidad' },
+        { label: 'Técnico Superior en Mecatrónica Industrial', value: 'Técnico Superior en Mecatrónica Industrial' },
+        { label: 'Técnico Superior en Mediación Comunicativa', value: 'Técnico Superior en Mediación Comunicativa' },
+        {
+            label: 'Técnico Superior en Óptica de anteojería (LOGSE)',
+            value: 'Técnico Superior en Óptica de anteojería (LOGSE)',
+        },
+        {
+            label: 'Técnico Superior en Organización del Mantenimiento de Maquinaria de Buques y Embarcaciones',
+            value: 'Técnico Superior en Organización del Mantenimiento de Maquinaria de Buques y Embarcaciones',
+        },
+        {
+            label: 'Técnico Superior en Organización y Control de Obras de Construcción',
+            value: 'Técnico Superior en Organización y Control de Obras de Construcción',
+        },
+        {
+            label: 'Técnico Superior en Ortoprótesis y Productos de Apoyo',
+            value: 'Técnico Superior en Ortoprótesis y Productos de Apoyo',
+        },
+        {
+            label: 'Técnico Superior en Paisajismo y Medio Rural',
+            value: 'Técnico Superior en Paisajismo y Medio Rural',
+        },
+        { label: 'Técnico Superior en Patronaje y Moda', value: 'Técnico Superior en Patronaje y Moda' },
+        {
+            label: 'Técnico Superior en Prevención de riesgos profesionales (LOGSE)',
+            value: 'Técnico Superior en Prevención de riesgos profesionales (LOGSE)',
+        },
+        {
+            label: 'Técnico Superior en Procesos y Calidad en la Industria Alimentaria',
+            value: 'Técnico Superior en Procesos y Calidad en la Industria Alimentaria',
+        },
+        {
+            label: 'Técnico Superior en Producción de Audiovisuales y Espectáculos',
+            value: 'Técnico Superior en Producción de Audiovisuales y Espectáculos',
+        },
+        {
+            label: 'Técnico Superior en Programación de la Producción en Fabricación Mecánica',
+            value: 'Técnico Superior en Programación de la Producción en Fabricación Mecánica',
+        },
+        {
+            label: 'Técnico Superior en Programación de la Producción en Moldeo de Metales y Polímeros',
+            value: 'Técnico Superior en Programación de la Producción en Moldeo de Metales y Polímeros',
+        },
+        { label: 'Técnico Superior en Prótesis Dentales', value: 'Técnico Superior en Prótesis Dentales' },
+        {
+            label: 'Técnico Superior en Proyectos de Edificación',
+            value: 'Técnico Superior en Proyectos de Edificación',
+        },
+        { label: 'Técnico Superior en Proyectos de Obra Civil', value: 'Técnico Superior en Proyectos de Obra Civil' },
+        {
+            label: 'Técnico superior en Promoción de Igualdad de Género',
+            value: 'Técnico superior en Promoción de Igualdad de Género',
+        },
+        { label: 'Técnico Superior en Química Industrial', value: 'Técnico Superior en Química Industrial' },
+        {
+            label: 'Técnico Superior en Química y Salud Ambiental',
+            value: 'Técnico Superior en Química y Salud Ambiental',
+        },
+        {
+            label: 'Técnico Superior en Radioterapia y Dosimetría',
+            value: 'Técnico Superior en Radioterapia y Dosimetría',
+        },
+        {
+            label: 'Técnico Superior en Realización de Proyectos Audiovisuales y Espectáculos',
+            value: 'Técnico Superior en Realización de Proyectos Audiovisuales y Espectáculos',
+        },
+        {
+            label: 'Técnico Superior en Sistemas de Telecomunicaciones e Informáticos',
+            value: 'Técnico Superior en Sistemas de Telecomunicaciones e Informáticos',
+        },
+        {
+            label: 'Técnico Superior en Sistemas Electrotécnicos y Automatizados',
+            value: 'Técnico Superior en Sistemas Electrotécnicos y Automatizados',
+        },
+        {
+            label: 'Técnico Superior en Sonido para Audiovisuales y Espectáculos',
+            value: 'Técnico Superior en Sonido para Audiovisuales y Espectáculos',
+        },
+        { label: 'Técnico Superior en Termalismo y Bienestar', value: 'Técnico Superior en Termalismo y Bienestar' },
+        {
+            label: 'Técnico Superior en Transporte Marítimo y Pesca de Altura',
+            value: 'Técnico Superior en Transporte Marítimo y Pesca de Altura',
+        },
+        { label: 'Técnico Superior en Transporte y Logística', value: 'Técnico Superior en Transporte y Logística' },
+        {
+            label: 'Técnico Superior en Vestuario a Medida y de Espectáculos',
+            value: 'Técnico Superior en Vestuario a Medida y de Espectáculos',
+        },
+        { label: 'Técnico Superior en Vitivinicultura', value: 'Técnico Superior en Vitivinicultura' },
     ];
 
     public static SECURE2FA_MODES = [{ label: 'Código 6 cifras', value: 'code' }];

@@ -289,7 +289,49 @@
                                             ></p-select>
                                         </div>
                                         <div class="flex-1">
-                                            <label htmlFor="ingressed">Estudios:</label>
+                                            <label htmlFor="ingressed">Tipo estudios</label>
+                                            <p-select
+                                                [options]="typeStudies"
+                                                [(ngModel)]="item.typeStudies"
+                                                optionLabel="label"
+                                                optionValue="value"
+                                                appendTo="body"
+                                                [filter]="true"
+                                                [virtualScroll]="false"
+                                                [style]="{ width: '100%' }"
+                                                [placeholder]="'Tipo de estudios'"
+                                            ></p-select>
+                                        </div>
+                                        <div *ngIf="item.typeStudies === 0" class="flex-1">
+                                            <label htmlFor="ingressed">Estudios ESO</label>
+                                            <p-select
+                                                [options]="esoStudies"
+                                                [(ngModel)]="item.studies"
+                                                optionLabel="label"
+                                                optionValue="value"
+                                                appendTo="body"
+                                                [filter]="true"
+                                                [virtualScroll]="false"
+                                                [style]="{ width: '100%' }"
+                                                [placeholder]="'ESO'"
+                                            ></p-select>
+                                        </div>
+                                        <div *ngIf="item.typeStudies === 1" class="flex-1">
+                                            <label htmlFor="ingressed">Estudios Bachillerato</label>
+                                            <p-select
+                                                [options]="bachilleratoStudies"
+                                                [(ngModel)]="item.studies"
+                                                optionLabel="label"
+                                                optionValue="value"
+                                                appendTo="body"
+                                                [filter]="true"
+                                                [virtualScroll]="false"
+                                                [style]="{ width: '100%' }"
+                                                [placeholder]="'Bachilleraro'"
+                                            ></p-select>
+                                        </div>
+                                        <div *ngIf="item.typeStudies === 2" class="flex-1">
+                                            <label htmlFor="ingressed">Ciclo grado medio</label>
                                             <p-select
                                                 [options]="studies"
                                                 [(ngModel)]="item.studies"
@@ -299,7 +341,21 @@
                                                 [filter]="true"
                                                 [virtualScroll]="false"
                                                 [style]="{ width: '100%' }"
-                                                [placeholder]="'Estudios'"
+                                                [placeholder]="'Ciclo Grado Medio'"
+                                            ></p-select>
+                                        </div>
+                                        <div *ngIf="item.typeStudies === 3" class="flex-1">
+                                            <label htmlFor="ingressed">Ciclo grado superior</label>
+                                            <p-select
+                                                [options]="superiorStudies"
+                                                [(ngModel)]="item.studies"
+                                                optionLabel="label"
+                                                optionValue="value"
+                                                appendTo="body"
+                                                [filter]="true"
+                                                [virtualScroll]="false"
+                                                [style]="{ width: '100%' }"
+                                                [placeholder]="'Ciclo Superior'"
                                             ></p-select>
                                         </div>
                                     </div>

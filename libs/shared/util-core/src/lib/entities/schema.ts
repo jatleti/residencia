@@ -121,6 +121,7 @@ export interface Student {
   allergies: string | null;
   diseases: string | null;
   course: string | null;
+  typeStudies: number | null;
   studies: string | null;
   turn: string | null;
   gender: number | null;

@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE `NT_StudentsSTU` ADD COLUMN `typeStudies` INTEGER NULL DEFAULT 0;
