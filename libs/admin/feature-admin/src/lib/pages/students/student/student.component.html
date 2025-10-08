@@ -107,6 +107,7 @@
                                                 pInputText
                                                 [(ngModel)]="item.code"
                                                 placeholder="Código"
+                                                [disabled]="true"
                                             />
                                         </div>
                                         <div class="flex-1">
@@ -159,6 +160,7 @@
                                                 [virtualScroll]="false"
                                                 [style]="{ width: '100%' }"
                                                 [placeholder]="'Bloque'"
+                                                (ngModelChange)="calculateCode()"
                                             ></p-select>
                                         </div>
                                         <div class="flex-1">
@@ -173,6 +175,7 @@
                                                 [virtualScroll]="false"
                                                 [style]="{ width: '100%' }"
                                                 [placeholder]="'Habitación'"
+                                                (ngModelChange)="calculateCode()"
                                             ></p-select>
                                         </div>
                                         <div class="flex-1">
@@ -187,6 +190,7 @@
                                                 [virtualScroll]="false"
                                                 [style]="{ width: '100%' }"
                                                 [placeholder]="'Cama'"
+                                                (ngModelChange)="calculateCode()"
                                             ></p-select>
                                         </div>
                                     </div>

@@ -40,8 +40,8 @@ export class StudentComponent extends PermissionsComponent implements OnInit {
     loading$: Observable<boolean> = this.facade.loadingSubject$;
     loading = false;
 
-    requiredFields: string[] = ['name', 'email', 'code'];
-    requiredFieldsTranslations: string[] = ['nombre', 'email', 'código'];
+    requiredFields: string[] = ['name', 'email'];
+    requiredFieldsTranslations: string[] = ['nombre', 'email'];
 
     comboYesNo = ComboValues.YES_NO;
 
@@ -179,5 +179,13 @@ export class StudentComponent extends PermissionsComponent implements OnInit {
 
     onBeforeUpload($event: FileBeforeUploadEvent) {
         $event.formData.append('path', 'students');
+    }
+
+    calculateCode() {
+        let newCode = '';
+        if (this.item.block) newCode += this.item.block;
+        if (this.item.room) newCode += this.item.room;
+        if (this.item.bed) newCode += this.item.bed;
+        this.item.code = newCode;
     }
 }

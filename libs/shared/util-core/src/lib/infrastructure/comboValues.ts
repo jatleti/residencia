@@ -15,6 +15,7 @@ export class ComboValues {
     ];
 
     public static BLOCKS = [
+        { label: 'Sin definir', value: '' },
         { label: '1', value: '1' },
         { label: '2', value: '2' },
         { label: '3', value: '3' },
@@ -29,6 +30,7 @@ export class ComboValues {
     ];
 
     public static ROOM = [
+        { label: 'Sin definir', value: '' },
         { label: '01', value: '01' },
         { label: '02', value: '02' },
         { label: '03', value: '03' },
@@ -52,6 +54,7 @@ export class ComboValues {
     ];
 
     public static BED = [
+        { label: 'Sin definir', value: '' },
         { label: 'A', value: 'A' },
         { label: 'B', value: 'B' },
         { label: 'C', value: 'C' },
