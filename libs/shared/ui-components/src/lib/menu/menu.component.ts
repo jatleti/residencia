@@ -28,7 +28,7 @@ export class MenuComponent extends DestroyComponent implements OnInit {
 
     permissions = Permissions;
 
-    style: 'big' | 'minimal' = 'big';
+    style: 'big' | 'minimal' = 'minimal';
 
     baseUrl = Config.baseUrl;
 

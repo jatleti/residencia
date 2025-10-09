@@ -12,17 +12,13 @@
     >
         <ng-template pTemplate="header">
             <tr>
-                <th>Código</th>
-                <th>Importe</th>
-                <th>Alumno</th>
+                <th>Curso</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-item>
             <ng-container>
                 <tr (click)="get(item)" class="cursor-pointer">
-                    <td>{{ item.code }}</td>
-                    <td>{{ item.amount | currency: 'EUR' }}</td>
-                    <td>{{ item.Student?.name }} {{ item.Student?.surname }}</td>
+                    <td>{{ item.Season?.name || '' }}</td>
                 </tr>
             </ng-container>
         </ng-template>
@@ -30,3 +26,200 @@
 
     <span *ngIf="student.Invoices?.length === 0">Aún no tienes items para mostrar.</span>
 </ng-container>
+
+<p-dialog header="Recibos y pagos" [modal]="true" [(visible)]="showInvoice" [style]="{ width: '90%' }">
+    <ng-container *ngIf="invoiceSelected">
+        <span class="text-3xl text-primary-500 font-bold">{{ invoiceSelected.Season?.name || '' }}</span>
+
+        <div class="flex gap-4 mb-4">
+            <div class="flex-1">
+                <label>Solicita Beca</label>
+                <p-select
+                    [options]="comboYesNo"
+                    [(ngModel)]="invoiceSelected.solicitaBeca"
+                    optionLabel="label"
+                    optionValue="value"
+                    appendTo="body"
+                    [filter]="false"
+                    [virtualScroll]="false"
+                    [style]="{ width: '100%' }"
+                >
+                </p-select>
+            </div>
+            <div class="flex-1">
+                <label>Beca concedida</label>
+                <p-select
+                    [options]="comboYesNo"
+                    [(ngModel)]="invoiceSelected.becaConcedida"
+                    optionLabel="label"
+                    optionValue="value"
+                    appendTo="body"
+                    [filter]="false"
+                    [virtualScroll]="false"
+                    [style]="{ width: '100%' }"
+                >
+                </p-select>
+            </div>
+            <div class="flex-1">
+                <label>Tipo de beca</label>
+                <input
+                    class="w-full"
+                    type="text"
+                    pInputText
+                    [(ngModel)]="invoiceSelected.tipoBeca"
+                    placeholder="Tipo de beca"
+                />
+            </div>
+        </div>
+        <div class="flex gap-4 mb-4">
+            <div class="flex-1">
+                <label>Obligado pago precio público</label>
+                <p-select
+                    [options]="comboYesNo"
+                    [(ngModel)]="invoiceSelected.obligadoPagoPrecioPublico"
+                    optionLabel="label"
+                    optionValue="value"
+                    appendTo="body"
+                    [filter]="false"
+                    [virtualScroll]="false"
+                    [style]="{ width: '100%' }"
+                >
+                </p-select>
+            </div>
+            <div class="flex-1">
+                <label>Localizador</label>
+                <input
+                    class="w-full"
+                    type="text"
+                    pInputText
+                    [(ngModel)]="invoiceSelected.localizador"
+                    placeholder="Localizador"
+                />
+            </div>
+            <div class="flex-1">
+                <label>Solicita bonificación</label>
+                <p-select
+                    [options]="comboYesNo"
+                    [(ngModel)]="invoiceSelected.solicitaBonificacion"
+                    optionLabel="label"
+                    optionValue="value"
+                    appendTo="body"
+                    [filter]="false"
+                    [virtualScroll]="false"
+                    [style]="{ width: '100%' }"
+                >
+                </p-select>
+            </div>
+            <div class="flex-1">
+                <label>Bonificación concedida</label>
+                <input
+                    class="w-full"
+                    type="text"
+                    pInputText
+                    [(ngModel)]="invoiceSelected.bonificacionConcedida"
+                    placeholder="Bonificación concedida"
+                />
+            </div>
+        </div>
+        <span class="text-2xl font-bold text-primary-500 block mb-5">Pagos</span>
+        <div class="flex gap-8 mb-4">
+            <div
+                class="flex-1 flex items-center gap-2 rounded-md p-3 font-bold bg-gray-100"
+                [class.bg-primary-100]="invoiceSelected.september === 1"
+            >
+                <p-checkbox [(ngModel)]="invoiceSelected.september" [binary]="true" [trueValue]="1" [falseValue]="0">
+                </p-checkbox>
+                Septiembre
+            </div>
+            <div
+                class="flex-1 flex items-center gap-2 rounded-md p-3 font-bold bg-gray-100"
+                [class.bg-primary-100]="invoiceSelected.october === 1"
+            >
+                <p-checkbox [(ngModel)]="invoiceSelected.october" [binary]="true" [trueValue]="1" [falseValue]="0">
+                </p-checkbox>
+                Octubre
+            </div>
+            <div
+                class="flex-1 flex items-center gap-2 rounded-md p-3 font-bold bg-gray-100"
+                [class.bg-primary-100]="invoiceSelected.november === 1"
+            >
+                <p-checkbox [(ngModel)]="invoiceSelected.november" [binary]="true" [trueValue]="1" [falseValue]="0">
+                </p-checkbox>
+                Noviembre
+            </div>
+            <div
+                class="flex-1 flex items-center gap-2 rounded-md p-3 font-bold bg-gray-100"
+                [class.bg-primary-100]="invoiceSelected.december === 1"
+            >
+                <p-checkbox [(ngModel)]="invoiceSelected.december" [binary]="true" [trueValue]="1" [falseValue]="0">
+                </p-checkbox>
+                Diciembre
+            </div>
+            <div
+                class="flex-1 flex items-center gap-2 rounded-md p-3 font-bold bg-gray-100"
+                [class.bg-primary-100]="invoiceSelected.january === 1"
+            >
+                <p-checkbox [(ngModel)]="invoiceSelected.january" [binary]="true" [trueValue]="1" [falseValue]="0">
+                </p-checkbox>
+                Enero
+            </div>
+        </div>
+        <div class="flex gap-8 mb-4">
+            <div
+                class="flex-1 flex items-center gap-2 rounded-md p-3 font-bold bg-gray-100"
+                [class.bg-primary-100]="invoiceSelected.february === 1"
+            >
+                <p-checkbox [(ngModel)]="invoiceSelected.february" [binary]="true" [trueValue]="1" [falseValue]="0">
+                </p-checkbox>
+                Febrero
+            </div>
+            <div
+                class="flex-1 flex items-center gap-2 rounded-md p-3 font-bold bg-gray-100"
+                [class.bg-primary-100]="invoiceSelected.march === 1"
+            >
+                <p-checkbox [(ngModel)]="invoiceSelected.march" [binary]="true" [trueValue]="1" [falseValue]="0">
+                </p-checkbox>
+                Marzo
+            </div>
+            <div
+                class="flex-1 flex items-center gap-2 rounded-md p-3 font-bold bg-gray-100"
+                [class.bg-primary-100]="invoiceSelected.april === 1"
+            >
+                <p-checkbox [(ngModel)]="invoiceSelected.april" [binary]="true" [trueValue]="1" [falseValue]="0">
+                </p-checkbox>
+                Abril
+            </div>
+            <div
+                class="flex-1 flex items-center gap-2 rounded-md p-3 font-bold bg-gray-100"
+                [class.bg-primary-100]="invoiceSelected.may === 1"
+            >
+                <p-checkbox [(ngModel)]="invoiceSelected.may" [binary]="true" [trueValue]="1" [falseValue]="0">
+                </p-checkbox>
+                Mayo
+            </div>
+            <div
+                class="flex-1 flex items-center gap-2 rounded-md p-3 font-bold bg-gray-100"
+                [class.bg-primary-100]="invoiceSelected.june === 1"
+            >
+                <p-checkbox [(ngModel)]="invoiceSelected.june" [binary]="true" [trueValue]="1" [falseValue]="0">
+                </p-checkbox>
+                Junio
+            </div>
+        </div>
+
+        <div class="flex justify-between gap-2 mt-10">
+            <button (click)="showInvoice = false" pButton pRipple class="p-button-outlined" type="button">
+                Cerrar
+            </button>
+            <div class="flex gap-3 justify-end items-center">
+                <p-button
+                    *ngIf="isPermitted([Permissions.INVOICE.EDIT])"
+                    label="Guardar"
+                    [disabled]="saving"
+                    severity="primary"
+                    (click)="set()"
+                />
+            </div>
+        </div>
+    </ng-container>
+</p-dialog>

@@ -39,6 +39,7 @@ export interface User {
   Invoices: Invoice[] | null;
   Students: Student[] | null;
   Files: File[] | null;
+  Diaries: Diary[] | null;
 }
 
 export interface UserSession {
@@ -149,13 +150,15 @@ export interface Student {
   Users: User[] | null;
   Attendances: Attendance[] | null;
   Files: File[] | null;
+  StudentSeasons: StudentSeason[] | null;
+  Diaries: Diary[] | null;
 }
 
 export interface Guardian {
   id: string;
   name: string;
   surname: string | null;
-  email: string;
+  email: string | null;
   password: string | null;
   created_at: Date;
   updated_at: Date;
@@ -226,15 +229,36 @@ export interface Sanction {
 
 export interface Invoice {
   id: string;
-  code: string;
+  code: string | null;
   date: Date | null;
   description: string | null;
-  amount: number;
+  amount: number | null;
   status: number;
   created_at: Date;
   updated_at: Date;
   deleted_at: Date | null;
   active: number;
+  january: number | null;
+  february: number | null;
+  march: number | null;
+  april: number | null;
+  may: number | null;
+  june: number | null;
+  july: number | null;
+  august: number | null;
+  september: number | null;
+  october: number | null;
+  november: number | null;
+  december: number | null;
+  solicitaBeca: number | null;
+  becaConcedida: number | null;
+  tipoBeca: string | null;
+  obligadoPagoPrecioPublico: number | null;
+  localizador: string | null;
+  solicitaBonificacion: number | null;
+  bonificacionConcedida: string | null;
+  seasonId: string | null;
+  Season: Season | null;
   studentId: string | null;
   Student: Student | null;
   userId: string | null;
@@ -273,4 +297,50 @@ export interface File {
   Student: Student | null;
   guardianId: string | null;
   Guardian: Guardian | null;
+}
+
+export interface Season {
+  id: string;
+  name: string;
+  description: string | null;
+  startDate: Date | null;
+  endDate: Date | null;
+  created_at: Date;
+  updated_at: Date;
+  deleted_at: Date | null;
+  active: number;
+  Invoices: Invoice[] | null;
+  StudentSeasons: StudentSeason[] | null;
+}
+
+export interface StudentSeason {
+  id: string;
+  studentId: string;
+  seasonId: string;
+  created_at: Date;
+  updated_at: Date;
+  deleted_at: Date | null;
+  from: Date | null;
+  to: Date | null;
+  active: number;
+  Student: Student;
+  Season: Season;
+}
+
+export interface Diary {
+  id: string;
+  code: string | null;
+  title: string | null;
+  description: string | null;
+  content: string | null;
+  type: number;
+  date: Date | null;
+  created_at: Date;
+  updated_at: Date;
+  deleted_at: Date | null;
+  active: number;
+  studentId: string | null;
+  Student: Student | null;
+  userId: string | null;
+  User: User | null;
 }

@@ -73,6 +73,9 @@
                                 <p-tab [value]="8" class="flex gap-2 items-center"
                                     ><i class="fa fa-solid fa-file-lines"></i>Más datos</p-tab
                                 >
+                                <p-tab [value]="9" class="flex gap-2 items-center"
+                                    ><i class="fa fa-solid fa-calendar-alt"></i>Cursos</p-tab
+                                >
                                 <p-tab [value]="2" class="flex gap-2 items-center"
                                     ><i class="fa fa-solid fa-user-tie"></i>Padres</p-tab
                                 >
@@ -89,7 +92,7 @@
                                     ><i class="fa fa-solid fa-file"></i>Documentos</p-tab
                                 >
                                 <p-tab [value]="5" class="flex gap-2 items-center"
-                                    ><i class="fa fa-solid fa-money-bill"></i>Recibos</p-tab
+                                    ><i class="fa fa-solid fa-money-bill"></i>Datos económicos</p-tab
                                 >
                                 <p-tab [value]="6" class="flex gap-2 items-center"
                                     ><i class="fa fa-solid fa-gavel"></i>Sanciones</p-tab
@@ -382,7 +385,7 @@
                                                 ></p-datepicker>
                                             </div>
                                         </div>
-                                        <div class="mb-3 flex items-start flex-col gap-3">
+                                        <!-- <div class="mb-3 flex items-start flex-col gap-3">
                                             <label class="flex-0">Fecha de ingreso</label>
                                             <div class="flex-1">
                                                 <p-datepicker
@@ -407,7 +410,7 @@
                                                     placeholder="Fecha de baja"
                                                 ></p-datepicker>
                                             </div>
-                                        </div>
+                                        </div> -->
                                     </div>
                                     <div class="mb-3">
                                         <label htmlFor="address">Dirección</label>
@@ -604,6 +607,9 @@
                                 </p-tabpanel>
                                 <p-tabpanel [value]="7">
                                     <admin-student-files *ngIf="item.id" [student]="item"></admin-student-files>
+                                </p-tabpanel>
+                                <p-tabpanel [value]="9">
+                                    <admin-student-seasons *ngIf="item.id" [student]="item"></admin-student-seasons>
                                 </p-tabpanel>
                             </p-tabpanels>
                         </p-tabs>

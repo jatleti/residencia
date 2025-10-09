@@ -21,6 +21,7 @@ export * from './lib/facades/student.facade';
 export * from './lib/facades/guardian.facade';
 export * from './lib/facades/invoice.facade';
 export * from './lib/facades/attendance.facade';
+export * from './lib/facades/season.facade';
 
 export * from './lib/interceptors/auth.interceptor';
 

@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import { StudentFacade, StudentWithPayload } from '../facades/studentFacade';
-import { Student } from '@prisma/client';
+import { StudentFacade, StudentSeasonWithPayload, StudentWithPayload } from '../facades/studentFacade';
+import { Student, StudentSeason } from '@prisma/client';
 
 export class StudentController {
     public list = async (req: Request, res: Response) => {
@@ -143,6 +143,50 @@ export class StudentController {
             })
             .catch((e) => {
                 res.status(e.status | e.status).json({ error: e });
+            });
+    };
+
+    public addSeason = async (req: Request, res: Response) => {
+        const facade = new StudentFacade(res.locals.prisma, req.body);
+        const studentId: string = req.params.id;
+        const seasonId: string = req.body.data.seasonId;
+        facade
+            .addSeason(studentId, seasonId)
+            .then((result) => {
+                res.status(200).json(result);
+            })
+            .catch((e) => {
+                console.error('e', e);
+                res.status(e.status || 500).json({ error: e });
+            });
+    };
+
+    public delSeason = async (req: Request, res: Response) => {
+        const facade = new StudentFacade(res.locals.prisma, req.body);
+        const studentId: string = req.params.id;
+        const seasonId: string = req.body.data.seasonId;
+        facade
+            .delSeason(studentId, seasonId)
+            .then((result) => {
+                res.status(200).json(result);
+            })
+            .catch((e) => {
+                console.error('e', e);
+                res.status(e.status || 500).json({ error: e });
+            });
+    };
+
+    public setStudentSeason = async (req: Request, res: Response) => {
+        const facade = new StudentFacade(res.locals.prisma, req.body);
+        const studentSeason: StudentSeasonWithPayload = req.body.data;
+        facade
+            .setStudentSeason(studentSeason)
+            .then((result) => {
+                res.status(200).json(result);
+            })
+            .catch((e) => {
+                console.error('e', e);
+                res.status(e.status || 500).json({ error: e });
             });
     };
 }

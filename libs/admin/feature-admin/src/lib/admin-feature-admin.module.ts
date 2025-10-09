@@ -56,6 +56,7 @@ import { QRCodeComponent } from 'angularx-qrcode';
 import { KioskDinnerComponent } from './pages/kiosk-dinner/kiosk-dinner.component';
 import { Tooltip } from 'primeng/tooltip';
 import { GuardianFilesComponent } from './pages/guardians/guardian/guardian-files/guardian-files.component';
+import { StudentSeasonsComponent } from './pages/students/student/student-seasons/student-seasons.component';
 
 @NgModule({
     imports: [
@@ -115,6 +116,7 @@ import { GuardianFilesComponent } from './pages/guardians/guardian/guardian-file
         StudentFilesComponent,
         KioskDinnerComponent,
         GuardianFilesComponent,
+        StudentSeasonsComponent,
     ],
     exports: [AdminComponent],
 })

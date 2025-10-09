@@ -25,6 +25,7 @@ import { invoiceRouter } from './routes/v1/invoiceRoutes';
 import { sanctionRouter } from './routes/v1/sanctionRoutes';
 import { studentRouter } from './routes/v1/studentRoutes';
 import { tutorshipRouter } from './routes/v1/tutorshipRoutes';
+import { seasonRouter } from './routes/v1/seasonRoutes';
 
 const app = express();
 
@@ -128,6 +129,7 @@ app.use('/v1/guardian', guardianRouter);
 app.use('/v1/student', studentRouter);
 app.use('/v1/invoice', invoiceRouter);
 app.use('/v1/attendance', attendanceRouter);
+app.use('/v1/season', seasonRouter);
 
 const port = process.env.PORT || 3333;
 const server = app.listen(port, () => {

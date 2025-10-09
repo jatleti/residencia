@@ -1,0 +1,8 @@
+-- AlterTable
+ALTER TABLE `NT_DiariesDIA` ADD COLUMN `userId` VARCHAR(191) NULL;
+
+-- AlterTable
+ALTER TABLE `NT_StudentSeasonsSSE` ADD COLUMN `deleted_at` DATETIME(3) NULL;
+
+-- AddForeignKey
+ALTER TABLE `NT_DiariesDIA` ADD CONSTRAINT `NT_DiariesDIA_userId_fkey` FOREIGN KEY (`userId`) REFERENCES `NT_UsersUSR`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;

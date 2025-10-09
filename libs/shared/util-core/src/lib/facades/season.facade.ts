@@ -2,23 +2,23 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
-import { InvoiceDataService } from '../infrastructure/invoice.data.service';
-import { Invoice } from '../entities/schema';
+import { SeasonDataService } from '../infrastructure/season.data.service';
+import { Season } from '../entities/schema';
 import { Config } from '../config/config';
 
 @Injectable({ providedIn: 'root' })
-export class InvoiceFacade {
+export class SeasonFacade {
     private loadingSubject = new BehaviorSubject<boolean>(false);
     readonly loadingSubject$ = this.loadingSubject.asObservable();
 
-    private invoicesSubject = new BehaviorSubject<Invoice[]>([]);
-    readonly invoicesSubject$ = this.invoicesSubject.asObservable();
+    private seasonsSubject = new BehaviorSubject<Season[]>([]);
+    readonly seasonsSubject$ = this.seasonsSubject.asObservable();
 
-    public invoiceSubject = new BehaviorSubject<Invoice>(<Invoice>{});
-    readonly invoiceSubject$ = this.invoiceSubject.asObservable();
+    public seasonSubject = new BehaviorSubject<Season>(<Season>{});
+    readonly seasonSubject$ = this.seasonSubject.asObservable();
 
     constructor(
-        private invoiceDataService: InvoiceDataService,
+        private seasonDataService: SeasonDataService,
         private messageService: MessageService,
         private router: Router,
     ) {}
@@ -27,12 +27,12 @@ export class InvoiceFacade {
         this.loadingSubject.next(value);
     }
 
-    // CRUD de Invoice
+    // CRUD de Season
     list(): void {
         this.loadingSubject.next(true);
-        this.invoiceDataService.list().subscribe({
+        this.seasonDataService.list().subscribe({
             next: (result) => {
-                this.invoicesSubject.next(result);
+                this.seasonsSubject.next(result);
                 this.loadingSubject.next(false);
             },
             error: (err) => {
@@ -43,10 +43,10 @@ export class InvoiceFacade {
 
     get(id: string): void {
         this.loadingSubject.next(true);
-        this.invoiceSubject.next(<Invoice>{});
-        this.invoiceDataService.get(id).subscribe({
+        this.seasonSubject.next(<Season>{});
+        this.seasonDataService.get(id).subscribe({
             next: (result) => {
-                this.invoiceSubject.next(result);
+                this.seasonSubject.next(result);
                 this.loadingSubject.next(false);
             },
             error: (err) => {
@@ -55,12 +55,12 @@ export class InvoiceFacade {
         });
     }
 
-    set(invoice: Invoice): void {
-        this.invoiceDataService.set(invoice).subscribe({
+    set(season: Season): void {
+        this.seasonDataService.set(season).subscribe({
             next: (response) => {
                 this.messageService.add({
                     severity: 'success',
-                    summary: 'Recibo guardado',
+                    summary: 'Temporada guardada',
                     detail: '',
                 });
                 this.list();
@@ -71,15 +71,15 @@ export class InvoiceFacade {
         });
     }
 
-    add(invoice: Invoice): void {
-        this.invoiceDataService.add(invoice).subscribe({
+    add(season: Season): void {
+        this.seasonDataService.add(season).subscribe({
             next: (response) => {
                 this.messageService.add({
                     severity: 'success',
-                    summary: 'Recibo añadido',
+                    summary: 'Temporada añadida',
                     detail: '',
                 });
-                this.router.navigate([Config.baseUrl + '/invoices']);
+                this.router.navigate([Config.baseUrl + '/seasons']);
                 this.list();
             },
             error: (err) => {
@@ -88,16 +88,16 @@ export class InvoiceFacade {
         });
     }
 
-    del(invoice: Invoice): void {
+    del(season: Season): void {
         this.loadingSubject.next(true);
-        this.invoiceDataService.del(invoice).subscribe({
+        this.seasonDataService.del(season).subscribe({
             next: (response) => {
                 this.messageService.add({
                     severity: 'success',
-                    summary: 'Recibo eliminado',
+                    summary: 'Temporada eliminada',
                     detail: '',
                 });
-                this.router.navigate([Config.baseUrl + '/invoices']);
+                this.router.navigate([Config.baseUrl + '/seasons']);
                 this.list();
             },
             error: (err) => {

@@ -44,7 +44,7 @@
     <li *ngIf="isPermitted([permissions.KIOSK.VIEW])">
         <a class="icon" [routerLink]="baseUrl + '/kiosk'" [routerLinkActive]="'active'" pTooltip="Puesto de control">
             <i class="fa-sharp fa-solid fa-desktop"></i>
-            <span>Puesto de control</span>
+            <span *ngIf="style === 'big'">Puesto de control</span>
         </a>
     </li>
     <li *ngIf="isPermitted([permissions.KIOSK.VIEW])">
@@ -55,7 +55,7 @@
             pTooltip="Puesto de comedor"
         >
             <i class="fa-sharp fa-solid fa-desktop"></i>
-            <span>Puesto de comedor</span>
+            <span *ngIf="style === 'big'">Puesto de comedor</span>
         </a>
     </li>
     <li *ngIf="isPermitted([permissions.STUDENT.LIST])">
@@ -66,28 +66,28 @@
             pTooltip="Asistencias"
         >
             <i class="fa-sharp fa-solid fa-timer"></i>
-            <span>Asistencias</span>
+            <span *ngIf="style === 'big'">Asistencias</span>
         </a>
     </li>
 
     <li *ngIf="isPermitted([permissions.STUDENT.VIEW])">
         <a class="icon" [routerLink]="baseUrl + '/students'" [routerLinkActive]="'active'" pTooltip="Alumnos">
             <i class="fa-sharp fa-solid fa-users"></i>
-            <span>Alumnos</span>
+            <span *ngIf="style === 'big'">Alumnos</span>
         </a>
     </li>
     <li *ngIf="isPermitted([permissions.GUARDIAN.VIEW])">
         <a class="icon" [routerLink]="baseUrl + '/guardians'" [routerLinkActive]="'active'" pTooltip="Padres">
             <i class="fa-sharp fa-solid fa-user-tie"></i>
-            <span>Padres</span>
+            <span *ngIf="style === 'big'">Padres</span>
         </a>
     </li>
-    <li *ngIf="isPermitted([permissions.INVOICE.VIEW])">
+    <!-- <li *ngIf="isPermitted([permissions.INVOICE.VIEW])">
         <a class="icon" [routerLink]="baseUrl + '/invoices'" [routerLinkActive]="'active'" pTooltip="Recibos">
             <i class="fa-sharp fa-solid fa-money-bill"></i>
             <span>Recibos</span>
         </a>
-    </li>
+    </li> -->
 
     <li *ngIf="isPermitted([permissions.SETTINGS.ROLES.VIEW])">
         <a

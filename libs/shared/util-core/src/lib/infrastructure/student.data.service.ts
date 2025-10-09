@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Endpoints } from '../infrastructure/endpoints';
 import { CustomResponse } from '../entities/customresponse';
-import { Student, Tutorship, Sanction, Authorization, Attendance, File } from '../entities/schema';
+import { Student, Tutorship, Sanction, Authorization, Attendance, File, StudentSeason } from '../entities/schema';
 
 @Injectable({ providedIn: 'root' })
 export class StudentDataService {
@@ -44,6 +44,20 @@ export class StudentDataService {
 
     disconnectGuardian(studentId: string, guardianId: string): Observable<Student> {
         return this.http.post<Student>(`${Endpoints.API}/student/${studentId}/disconnectGuardian`, { guardianId });
+    }
+
+    addSeason(studentId: string, seasonId: string): Observable<Student> {
+        return this.http.post<Student>(`${Endpoints.API}/student/${studentId}/addSeason`, { data: { seasonId } });
+    }
+
+    delSeason(studentId: string, seasonId: string): Observable<Student> {
+        return this.http.post<Student>(`${Endpoints.API}/student/${studentId}/delSeason`, { data: { seasonId } });
+    }
+
+    setStudentSeason(studentId: string, studentSeason: StudentSeason): Observable<StudentSeason> {
+        return this.http.patch<StudentSeason>(`${Endpoints.API}/student/${studentId}/setStudentSeason`, {
+            data: studentSeason,
+        });
     }
 
     // Tutorship

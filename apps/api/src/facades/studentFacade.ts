@@ -1,4 +1,4 @@
-import { Prisma, PrismaClient, Student, File } from '@prisma/client';
+import { Prisma, PrismaClient, Student, File, StudentSeason, Invoice } from '@prisma/client';
 
 import bcrypt from 'bcryptjs';
 import { getSignedUrlBucket, isSignedUrlBucket } from '../factories/functions.factory';
@@ -14,7 +14,13 @@ export type StudentWithPayload = Prisma.StudentGetPayload<{
         Users: true;
         Attendances: true;
         Files: true;
+        Diaries: true;
+        StudentSeasons: true;
     };
+}>;
+
+export type StudentSeasonWithPayload = Prisma.StudentSeasonGetPayload<{
+    include: { Season: true; Student: true };
 }>;
 
 export class StudentFacade {
@@ -55,6 +61,7 @@ export class StudentFacade {
                         Student: {
                             select: { id: true, name: true, surname: true },
                         },
+                        Season: true,
                     },
                     orderBy: { date: 'desc' },
                 },
@@ -93,6 +100,20 @@ export class StudentFacade {
                         },
                     },
                     orderBy: { created_at: 'desc' },
+                },
+                StudentSeasons: {
+                    where: { deleted_at: null },
+                    orderBy: { created_at: 'desc' },
+                    include: { Season: true },
+                },
+                Diaries: {
+                    where: { deleted_at: null },
+                    include: {
+                        User: {
+                            select: { id: true, name: true, surname: true },
+                        },
+                    },
+                    orderBy: { date: 'desc' },
                 },
             },
         });
@@ -142,6 +163,8 @@ export class StudentFacade {
         delete student.Users;
         delete student.Attendances;
         delete student.Files;
+        delete student.Diaries;
+        delete student.StudentSeasons;
 
         if (!id) {
             throw <CustomResponse>{
@@ -363,6 +386,149 @@ export class StudentFacade {
             throw <CustomResponse>{
                 status: 500,
                 message: 'Error deleting File',
+            };
+        }
+    }
+
+    public async addSeason(studentId: string, seasonId: string): Promise<Student | null> {
+        if (!studentId) {
+            throw <CustomResponse>{
+                status: 500,
+                message: 'Student not found',
+            };
+        }
+        if (!seasonId) {
+            throw <CustomResponse>{
+                status: 500,
+                message: 'Season not found',
+            };
+        }
+
+        const student = await this.prisma.student.findUnique({ where: { id: studentId } });
+        if (!student) {
+            throw <CustomResponse>{
+                status: 404,
+                message: 'Student not found',
+            };
+        }
+
+        const season = await this.prisma.season.findUnique({ where: { id: seasonId } });
+        if (!season) {
+            throw <CustomResponse>{
+                status: 404,
+                message: 'Season not found',
+            };
+        }
+
+        // vamos a crearle un recibo con este curso
+        const newInvoice = <Invoice>{};
+        newInvoice.studentId = studentId;
+        newInvoice.seasonId = seasonId;
+        newInvoice.date = new Date();
+        newInvoice.description = season.name;
+        newInvoice.code = '';
+
+        // miramos si ya tiene un recibo creado para este curso
+        const invoiceExists = await this.prisma.invoice.findFirst({
+            where: { studentId, seasonId, deleted_at: null },
+        });
+        if (!invoiceExists) {
+            try {
+                const invoice = await this.prisma.invoice.create({ data: newInvoice });
+                console.log('invoice', invoice);
+            } catch (e) {
+                console.error('e', e);
+            }
+        }
+
+        // miramos si ya existe la relacion
+        const studentSeason = await this.prisma.studentSeason.findFirst({
+            where: { studentId, seasonId, deleted_at: null },
+        });
+        if (studentSeason) {
+            throw <CustomResponse>{
+                status: 500,
+                message: 'El alumno ya tiene este curso asignado',
+            };
+        }
+
+        try {
+            await this.prisma.studentSeason.create({
+                data: { studentId, seasonId },
+            });
+            return this.get(studentId);
+        } catch (e) {
+            throw <CustomResponse>{
+                status: 500,
+                message: 'Error connecting season to student ' + e,
+            };
+        }
+    }
+
+    public async delSeason(studentId: string, seasonId: string): Promise<Student | null> {
+        if (!studentId) {
+            throw <CustomResponse>{
+                status: 500,
+                message: 'Student not found',
+            };
+        }
+        if (!seasonId) {
+            throw <CustomResponse>{
+                status: 500,
+                message: 'Season not found',
+            };
+        }
+
+        const student = await this.prisma.student.findUnique({ where: { id: studentId } });
+        if (!student) {
+            throw <CustomResponse>{
+                status: 404,
+                message: 'Student not found',
+            };
+        }
+
+        const season = await this.prisma.season.findUnique({ where: { id: seasonId } });
+        if (!season) {
+            throw <CustomResponse>{
+                status: 404,
+                message: 'Season not found',
+            };
+        }
+
+        try {
+            await this.prisma.studentSeason.deleteMany({
+                where: { studentId, seasonId },
+            });
+            return this.get(studentId);
+        } catch (e) {
+            throw <CustomResponse>{
+                status: 500,
+                message: 'Error disconnecting season from student ' + e,
+            };
+        }
+    }
+
+    public async setStudentSeason(studentSeason: StudentSeasonWithPayload): Promise<StudentSeason> {
+        delete studentSeason.Student;
+        delete studentSeason.Season;
+
+        if (!studentSeason.id) {
+            throw <CustomResponse>{
+                status: 500,
+                message: 'StudentSeason ID not provided',
+            };
+        }
+        try {
+            const data = <StudentSeason>studentSeason;
+            return await this.prisma.studentSeason.update({
+                where: { id: studentSeason.id },
+                data,
+            });
+        } catch (e) {
+            console.error('e', e);
+            throw <CustomResponse>{
+                status: 500,
+                message: 'Error updating StudentSeason',
             };
         }
     }

@@ -5,6 +5,7 @@ export type InvoiceWithPayload = Prisma.InvoiceGetPayload<{
     include: {
         User: true;
         Student: true;
+        Season: true;
     };
 }>;
 
@@ -31,7 +32,7 @@ export class InvoiceFacade {
 
         return this.prisma.invoice.findUnique({
             where: { id: id },
-            include: { User: true, Student: true },
+            include: { User: true, Student: true, Season: true },
         });
     }
 
@@ -54,6 +55,7 @@ export class InvoiceFacade {
     public async set(id: string, invoice: InvoiceWithPayload): Promise<InvoiceWithPayload> {
         delete invoice.User;
         delete invoice.Student;
+        delete invoice.Season;
 
         if (!id) {
             throw <CustomResponse>{

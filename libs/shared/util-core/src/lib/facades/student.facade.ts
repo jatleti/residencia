@@ -3,7 +3,7 @@ import { BehaviorSubject, firstValueFrom } from 'rxjs';
 import { MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
 import { StudentDataService } from '../infrastructure/student.data.service';
-import { Student, Tutorship, Sanction, Authorization, Attendance, File } from '../entities/schema';
+import { Student, Tutorship, Sanction, Authorization, Attendance, File, StudentSeason } from '../entities/schema';
 import { Config } from '../config/config';
 
 @Injectable({ providedIn: 'root' })
@@ -112,6 +112,18 @@ export class StudentFacade {
 
     async disconnectGuardian(studentId: string, guardianId: string): Promise<Student> {
         return await firstValueFrom(this.studentDataService.disconnectGuardian(studentId, guardianId));
+    }
+
+    async addSeason(studentId: string, seasonId: string): Promise<Student> {
+        return await firstValueFrom(this.studentDataService.addSeason(studentId, seasonId));
+    }
+
+    async delSeason(studentId: string, seasonId: string): Promise<Student> {
+        return await firstValueFrom(this.studentDataService.delSeason(studentId, seasonId));
+    }
+
+    async setStudentSeason(studentId: string, studentSeason: StudentSeason): Promise<StudentSeason> {
+        return await firstValueFrom(this.studentDataService.setStudentSeason(studentId, studentSeason));
     }
 
     // Métodos asíncronos para Tutorship, Sanction, Authorization y Attendance

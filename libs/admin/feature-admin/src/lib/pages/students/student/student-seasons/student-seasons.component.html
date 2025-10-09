@@ -1,17 +1,17 @@
 <ng-container *ngIf="student">
     <div class="flex gap-3 mb-3">
         <div class="flex-1">
-            <label>Padre</label>
+            <label>Curso</label>
             <p-select
-                [options]="guardians"
-                [(ngModel)]="selectedGuardian"
+                [options]="seasons"
+                [(ngModel)]="selectedSeason"
                 appendTo="body"
-                [filter]="true"
-                [filterFields]="['name', 'surname', 'code', 'email']"
-                [virtualScroll]="true"
+                [filter]="false"
+                [filterFields]="['name']"
+                [virtualScroll]="false"
                 [virtualScrollItemSize]="34"
                 [style]="{ width: '100%' }"
-                [placeholder]="'Selecciona un padre'"
+                [placeholder]="'Selecciona un curso'"
                 [showClear]="true"
             >
                 <ng-template let-guardian pTemplate="item">
@@ -30,8 +30,8 @@
         </div>
         <div *ngIf="isPermitted([Permissions.STUDENT.EDIT])" class="flex-0 pt-6">
             <div class="mb-3">
-                <button (click)="connectGuardian()" pButton pRipple type="button">
-                    <i class="fa-sharp fa-solid fa-plus me-2"></i> Añadir padre al alumno
+                <button (click)="addSeason()" pButton pRipple type="button">
+                    <i class="fa-sharp fa-solid fa-plus me-2"></i> Añadir curso al alumno
                 </button>
             </div>
         </div>
@@ -39,7 +39,7 @@
 
     <p-table
         #dt1
-        [value]="student.Guardians || []"
+        [value]="student.StudentSeasons || []"
         styleClass="p-datatable-sm"
         [paginator]="false"
         [rows]="50"
@@ -50,21 +50,43 @@
     >
         <ng-template pTemplate="header">
             <tr>
-                <th>Nombre</th>
-                <th>Apellidos</th>
-                <th>Email</th>
+                <th>Curso</th>
+                <th>Fecha de alta</th>
+                <th>Fecha de baja</th>
                 <th></th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-item>
             <ng-container>
-                <tr (click)="get(item.id)" class="cursor-pointer">
-                    <td>{{ item.name }}</td>
-                    <td>{{ item.surname }}</td>
-                    <td>{{ item.email }}</td>
+                <tr>
+                    <td>{{ item.Season?.name || '' }}</td>
+                    <td>
+                        <p-datepicker
+                            class="w-full"
+                            id="ingressedAt"
+                            [(ngModel)]="item.from"
+                            dateFormat="dd/mm/yy"
+                            [firstDayOfWeek]="1"
+                            placeholder="Fecha de alta"
+                            appendTo="body"
+                            (ngModelChange)="setStudentSeason(item)"
+                        ></p-datepicker>
+                    </td>
+                    <td>
+                        <p-datepicker
+                            class="w-full"
+                            id="ingressedAt"
+                            [(ngModel)]="item.to"
+                            dateFormat="dd/mm/yy"
+                            [firstDayOfWeek]="1"
+                            placeholder="Fecha de alta"
+                            appendTo="body"
+                            (ngModelChange)="setStudentSeason(item)"
+                        ></p-datepicker>
+                    </td>
                     <td class="!text-end">
                         <button
-                            (click)="disconnectGuardian(item); $event.stopPropagation()"
+                            (click)="delSeason(item); $event.stopPropagation()"
                             pButton
                             pRipple
                             type="button"

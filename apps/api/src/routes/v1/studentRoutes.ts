@@ -20,6 +20,9 @@ studentRouter
     .get('/:id', checkPermissions([Permissions.STUDENT.VIEW]), studentController.get)
     .post('/:id/connectGuardian', checkPermissions([Permissions.STUDENT.EDIT]), studentController.connectGuardian)
     .post('/:id/disconnectGuardian', checkPermissions([Permissions.STUDENT.EDIT]), studentController.disconnectGuardian)
+    .post('/:id/addSeason', checkPermissions([Permissions.STUDENT.EDIT]), studentController.addSeason)
+    .post('/:id/delSeason', checkPermissions([Permissions.STUDENT.EDIT]), studentController.delSeason)
+    .patch('/:id/setStudentSeason', checkPermissions([Permissions.STUDENT.EDIT]), studentController.setStudentSeason)
     .post('', checkPermissions([Permissions.STUDENT.CREATE]), studentController.add)
     .patch('/:id', checkPermissions([Permissions.STUDENT.EDIT]), studentController.set)
     .delete('/:id', checkPermissions([Permissions.STUDENT.DELETE]), studentController.del);

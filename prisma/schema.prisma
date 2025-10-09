@@ -49,6 +49,7 @@ model User {
   Invoices        Invoice[]
   Students        Student[]
   Files           File[]
+  Diaries         Diary[]
 
   @@map("NT_UsersUSR")
 }
@@ -127,7 +128,7 @@ model Student {
   id              String    @id @unique @default(uuid())
   name            String    @db.VarChar(255)
   surname         String?   @db.VarChar(255)
-  email           String    @unique
+  email           String    @db.VarChar(255)
   password        String?   @db.VarChar(255)
   created_at      DateTime  @default(now())
   updated_at      DateTime  @updatedAt
@@ -172,6 +173,8 @@ model Student {
   Users          User[]
   Attendances    Attendance[]
   Files          File[]
+  StudentSeasons StudentSeason[]
+  Diaries        Diary[]
 
   @@map("NT_StudentsSTU")
 }
@@ -180,7 +183,7 @@ model Guardian {
   id           String    @id @unique @default(uuid())
   name         String    @db.VarChar(255)
   surname      String?   @db.VarChar(255)
-  email        String    @unique
+  email        String?   @db.VarChar(255)
   password     String?   @db.VarChar(255)
   created_at   DateTime  @default(now())
   updated_at   DateTime  @updatedAt
@@ -266,17 +269,38 @@ model Sanction {
 }
 
 model Invoice {
-  id          String    @id @unique @default(uuid())
-  code        String    @db.VarChar(100)
-  date        DateTime?
-  description String?   @db.VarChar(255)
-  amount      Decimal   @db.Decimal(10, 2)
-  status      Int       @default(0)
-  created_at  DateTime  @default(now())
-  updated_at  DateTime  @updatedAt
-  deleted_at  DateTime?
-  active      Int       @default(1)
+  id                        String    @id @unique @default(uuid())
+  code                      String?   @db.VarChar(100)
+  date                      DateTime?
+  description               String?   @db.VarChar(255)
+  amount                    Decimal?  @db.Decimal(10, 2)
+  status                    Int       @default(0)
+  created_at                DateTime  @default(now())
+  updated_at                DateTime  @updatedAt
+  deleted_at                DateTime?
+  active                    Int       @default(1)
+  january                   Int?      @default(0)
+  february                  Int?      @default(0)
+  march                     Int?      @default(0)
+  april                     Int?      @default(0)
+  may                       Int?      @default(0)
+  june                      Int?      @default(0)
+  july                      Int?      @default(0)
+  august                    Int?      @default(0)
+  september                 Int?      @default(0)
+  october                   Int?      @default(0)
+  november                  Int?      @default(0)
+  december                  Int?      @default(0)
+  solicitaBeca              Int?      @default(0)
+  becaConcedida             Int?      @default(0)
+  tipoBeca                  String?   @db.VarChar(255)
+  obligadoPagoPrecioPublico Int?      @default(0)
+  localizador               String?   @db.VarChar(255)
+  solicitaBonificacion      Int?      @default(0)
+  bonificacionConcedida     String?   @db.VarChar(255)
 
+  seasonId  String?
+  Season    Season?  @relation(fields: [seasonId], references: [id])
   studentId String?
   Student   Student? @relation(fields: [studentId], references: [id])
   userId    String?
@@ -321,4 +345,59 @@ model File {
   Guardian    Guardian? @relation(fields: [guardianId], references: [id])
 
   @@map("NT_FilesFIL")
+}
+
+model Season {
+  id          String    @id @unique @default(uuid())
+  name        String    @db.VarChar(255)
+  description String?   @db.VarChar(255)
+  startDate   DateTime?
+  endDate     DateTime?
+  created_at  DateTime  @default(now())
+  updated_at  DateTime  @updatedAt
+  deleted_at  DateTime?
+  active      Int       @default(1)
+
+  Invoices       Invoice[]
+  StudentSeasons StudentSeason[]
+
+  @@map("NT_SeasonsSEA")
+}
+
+model StudentSeason {
+  id         String    @id @unique @default(uuid())
+  studentId  String
+  seasonId   String
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  deleted_at DateTime?
+  from       DateTime?
+  to         DateTime?
+  active     Int       @default(1)
+
+  Student Student @relation(fields: [studentId], references: [id])
+  Season  Season  @relation(fields: [seasonId], references: [id])
+
+  @@map("NT_StudentSeasonsSSE")
+}
+
+model Diary {
+  id          String    @id @unique @default(uuid())
+  code        String?   @db.VarChar(100)
+  title       String?   @db.VarChar(255)
+  description String?   @db.VarChar(500)
+  content     String?   @db.Text()
+  type        Int       @default(0)
+  date        DateTime?
+  created_at  DateTime  @default(now())
+  updated_at  DateTime  @updatedAt
+  deleted_at  DateTime?
+  active      Int       @default(1)
+
+  studentId String?
+  Student   Student? @relation(fields: [studentId], references: [id])
+  userId    String?
+  User      User?    @relation(fields: [userId], references: [id])
+
+  @@map("NT_DiariesDIA")
 }

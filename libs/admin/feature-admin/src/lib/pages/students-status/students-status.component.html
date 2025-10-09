@@ -67,7 +67,6 @@
                             <div *ngFor="let bed of room.beds" class="text-center font-bold text-xl">
                                 <ng-container *ngIf="bed.student; else noStudent">
                                     <div
-                                        *ngIf="bed.student.photo && bed.student.photo !== ''"
                                         (click)="viewStudent(bed.student)"
                                         [pTooltip]="bed.student.name + ' ' + bed.student.surname"
                                         tooltipPosition="top"
@@ -83,7 +82,10 @@
                                             bed.student.Attendances[0].type === attendanceTypes.LEAVE
                                         "
                                     >
-                                        <img src="{{ bed.student.photo }}" />
+                                        <img
+                                            *ngIf="bed.student.photo && bed.student.photo !== ''"
+                                            src="{{ bed.student.photo }}"
+                                        />
                                         <div class="absolute bottom-0 left-0 right-0 w-full">
                                             <div
                                                 *ngIf="
