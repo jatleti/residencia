@@ -1,0 +1,102 @@
+<ng-container *ngIf="student">
+    <p-table
+        #dt1
+        [value]="student.Diaries || []"
+        styleClass="p-datatable-sm"
+        [paginator]="true"
+        [rows]="50"
+        [showCurrentPageReport]="true"
+        currentPageReportTemplate="Viendo {first} a {last} de {totalRecords} items"
+        [rowsPerPageOptions]="[20, 50]"
+        [globalFilterFields]="['name']"
+    >
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Fecha</th>
+                <th>Descripción</th>
+                <th>Observaciones</th>
+                <th>Por</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-item>
+            <tr (click)="editDiary(item)" class="cursor-pointer">
+                <td>{{ item.date | date: 'dd/MM/yyyy HH:mm' }}</td>
+                <td>{{ getType(item.type) }}</td>
+                <td><div [innerHTML]="item.content"></div></td>
+                <td>{{ item.User?.name }} {{ item.User?.surname }}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+    <span *ngIf="!student.Diaries || student.Diaries.length === 0">Aún no tienes diarios para mostrar.</span>
+
+    <div class="flex gap-3 mb-3 justify-end">
+        <div *ngIf="isPermitted([Permissions.STUDENT.DIARY.CREATE])" class="flex-0 pt-6">
+            <div class="mb-3">
+                <button (click)="addDiary()" pButton pRipple type="button">
+                    <i class="fa-sharp fa-solid fa-plus me-2"></i> Añadir diario
+                </button>
+            </div>
+        </div>
+    </div>
+</ng-container>
+
+<p-dialog header="Diario" [modal]="true" [(visible)]="showAddDiary" [style]="{ width: '60%' }">
+    <div *ngIf="newDiary.User" class="mb-3 font-bold">
+        Creado por: {{ newDiary.User.name }} {{ newDiary.User.surname }}
+    </div>
+    <div class="mb-3">
+        <label htmlFor="name">Descripción</label>
+        <p-select
+            [options]="diaryTypes"
+            [(ngModel)]="newDiary.type"
+            optionLabel="label"
+            optionValue="value"
+            appendTo="body"
+            [filter]="true"
+            [virtualScroll]="false"
+            [style]="{ width: '100%' }"
+            [placeholder]="'Selecciona'"
+        ></p-select>
+    </div>
+    <div class="mb-3 flex items-center gap-3">
+        <label class="flex-0">Fecha</label>
+        <div class="flex-1">
+            <p-datepicker
+                class="w-full"
+                id="date"
+                [firstDayOfWeek]="1"
+                [(ngModel)]="newDiary.date"
+                dateFormat="dd/mm/yy"
+                [showTime]="true"
+                placeholder="Fecha"
+            ></p-datepicker>
+        </div>
+    </div>
+    <div class="mb-3">
+        <label>Observaciones</label>
+        <p-editor [(ngModel)]="newDiary.content" [style]="{ height: '250px' }" />
+    </div>
+
+    <div class="flex justify-between gap-2 mt-10">
+        <button (click)="showAddDiary = false" pButton pRipple class="p-button-outlined" type="button">Cancelar</button>
+        <div class="flex gap-3 justify-end items-center">
+            <button
+                *ngIf="newDiary.id && isPermitted([Permissions.STUDENT.DIARY.DELETE])"
+                (click)="delDiary(newDiary)"
+                pButton
+                pRipple
+                type="button"
+                icon="pi pi-trash"
+                class="p-button-rounded p-button-danger p-button-outlined"
+            ></button>
+            <p-button
+                *ngIf="isPermitted([Permissions.STUDENT.DIARY.EDIT, Permissions.STUDENT.DIARY.CREATE])"
+                label="Guardar"
+                [disabled]="saving"
+                severity="primary"
+                (click)="saveDiary()"
+            />
+        </div>
+    </div>
+</p-dialog>

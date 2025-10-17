@@ -493,4 +493,35 @@ export class ComboValues {
     ];
 
     public static SECURE2FA_MODES = [{ label: 'Código 6 cifras', value: 'code' }];
+
+    public static DIARY_TYPES = [
+        // Incidencias
+        { label: '🟠 Incidencias - No coge bandeja del almuerzo', value: 1, color: '#FFCC00' },
+        { label: '🟠 Incidencias - No coge bandeja de la cena', value: 2, color: '#FFCC00' },
+        { label: '🟠 Incidencias - Retraso', value: 3, color: '#FFCC00' },
+        { label: '🟠 Incidencias - No pasa la tarjeta', value: 4, color: '#FFCC00' },
+        { label: '🟠 Incidencias - Asiste al estudio o llega tarde', value: 5, color: '#FFCC00' },
+        { label: '🟠 Incidencias - No firma el permiso de almuerzo tarde', value: 6, color: '#FFCC00' },
+        { label: '🟠 Incidencias - Conducta grave', value: 7, color: '#FFCC00' },
+
+        // 🩺 Enfermedad
+        { label: '🩺 Enfermedad - Asiste al médico', value: 8, color: '#E53935' },
+        { label: '🩺 Enfermedad - Se marcha a casa por enfermedad', value: 9, color: '#E53935' },
+        { label: '🩺 Enfermedad - Se queda en la habitación con permiso', value: 10, color: '#E53935' },
+
+        // 📚 Estudio
+        { label: '📚 Estudio - Pide permiso para estudio nocturno', value: 11, color: '#3F51B5' },
+        { label: '📚 Estudio - No asiste', value: 12, color: '#3F51B5' },
+        { label: '📚 Estudio - Llega tarde', value: 13, color: '#3F51B5' },
+
+        // 🏠 Habitación
+        { label: '🏠 Habitación - Cambio de habitación', value: 14, color: '#8E24AA' },
+
+        // 🍽️ Alimentación
+        { label: '🍽️ Alimentación - Necesita desayunar antes', value: 15, color: '#43A047' },
+        { label: '🍽️ Alimentación - Necesita bandeja en el almuerzo', value: 16, color: '#43A047' },
+        { label: '🍽️ Alimentación - Necesita bandeja en la cena', value: 17, color: '#43A047' },
+        { label: '🍽️ Alimentación - Necesita dieta blanda', value: 18, color: '#43A047' },
+        { label: '🍽️ Alimentación - Necesita dieta especial', value: 19, color: '#43A047' },
+    ];
 }

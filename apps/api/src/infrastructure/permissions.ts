@@ -43,6 +43,13 @@ export const Permissions = {
             DELETE: 'student:sanction:delete',
             CREATE: 'student:sanction:create',
         },
+        DIARY: {
+            LIST: 'student:diary:list',
+            VIEW: 'student:diary:view',
+            EDIT: 'student:diary:edit',
+            DELETE: 'student:diary:delete',
+            CREATE: 'student:diary:create',
+        },
     },
     GUARDIAN: {
         LIST: 'guardian:list',

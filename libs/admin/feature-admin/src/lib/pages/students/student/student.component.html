@@ -76,6 +76,9 @@
                                 <p-tab [value]="9" class="flex gap-2 items-center"
                                     ><i class="fa fa-solid fa-calendar-alt"></i>Cursos</p-tab
                                 >
+                                <p-tab [value]="10" class="flex gap-2 items-center"
+                                    ><i class="fa fa-solid fa-book"></i>Libro diario</p-tab
+                                >
                                 <p-tab [value]="2" class="flex gap-2 items-center"
                                     ><i class="fa fa-solid fa-user-tie"></i>Padres</p-tab
                                 >
@@ -610,6 +613,9 @@
                                 </p-tabpanel>
                                 <p-tabpanel [value]="9">
                                     <admin-student-seasons *ngIf="item.id" [student]="item"></admin-student-seasons>
+                                </p-tabpanel>
+                                <p-tabpanel [value]="10">
+                                    <admin-student-diaries *ngIf="item.id" [student]="item"></admin-student-diaries>
                                 </p-tabpanel>
                             </p-tabpanels>
                         </p-tabs>

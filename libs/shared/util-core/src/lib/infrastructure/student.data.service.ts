@@ -3,7 +3,16 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Endpoints } from '../infrastructure/endpoints';
 import { CustomResponse } from '../entities/customresponse';
-import { Student, Tutorship, Sanction, Authorization, Attendance, File, StudentSeason } from '../entities/schema';
+import {
+    Student,
+    Tutorship,
+    Sanction,
+    Authorization,
+    Attendance,
+    File,
+    StudentSeason,
+    Diary,
+} from '../entities/schema';
 
 @Injectable({ providedIn: 'root' })
 export class StudentDataService {
@@ -104,6 +113,25 @@ export class StudentDataService {
 
     delSanction(studentId: string, sanctionId: string): Observable<CustomResponse> {
         return this.http.delete<CustomResponse>(`${Endpoints.API}/student/${studentId}/sanction/${sanctionId}`);
+    }
+
+    // diary
+    listDiaries(studentId: string): Observable<Diary[]> {
+        return this.http.get<Diary[]>(`${Endpoints.API}/student/${studentId}/diary`);
+    }
+    getDiary(studentId: string, id: string): Observable<Diary> {
+        return this.http.get<Diary>(`${Endpoints.API}/student/${studentId}/diary/${id}`);
+    }
+    addDiary(studentId: string, diary: Diary): Observable<Diary> {
+        return this.http.post<Diary>(`${Endpoints.API}/student/${studentId}/diary`, { data: diary });
+    }
+    setDiary(studentId: string, diary: Diary): Observable<Diary> {
+        return this.http.patch<Diary>(`${Endpoints.API}/student/${studentId}/diary/${diary.id}`, {
+            data: diary,
+        });
+    }
+    delDiary(studentId: string, diaryId: string): Observable<CustomResponse> {
+        return this.http.delete<CustomResponse>(`${Endpoints.API}/student/${studentId}/diary/${diaryId}`);
     }
 
     // Authorization

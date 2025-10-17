@@ -1,6 +1,14 @@
 <div class="flex justify-between gap-3">
     <span>
-        <button (click)="back()" pButton pRipple type="button" label="Atrás" class="p-button-outlined"></button>
+        <button
+            *ngIf="showBack"
+            (click)="back()"
+            pButton
+            pRipple
+            type="button"
+            label="Atrás"
+            class="p-button-outlined"
+        ></button>
     </span>
     <div class="flex gap-3">
         <span *ngIf="showDelete">

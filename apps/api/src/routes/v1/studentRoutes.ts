@@ -6,10 +6,12 @@ import { TutorshipController } from '../../controllers/tutorshipController';
 import { SanctionController } from '../../controllers/sanctionController';
 import { AuthorizationController } from '../../controllers/authorizationController';
 import { AttendanceController } from '../../controllers/attendanceController';
+import { DiaryController } from '../../controllers/diaryController';
 
 const studentController = new StudentController();
 const tutorshipController = new TutorshipController();
 const sanctionController = new SanctionController();
+const diaryController = new DiaryController();
 const authorizationController = new AuthorizationController();
 const attendanceController = new AttendanceController();
 const studentRouter = express.Router();
@@ -50,6 +52,14 @@ studentRouter
         checkPermissions([Permissions.STUDENT.SANCTION.DELETE]),
         sanctionController.del,
     );
+
+// base URL: /student/:studentId/diary
+studentRouter
+    .get('/:studentId/diary', checkPermissions([Permissions.STUDENT.DIARY.LIST]), diaryController.list)
+    .get('/:studentId/diary/:id', checkPermissions([Permissions.STUDENT.DIARY.VIEW]), diaryController.get)
+    .post('/:studentId/diary', checkPermissions([Permissions.STUDENT.DIARY.CREATE]), diaryController.add)
+    .patch('/:studentId/diary/:id', checkPermissions([Permissions.STUDENT.DIARY.EDIT]), diaryController.set)
+    .delete('/:studentId/diary/:id', checkPermissions([Permissions.STUDENT.DIARY.DELETE]), diaryController.del);
 
 // base URL: /student/:studentId/authorization
 studentRouter

@@ -3,7 +3,16 @@ import { BehaviorSubject, firstValueFrom } from 'rxjs';
 import { MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
 import { StudentDataService } from '../infrastructure/student.data.service';
-import { Student, Tutorship, Sanction, Authorization, Attendance, File, StudentSeason } from '../entities/schema';
+import {
+    Student,
+    Tutorship,
+    Sanction,
+    Authorization,
+    Attendance,
+    File,
+    StudentSeason,
+    Diary,
+} from '../entities/schema';
 import { Config } from '../config/config';
 
 @Injectable({ providedIn: 'root' })
@@ -147,6 +156,8 @@ export class StudentFacade {
         return await firstValueFrom(this.studentDataService.delTutorship(studentId, tutorshipId));
     }
 
+    // sanction
+
     async listSanctions(studentId: string): Promise<Sanction[]> {
         return await firstValueFrom(this.studentDataService.listSanctions(studentId));
     }
@@ -167,6 +178,25 @@ export class StudentFacade {
         return await firstValueFrom(this.studentDataService.delSanction(studentId, sanctionId));
     }
 
+    // diary
+    async listDiaries(studentId: string): Promise<Diary[]> {
+        return await firstValueFrom(this.studentDataService.listDiaries(studentId));
+    }
+    async getDiary(studentId: string, id: string): Promise<Diary> {
+        return await firstValueFrom(this.studentDataService.getDiary(studentId, id));
+    }
+    async addDiary(studentId: string, diary: Diary): Promise<Diary> {
+        return await firstValueFrom(this.studentDataService.addDiary(studentId, diary));
+    }
+    async setDiary(studentId: string, diary: Diary): Promise<Diary> {
+        return await firstValueFrom(this.studentDataService.setDiary(studentId, diary));
+    }
+    async delDiary(studentId: string, diaryId: string): Promise<any> {
+        return await firstValueFrom(this.studentDataService.delDiary(studentId, diaryId));
+    }
+
+    // authorization
+
     async listAuthorizations(studentId: string): Promise<Authorization[]> {
         return await firstValueFrom(this.studentDataService.listAuthorizations(studentId));
     }
@@ -186,6 +216,8 @@ export class StudentFacade {
     async delAuthorization(studentId: string, authorizationId: string): Promise<any> {
         return await firstValueFrom(this.studentDataService.delAuthorization(studentId, authorizationId));
     }
+
+    // attendance
 
     async listAttendances(studentId: string): Promise<Attendance[]> {
         return await firstValueFrom(this.studentDataService.listAttendances(studentId));

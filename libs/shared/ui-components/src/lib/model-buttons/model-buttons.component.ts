@@ -14,6 +14,7 @@ export class ModelButtonsComponent {
     @Input() showSave = true;
     @Input() showDelete = true;
     @Input() showAdd = true;
+    @Input() showBack = true;
 
     @Output() readonly clickSave = new EventEmitter<boolean>();
     @Output() readonly clickDelete = new EventEmitter<boolean>();

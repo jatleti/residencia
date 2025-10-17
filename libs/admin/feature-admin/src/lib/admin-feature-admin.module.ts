@@ -57,6 +57,7 @@ import { KioskDinnerComponent } from './pages/kiosk-dinner/kiosk-dinner.componen
 import { Tooltip } from 'primeng/tooltip';
 import { GuardianFilesComponent } from './pages/guardians/guardian/guardian-files/guardian-files.component';
 import { StudentSeasonsComponent } from './pages/students/student/student-seasons/student-seasons.component';
+import { StudentDiariesComponent } from './pages/students/student/student-diaries/student-diaries.component';
 
 @NgModule({
     imports: [
@@ -117,6 +118,7 @@ import { StudentSeasonsComponent } from './pages/students/student/student-season
         KioskDinnerComponent,
         GuardianFilesComponent,
         StudentSeasonsComponent,
+        StudentDiariesComponent,
     ],
     exports: [AdminComponent],
 })

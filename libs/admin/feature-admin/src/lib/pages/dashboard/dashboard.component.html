@@ -1,6 +1,97 @@
 <div class="p-5">
-    <p>Residencia v0.2.2</p>
-    <div class="grid content-center h-[calc(100vh-200px)]">
-        <img src="./assets/img/logo-full.png" alt="Logo" class="w-[450px] justify-self-center" />
+    <p>Residencia v0.2.3</p>
+    <div class="flex gap-[50px] w-full mb-5 items-start">
+        <div class="flex-0 p-8">
+            <img src="./assets/img/logo-full.png" alt="Logo" class="w-[250px] justify-self-center" />
+        </div>
+        <div class="flex-1 h-[calc(100vh-200px)]">
+            <p-card>
+                <span class="text-primary-500 font-bold text-4xl block mb-5">Libro de diario</span>
+                <div class="flex-1 w-full">
+                    <p-tabs [(value)]="tabIndex" scrollable class="w-full">
+                        <p-tablist class="w-full grid">
+                            <p-tab [value]="0" class="flex gap-2 items-center">Bloque 1</p-tab>
+                            <p-tab [value]="1" class="flex gap-2 items-center">Bloque 2</p-tab>
+                            <p-tab [value]="2" class="flex gap-2 items-center">Bloque 3</p-tab>
+                            <p-tab [value]="3" class="flex gap-2 items-center">Bloque 4</p-tab>
+                            <p-tab [value]="4" class="flex gap-2 items-center">Bloque 5</p-tab>
+                        </p-tablist>
+                        <p-tabpanels>
+                            <p-tabpanel [value]="0">
+                                <div class="mb-5 gap-1">
+                                    <ng-container
+                                        *ngTemplateOutlet="blockTemplate; context: { $implicit: block1Diaries }"
+                                    ></ng-container>
+                                </div>
+                            </p-tabpanel>
+                            <p-tabpanel [value]="1">
+                                <div class="mb-5 gap-1">
+                                    <ng-container
+                                        *ngTemplateOutlet="blockTemplate; context: { $implicit: block2Diaries }"
+                                    ></ng-container>
+                                </div>
+                            </p-tabpanel>
+                            <p-tabpanel [value]="2">
+                                <div class="mb-5 gap-1">
+                                    <ng-container
+                                        *ngTemplateOutlet="blockTemplate; context: { $implicit: block3Diaries }"
+                                    ></ng-container>
+                                </div>
+                            </p-tabpanel>
+                            <p-tabpanel [value]="3">
+                                <div class="mb-5 gap-1">
+                                    <ng-container
+                                        *ngTemplateOutlet="blockTemplate; context: { $implicit: block4Diaries }"
+                                    ></ng-container>
+                                </div>
+                            </p-tabpanel>
+                            <p-tabpanel [value]="4">
+                                <div class="mb-5 gap-1">
+                                    <ng-container
+                                        *ngTemplateOutlet="blockTemplate; context: { $implicit: block5Diaries }"
+                                    ></ng-container>
+                                </div>
+                            </p-tabpanel>
+                        </p-tabpanels>
+                    </p-tabs>
+
+                    <!-- Template reutilizable para todos los bloques -->
+                    <ng-template #blockTemplate let-block>
+                        <p-table
+                            #dt1
+                            [value]="block || []"
+                            styleClass="p-datatable-sm"
+                            [paginator]="true"
+                            [rows]="50"
+                            [showCurrentPageReport]="true"
+                            currentPageReportTemplate="Viendo {first} a {last} de {totalRecords} items"
+                            [rowsPerPageOptions]="[20, 50]"
+                            [globalFilterFields]="['name']"
+                        >
+                            <ng-template pTemplate="header">
+                                <tr>
+                                    <th>Fecha</th>
+                                    <th>Alumno</th>
+                                    <th>Descripción</th>
+                                    <th>Observaciones</th>
+                                    <th>Por</th>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-item>
+                                <tr class="cursor-pointer">
+                                    <td>{{ item.date | date: 'dd/MM/yyyy HH:mm' }}</td>
+                                    <td>
+                                        {{ item.Student?.code }} - {{ item.Student?.name }} {{ item.Student?.surname }}
+                                    </td>
+                                    <td>{{ getType(item.type) }}</td>
+                                    <td><div [innerHTML]="item.content"></div></td>
+                                    <td>{{ item.User?.name }} {{ item.User?.surname }}</td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                    </ng-template>
+                </div>
+            </p-card>
+        </div>
     </div>
 </div>

@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { GuardianDataService } from '../infrastructure/guardian.data.service';
 import { Guardian, File } from '../entities/schema';
 import { Config } from '../config/config';
+import { StudentFacade } from './student.facade';
 
 @Injectable({ providedIn: 'root' })
 export class GuardianFacade {
@@ -19,6 +20,7 @@ export class GuardianFacade {
 
     constructor(
         private guardianDataService: GuardianDataService,
+        private studentFacade: StudentFacade,
         private messageService: MessageService,
         private router: Router,
     ) {}
@@ -55,7 +57,7 @@ export class GuardianFacade {
         });
     }
 
-    set(guardian: Guardian): void {
+    set(guardian: Guardian, studentId: string): void {
         this.guardianDataService.set(guardian).subscribe({
             next: (response) => {
                 this.messageService.add({
@@ -63,6 +65,7 @@ export class GuardianFacade {
                     summary: 'Tutor guardado',
                     detail: '',
                 });
+                this.studentFacade.get(studentId);
                 this.list();
             },
             error: (err) => {
@@ -71,16 +74,20 @@ export class GuardianFacade {
         });
     }
 
-    add(guardian: Guardian): void {
+    add(guardian: Guardian, studentId: string): void {
         this.guardianDataService.add(guardian).subscribe({
-            next: (response) => {
+            next: async (response) => {
                 this.messageService.add({
                     severity: 'success',
                     summary: 'Tutor añadido',
                     detail: '',
                 });
-                this.router.navigate([Config.baseUrl + '/guardians']);
+                //this.router.navigate([Config.baseUrl + '/guardians']);
                 this.list();
+                if (response && response.id && studentId) {
+                    await this.studentFacade.connectGuardian(studentId, response.id);
+                }
+                this.studentFacade.get(studentId);
             },
             error: (err) => {
                 console.error('err', err);
@@ -88,7 +95,7 @@ export class GuardianFacade {
         });
     }
 
-    del(guardian: Guardian): void {
+    del(guardian: Guardian, studentId: string): void {
         this.loadingSubject.next(true);
         this.guardianDataService.del(guardian).subscribe({
             next: (response) => {
@@ -97,7 +104,8 @@ export class GuardianFacade {
                     summary: 'Tutor eliminado',
                     detail: '',
                 });
-                this.router.navigate([Config.baseUrl + '/guardians']);
+                //this.router.navigate([Config.baseUrl + '/guardians']);
+                this.studentFacade.get(studentId);
                 this.list();
             },
             error: (err) => {
