@@ -17,8 +17,8 @@ export class TutorshipFacade {
         this.body = body;
     }
 
-    public async list(): Promise<Tutorship[]> {
-        return this.prisma.tutorship.findMany({ where: { deleted_at: null } });
+    public async list(studentId: string): Promise<Tutorship[]> {
+        return this.prisma.tutorship.findMany({ where: { deleted_at: null, studentId } });
     }
 
     public async get(id: string): Promise<TutorshipWithPayload | null> {

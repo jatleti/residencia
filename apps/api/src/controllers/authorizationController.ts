@@ -5,8 +5,9 @@ import { Authorization } from '@prisma/client';
 export class AuthorizationController {
     public list = async (req: Request, res: Response) => {
         const facade = new AuthorizationFacade(res.locals.prisma, req.body);
+        const studentId = req.params.studentId;
         facade
-            .list()
+            .list(studentId)
             .then((result) => {
                 res.status(200).json(result);
             })

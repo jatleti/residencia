@@ -17,9 +17,9 @@ export class AuthorizationFacade {
         this.body = body;
     }
 
-    public async list(): Promise<Authorization[]> {
+    public async list(studentId: string): Promise<Authorization[]> {
         return this.prisma.authorization.findMany({
-            where: { deleted_at: null },
+            where: { deleted_at: null, studentId },
             include: { User: true, Student: true },
         });
     }

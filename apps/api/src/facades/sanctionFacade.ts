@@ -17,8 +17,11 @@ export class SanctionFacade {
         this.body = body;
     }
 
-    public async list(): Promise<Sanction[]> {
-        return this.prisma.sanction.findMany({ where: { deleted_at: null }, include: { User: true, Student: true } });
+    public async list(studentId: string): Promise<Sanction[]> {
+        return this.prisma.sanction.findMany({
+            where: { deleted_at: null, studentId },
+            include: { User: true, Student: true },
+        });
     }
 
     public async get(id: string): Promise<SanctionWithPayload | null> {

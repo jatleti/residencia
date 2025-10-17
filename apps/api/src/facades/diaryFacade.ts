@@ -17,9 +17,9 @@ export class DiaryFacade {
         this.body = body;
     }
 
-    public async list(): Promise<Diary[]> {
+    public async list(studentId: string): Promise<Diary[]> {
         return this.prisma.diary.findMany({
-            where: { deleted_at: null },
+            where: { deleted_at: null, studentId },
             include: { User: true, Student: true },
             orderBy: { date: 'desc' },
         });
@@ -80,7 +80,7 @@ export class DiaryFacade {
         }
     }
 
-    public async del(id: string): Promise<Diary> {
+    public async del(id: string, studentId: string): Promise<Diary> {
         if (!id) {
             throw <CustomResponse>{
                 status: 500,
@@ -88,7 +88,7 @@ export class DiaryFacade {
             };
         }
 
-        const diary = await this.prisma.diary.findUnique({ where: { id: id } });
+        const diary = await this.prisma.diary.findUnique({ where: { id: id, studentId } });
         if (!diary) {
             throw <CustomResponse>{
                 status: 404,
@@ -96,7 +96,7 @@ export class DiaryFacade {
             };
         }
         try {
-            await this.prisma.diary.delete({ where: { id: id } });
+            await this.prisma.diary.delete({ where: { id: id, studentId } });
             return diary;
         } catch (e) {
             throw <CustomResponse>{

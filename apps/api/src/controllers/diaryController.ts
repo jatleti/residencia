@@ -5,8 +5,9 @@ import { Diary } from '@prisma/client';
 export class DiaryController {
     public list = async (req: Request, res: Response) => {
         const facade = new DiaryFacade(res.locals.prisma, req.body);
+        const studentId = req.params.studentId;
         facade
-            .list()
+            .list(studentId)
             .then((result) => {
                 res.status(200).json(result);
             })
@@ -63,8 +64,9 @@ export class DiaryController {
     public del = async (req: Request, res: Response) => {
         const facade = new DiaryFacade(res.locals.prisma, req.body);
         const id: string = req.params.id;
+        const studentId: string = req.params.studentId;
         facade
-            .del(id)
+            .del(id, studentId)
             .then((result) => {
                 res.status(200).json(result);
             })
